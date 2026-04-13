@@ -293,7 +293,13 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .pr-it:hover{border-color:rgba(184,151,58,.3)}
 .pr-it:hover .pr-name{color:var(--gold)}
 .pr-num{font-family:var(--serif);font-size:14px;color:var(--muted)}
+.pr-main{display:flex;flex-direction:column;gap:4px;min-width:0;text-align:left}
 .pr-name{font-family:var(--serif);font-size:clamp(20px,2.5vw,32px);font-weight:300;transition:color .3s}
+.pr-hint{
+  display:none;
+  font-family:var(--sans);font-size:12px;font-weight:300;line-height:1.45;
+  color:rgba(237,232,223,.32);
+}
 .pr-desc{font-size:13px;font-weight:300;color:var(--muted);max-width:320px;line-height:1.7;text-align:right}
 
 /* TESTIMONIALS */
@@ -345,6 +351,15 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   letter-spacing:-.04em;line-height:1;margin-bottom:4px;color:var(--cream);
 }
 .pc-price sup{font-size:18px;vertical-align:top;margin-top:8px;display:inline-block}
+.pc-ttc{
+  font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(237,232,223,.32);vertical-align:middle;margin-left:6px;
+}
+.pc-price--devis{
+  font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:300;font-style:italic;
+  color:var(--gold);letter-spacing:-.02em;
+}
+.pc-devis .pc-previews{margin-bottom:16px}
 .pc-tagline{font-family:var(--sans);font-size:11px;color:rgba(237,232,223,.3);margin-bottom:20px;line-height:1.5}
 .pc-previews{margin-bottom:20px;flex:1}
 .pc-preview{
@@ -763,14 +778,63 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .h-h1{font-size:clamp(44px,12vw,80px)}
   .ch-body{grid-template-columns:1fr;gap:24px}
   .s-grid{grid-template-columns:repeat(2,1fr)}
-  .p-grid{grid-template-columns:1fr}
+  .p-grid{
+    grid-template-columns:1fr;
+    gap:10px;
+    background:transparent;
+    margin-top:16px;
+    flex:1;
+    min-height:0;
+    align-content:start;
+  }
+  #ch-price.chapter{align-items:stretch}
+  #ch-price .ch-ttl{margin-bottom:12px}
+  .pc{
+    border:1px solid rgba(237,232,223,.08);
+    border-radius:2px;
+    padding:22px 20px 18px;
+    min-height:0;
+  }
+  .pc.ft{border-color:rgba(184,151,58,.25)}
+  .pc-devis .pc-price--devis{margin-bottom:2px}
   .modal-box{padding:36px 22px 32px;max-height:calc(100vh - 40px)}
   .cform-row{grid-template-columns:1fr}
   .pr-it{grid-template-columns:44px 1fr auto;gap:14px}
   #ch-dots{right:18px}
   #fbar{padding:0 24px max(8px,env(safe-area-inset-bottom,0px));height:auto;min-height:44px;flex-wrap:wrap;gap:8px 16px}
-  #mb3-wrap{display:none}
+  /* Ch.3 : MacBook en flux sous le texte, sans 3D (lisible au doigt) */
+  #ch3.chapter{align-items:stretch}
+  #ch3 .ch-body.ch3-sc{margin-bottom:0;max-width:100%}
+  #mb3-wrap{
+    position:relative;right:auto;top:auto;left:auto;
+    transform:none;
+    width:min(88vw,380px);max-width:100%;
+    margin:10px auto 0;
+    flex-shrink:0;
+    opacity:0;
+    filter:drop-shadow(0 24px 48px rgba(0,0,0,.75)) drop-shadow(0 8px 20px rgba(0,0,0,.5));
+  }
+  .chapter.on #mb3-wrap{opacity:1;transform:none}
+  #mb3-wrap .mkb{transform:none!important}
+  #mb3-wrap:hover .mkb{transform:none!important}
+  #ch3 .ch-gnum{font-size:clamp(56px,18vw,100px);right:12px;bottom:max(8px,calc(env(safe-area-inset-bottom,0px) + 4px))}
   .ch3-sc{max-width:100%}
+  /* Méthode : occuper la hauteur, hints + espacement */
+  #ch-proc.chapter{justify-content:flex-start}
+  #ch-proc .pr-items{
+    flex:1;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-evenly;
+    margin-top:16px;
+    min-height:0;
+    max-width:none;
+  }
+  #ch-proc .pr-it{
+    padding:clamp(14px,3.5vh,22px) 0;
+    align-items:flex-start;
+  }
+  .pr-hint{display:block}
   #ch-stats,#ch-proc,#ch-price{
     padding-left:24px;
     padding-right:max(44px,calc(env(safe-area-inset-right,0px) + 38px));
@@ -828,11 +892,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .pr-name{font-size:clamp(16px,4.2vw,22px)}
   .pr-arrow{font-size:14px}
   .t-q{font-size:clamp(18px,5.2vw,30px);line-height:1.38}
-  .pc{padding:20px 16px 18px}
-  .pc-price{font-size:clamp(30px,8vw,44px)!important}
-  .pc-price sup{font-size:14px}
+  .pc{padding:18px 14px 16px}
+  .pc-price{font-size:clamp(28px,9vw,42px)!important}
+  .pc-price sup{font-size:13px}
+  .pc-devis .pc-price--devis{font-size:clamp(22px,6.5vw,30px)!important}
   .pc-preview{font-size:11px;padding:6px 0}
-  .pc-previews .pc-preview:nth-child(3){display:none}
+  .pc-ttc{font-size:9px;margin-left:4px}
+  #mb3-wrap{width:min(90vw,300px);margin-top:6px}
+  #ch3 .ch-ttl{margin-bottom:14px}
   .c-h{font-size:clamp(36px,10vw,72px);margin-bottom:24px}
   .c-acts{flex-direction:column;width:100%;max-width:100%}
   .c-acts .btn-main,.c-acts .btn-ghost{width:100%;justify-content:center}
@@ -1064,17 +1131,26 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <div class="pr-items">
         <div class="pr-it" data-step="1">
           <span class="pr-num">01</span>
-          <span class="pr-name">Découverte & Stratégie</span>
+          <div class="pr-main">
+            <span class="pr-name">Découverte & Stratégie</span>
+            <span class="pr-hint">Audit, cadrage & feuille de route projet</span>
+          </div>
           <span class="pr-arrow">→</span>
         </div>
         <div class="pr-it" data-step="2">
           <span class="pr-num">02</span>
-          <span class="pr-name">Conception & Design</span>
+          <div class="pr-main">
+            <span class="pr-name">Conception & Design</span>
+            <span class="pr-hint">Maquettes, prototype & validation avec vous</span>
+          </div>
           <span class="pr-arrow">→</span>
         </div>
         <div class="pr-it" data-step="3">
           <span class="pr-num">03</span>
-          <span class="pr-name">Développement</span>
+          <div class="pr-main">
+            <span class="pr-name">Développement & livraison</span>
+            <span class="pr-hint">Code, tests, mise en ligne & accompagnement</span>
+          </div>
           <span class="pr-arrow">→</span>
         </div>
       </div>
@@ -1103,44 +1179,43 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       </h2>
       <div class="p-grid">
 
-        <!-- ESSENTIEL -->
+        <!-- Site vitrine -->
         <div class="pc" data-plan="0">
           <div class="pc-top"></div>
-          <div class="pc-label">Essentiel</div>
-          <div class="pc-price"><sup>€</sup>1 490</div>
-          <div class="pc-tagline">Paiement unique · Livraison 3 semaines</div>
+          <div class="pc-label">Site web vitrine</div>
+          <div class="pc-price"><sup>€</sup>600 <span class="pc-ttc">TTC</span></div>
+          <div class="pc-tagline">Présence en ligne professionnelle</div>
           <div class="pc-previews">
-            <div class="pc-preview">Site vitrine jusqu'à 5 pages</div>
-            <div class="pc-preview">Design 100% personnalisé</div>
-            <div class="pc-preview">1 mois de support inclus</div>
+            <div class="pc-preview">Jusqu'à 5 pages · design sur mesure</div>
+            <div class="pc-preview">Responsive & formulaire de contact</div>
+            <div class="pc-preview">SEO de base & mise en ligne</div>
           </div>
           <button class="pc-detail">Voir le détail →</button>
         </div>
 
-        <!-- STUDIO -->
+        <!-- Réservation -->
         <div class="pc ft" data-plan="1">
           <div class="pc-top"></div>
-          <div class="pc-label">Studio — Populaire</div>
-          <div class="pc-price"><sup>€</sup>3 490</div>
-          <div class="pc-tagline">Paiement unique · Livraison 5 semaines</div>
+          <div class="pc-label">Avec réservation</div>
+          <div class="pc-price"><sup>€</sup>1 000 <span class="pc-ttc">TTC</span></div>
+          <div class="pc-tagline">Site vitrine + prise de rendez-vous en ligne</div>
           <div class="pc-previews">
-            <div class="pc-preview">Site complet 10 pages + Blog</div>
-            <div class="pc-preview">Animations & design premium</div>
-            <div class="pc-preview">3 mois de support inclus</div>
+            <div class="pc-preview">Tout l'offre vitrine + système de réservation</div>
+            <div class="pc-preview">Calendrier / créneaux configurables</div>
+            <div class="pc-preview">Notifications & rappels (selon besoin)</div>
           </div>
           <button class="pc-detail">Voir le détail →</button>
         </div>
 
-        <!-- ENTERPRISE -->
-        <div class="pc" data-plan="2">
+        <!-- Sur devis -->
+        <div class="pc pc-devis" data-plan="2">
           <div class="pc-top"></div>
-          <div class="pc-label">Enterprise</div>
-          <div class="pc-price" style="font-size:clamp(28px,2.8vw,40px);padding-top:6px">Sur devis</div>
-          <div class="pc-tagline">Scope entièrement personnalisé</div>
+          <div class="pc-label">Cas spécifiques</div>
+          <div class="pc-price pc-price--devis">Sur devis</div>
+          <div class="pc-tagline">CRM, application métier, site très exigeant</div>
           <div class="pc-previews">
-            <div class="pc-preview">Projet 100% sur mesure</div>
-            <div class="pc-preview">App web, CRM ou logiciel interne</div>
-            <div class="pc-preview">Support 7j/7 inclus</div>
+            <div class="pc-preview">Création de CRM ou logiciel sur mesure</div>
+            <div class="pc-preview">Projets complexes : devis après cadrage</div>
           </div>
           <button class="pc-detail">Demander un devis →</button>
         </div>
@@ -1203,9 +1278,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
     </div>
     <div class="modal-eyebrow" id="price-eyebrow">Investissement</div>
-    <h3 class="modal-title" id="price-title">Essentiel</h3>
+    <h3 class="modal-title" id="price-title">Offre</h3>
     <div class="modal-rule"></div>
-    <div class="modal-dur" id="price-sub">€1 490 — Paiement unique</div>
+    <div class="modal-dur" id="price-sub">Tarification</div>
     <div class="modal-body" id="price-body"></div>
     <ul class="modal-delivs" id="price-features"></ul>
     <button class="cform-submit" id="price-cta" style="margin-top:28px">
@@ -1244,7 +1319,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <label>Type de projet</label>
           <select name="type">
             <option value="">Sélectionner...</option>
-            <option>Site vitrine / Landing page</option>
+            <option>Site vitrine (600 € TTC)</option>
+            <option>Site + réservation en ligne (1 000 € TTC)</option>
+            <option>CRM / logiciel / projet sur devis</option>
             <option>Logiciel interne / CRM</option>
             <option>Application web sur mesure</option>
             <option>Design UI/UX</option>
@@ -1497,7 +1574,7 @@ function showT(i,dir=1){
   tds.forEach((d,j)=>d.classList.toggle('on',j===i));
 }
 tds.forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;showT(i,i>ti?1:-1);ti=i;}));
-setInterval(()=>{if(cur_ch===7){const n=(ti+1)%3;showT(n,1);ti=n;}},4800);
+setInterval(()=>{if(cur_ch===7){const n=(ti+1)%3;showT(n,1);ti=n;}},10000);
 
 // Resize
 function onViewportResize(){
@@ -1578,27 +1655,27 @@ document.getElementById('proc-close').addEventListener('click',()=>closeModal('p
 // Pricing modal data
 const priceData=[
   {
-    eyebrow:'Essentiel',
-    title:'Essentiel<br><em>€ 1 490</em>',
-    sub:'Paiement unique · Livraison estimée 3 semaines',
-    body:'La solution idéale pour <strong>lancer votre présence en ligne</strong> avec un site vitrine professionnel, élégant et performant. Design entièrement sur mesure, optimisé pour convertir dès le premier jour.',
-    features:['Site vitrine jusqu\'à 5 pages','Design 100% personnalisé','Responsive mobile & tablette','SEO technique de base inclus','Formulaire de contact intégré','1 mois de support réactif','Livraison clé en main'],
-    cta:'Choisir ce plan'
+    eyebrow:'Site web vitrine',
+    title:'Site web vitrine<br><em>600 € TTC</em>',
+    sub:'Présentation claire de votre activité · livraison selon cadrage',
+    body:'L’offre idéale pour une <strong>première présence web professionnelle</strong> : pages essentielles, design soigné, affichage mobile, formulaire de contact et bases SEO pour être trouvé localement.',
+    features:['Jusqu’à 5 pages','Design sur mesure (charte & mise en page)','Responsive mobile & tablette','Formulaire de contact','SEO technique de base','Mise en ligne & handover'],
+    cta:'Choisir cette offre'
   },
   {
-    eyebrow:'Studio — Populaire',
-    title:'Studio<br><em>€ 3 490</em>',
-    sub:'Paiement unique · Livraison estimée 5 semaines',
-    body:'Notre offre la plus complète pour les entreprises qui veulent <strong>une présence digitale premium</strong>. Animations fluides, CMS pour gérer votre contenu en autonomie, performances optimales certifiées.',
-    features:['Site complet jusqu\'à 10 pages','Design premium + animations GSAP','CMS intégré (gestion de contenu autonome)','Blog & actualités inclus','SEO avancé + Google Analytics','Core Web Vitals optimisés (score 90+)','3 mois de support prioritaire','Formation à la prise en main'],
-    cta:'Choisir ce plan'
+    eyebrow:'Avec réservation',
+    title:'Site + réservation<br><em>1 000 € TTC</em>',
+    sub:'Vitrine enrichie d’un système de prise de rendez-vous en ligne',
+    body:'Pour les professions qui vivent au rythme des <strong>créneaux</strong> : tout l’essentiel de la vitrine, plus un module de réservation adapté à votre logique (créneaux, services, notifications selon besoin).',
+    features:['Tout l’offre vitrine','Prise de rendez-vous / réservation en ligne','Paramétrage calendrier & prestations','Parcours utilisateur simplifié','Accompagnement à la prise en main'],
+    cta:'Choisir cette offre'
   },
   {
-    eyebrow:'Enterprise',
-    title:'Enterprise<br><em>Sur devis</em>',
-    sub:'Scope & budget entièrement personnalisés',
-    body:'Pour les projets ambitieux qui nécessitent une approche <strong>100% sur mesure</strong>. Application web, CRM, logiciel interne, intégrations API complexes. Nous construisons exactement ce dont vous avez besoin, avec une architecture pensée pour durer.',
-    features:['Périmètre & budget définis ensemble','Application web ou logiciel interne','CRM sur mesure','Intégrations API & services tiers','Architecture scalable & documentée','Tests & assurance qualité','Support 7j/7','Formation équipe complète','Maintenance évolutive incluse'],
+    eyebrow:'Cas spécifiques',
+    title:'CRM, app métier<br><em>& projets exigeants</em>',
+    sub:'Tarification sur devis après analyse du besoin',
+    body:'Création de <strong>CRM</strong>, outil interne, application web avancée ou site aux contraintes fortes : nous cadrons le périmètre ensemble, puis nous vous remettons un <strong>devis détaillé</strong> — sans grille tarifaire imposée.',
+    features:['Atelier de cadrage & chiffrage transparent','CRM ou logiciel sur mesure','Intégrations & flux métier','Architecture adaptée à votre croissance','Accompagnement projet de bout en bout'],
     cta:'Demander un devis'
   }
 ];
