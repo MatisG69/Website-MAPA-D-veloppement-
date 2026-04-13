@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<script>
+(function(){
+  var h=Math.round(window.innerHeight);
+  document.documentElement.style.setProperty('--slide-h',h+'px');
+})();
+</script>
 <title>Mapa Développement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -102,10 +108,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 #scroll-container{position:fixed;inset:0;z-index:10;overflow:hidden}
 #scroll-track{will-change:transform;transition:transform 1.1s cubic-bezier(.76,0,.24,1)}
 
-/* ── CHAPTER ── */
+/* ── CHAPTER ──
+   --slide-h (px) = même hauteur que translateY dans le JS → évite le « demi-écran » sur mobile où 100vh ≠ innerHeight */
 .chapter{
-  width:100vw;height:100vh;position:relative;
-  display:flex;flex-direction:column;justify-content:center;overflow:hidden;
+  width:100vw;position:relative;
+  height:100vh;height:var(--slide-h,100vh);min-height:var(--slide-h,100vh);max-height:var(--slide-h,100vh);
+  display:flex;flex-direction:column;justify-content:center;overflow:hidden;flex-shrink:0;
 }
 
 /* ── NAV ── */
@@ -746,7 +754,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 @media(max-width:800px){
   #nav{padding:max(16px,env(safe-area-inset-top,0px)) 20px 16px 24px}
   .nav-chap-ind{display:none}
-  #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{padding:0 24px}
+  /* Marge droite : ne pas faire chevaucher le texte avec la colonne de points (#ch-dots) */
+  #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{
+    padding:0;
+    padding-left:24px;
+    padding-right:max(44px,calc(env(safe-area-inset-right,0px) + 38px));
+  }
   .h-h1{font-size:clamp(44px,12vw,80px)}
   .ch-body{grid-template-columns:1fr;gap:24px}
   .s-grid{grid-template-columns:repeat(2,1fr)}
@@ -758,7 +771,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #fbar{padding:0 24px max(8px,env(safe-area-inset-bottom,0px));height:auto;min-height:44px;flex-wrap:wrap;gap:8px 16px}
   #mb3-wrap{display:none}
   .ch3-sc{max-width:100%}
-  #ch-stats,#ch-proc,#ch-price{padding-left:24px;padding-right:24px}
+  #ch-stats,#ch-proc,#ch-price{
+    padding-left:24px;
+    padding-right:max(44px,calc(env(safe-area-inset-right,0px) + 38px));
+  }
   #ch-proc .ch-ttl,#ch-price .ch-ttl,#ch-stats .ch-ttl{font-size:clamp(24px,7vw,42px)}
   .modal-ov{padding:16px 12px}
   .chapter{
@@ -776,9 +792,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .h-actions{margin-top:32px;flex-direction:column;align-items:stretch;width:100%;max-width:100%}
   .btn-main,.btn-ghost{justify-content:center;width:100%;max-width:100%;box-sizing:border-box}
   .h-hint{left:24px;bottom:max(52px,calc(env(safe-area-inset-bottom,0px) + 40px));letter-spacing:.22em;font-size:9px}
-  .t-inner{padding:0 16px}
+  .t-inner{padding:0 16px;max-width:100%;box-sizing:border-box}
   .t-q{margin-bottom:28px}
-  #ch-test{padding-left:8px;padding-right:8px}
+  #ch-test{padding-left:14px;padding-right:max(48px,calc(env(safe-area-inset-right,0px) + 42px))}
   .c-email{position:relative;bottom:auto;margin-top:28px;padding-bottom:8px;font-size:12px}
   #ch-cta .c-h{margin-bottom:32px}
   .nav-logo{font-size:clamp(11px,3.2vw,17px);letter-spacing:.14em}
@@ -789,8 +805,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #nav{padding-left:16px;padding-right:16px;gap:8px}
   .nav-logo{max-width:52%;line-height:1.25}
   .nav-cta{letter-spacing:.12em;padding-bottom:0;border-bottom:none}
-  #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{padding-left:16px;padding-right:16px}
-  #ch-stats,#ch-proc,#ch-price{padding-left:16px;padding-right:16px}
+  #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{
+    padding-left:16px;
+    padding-right:max(48px,calc(env(safe-area-inset-right,0px) + 42px));
+  }
+  #ch-stats,#ch-proc,#ch-price{
+    padding-left:16px;
+    padding-right:max(48px,calc(env(safe-area-inset-right,0px) + 42px));
+  }
   .h-h1{font-size:clamp(36px,11vw,64px)}
   .ch-ttl{font-size:clamp(28px,9vw,52px)!important;margin-bottom:20px}
   #ch-proc .ch-ttl,#ch-price .ch-ttl,#ch-stats .ch-ttl{font-size:clamp(22px,6.5vw,36px)!important}
@@ -1253,6 +1275,17 @@ const TOTAL = CHAPTERS.length;
 const chNames = ['Introduction','Sites vitrine','E-commerce','Applications','Design UI/UX','Studio','Méthode','Témoignages','Investissement','Contact'];
 let cur_ch = 0, isAnim = false;
 
+/* Hauteur d’une « page » = innerHeight / visualViewport — doit matcher .chapter (--slide-h), sinon 100vh sur mobile > zone visible → deux sections à l’écran */
+function slidePx(){
+  const vv=window.visualViewport;
+  if(vv&&vv.height>80)return Math.round(vv.height);
+  return Math.round(window.innerHeight);
+}
+function syncSlideHeight(){
+  document.documentElement.style.setProperty('--slide-h',slidePx()+'px');
+}
+syncSlideHeight();
+
 // Cursor
 const curEl=document.getElementById('cur');
 const curDot=curEl.querySelector('.cur-dot');
@@ -1316,7 +1349,8 @@ const track=document.getElementById('scroll-track');
 function goto(idx,instant=false){
   if(idx<0||idx>=TOTAL||(isAnim&&!instant))return;
   isAnim=true; cur_ch=idx;
-  const y=-idx*window.innerHeight;
+  syncSlideHeight();
+  const y=-idx*slidePx();
   if(instant){track.style.transition='none';track.style.transform=`translateY(${y}px)`;setTimeout(()=>{track.style.transition='';isAnim=false;},50);}
   else{track.style.transform=`translateY(${y}px)`;setTimeout(()=>isAnim=false,1150);}
   activateCh(idx);updDots(idx);
@@ -1351,7 +1385,7 @@ function zoomIntoCh4(){
   setTimeout(()=>{
     // Step 2 — clip-path from the whole laptop rect → fullscreen
     const r=wrap.getBoundingClientRect();
-    const W=window.innerWidth,H=window.innerHeight;
+    const W=window.innerWidth,H=slidePx();
     const ov=document.getElementById('zoom-ov');
     const pad=6; // slight inset so it starts right at the laptop edges
     const t=Math.max(0,r.top+pad),ri=Math.max(0,W-r.right+pad);
@@ -1368,7 +1402,7 @@ function zoomIntoCh4(){
       // Jump to ch4 behind the overlay
       cur_ch=4;
       track.style.transition='none';
-      track.style.transform=`translateY(${-4*window.innerHeight}px)`;
+      track.style.transform=`translateY(${-4*slidePx()}px)`;
       activateCh(4);updDots(4);
       document.getElementById('nci').textContent=chNames[4];
       document.getElementById('fbar').classList.add('vis');
@@ -1466,7 +1500,17 @@ tds.forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;showT(i,i>ti
 setInterval(()=>{if(cur_ch===7){const n=(ti+1)%3;showT(n,1);ti=n;}},4800);
 
 // Resize
-window.addEventListener('resize',()=>goto(cur_ch,true));
+function onViewportResize(){
+  syncSlideHeight();
+  goto(cur_ch,true);
+}
+window.addEventListener('resize',onViewportResize);
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',onViewportResize);
+}
+window.addEventListener('orientationchange',()=>{
+  setTimeout(onViewportResize,250);
+});
 
 // INTRO
 setTimeout(()=>{
