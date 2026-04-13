@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Mapa Développement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
@@ -744,7 +744,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .cform-success p{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.7}
 
 @media(max-width:800px){
-  #nav{padding:22px 24px}
+  #nav{padding:max(16px,env(safe-area-inset-top,0px)) 20px 16px 24px}
   .nav-chap-ind{display:none}
   #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{padding:0 24px}
   .h-h1{font-size:clamp(44px,12vw,80px)}
@@ -755,13 +755,77 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .cform-row{grid-template-columns:1fr}
   .pr-it{grid-template-columns:44px 1fr auto;gap:14px}
   #ch-dots{right:18px}
-  #nav{padding:20px 22px}
-  #fbar{padding:0 24px}
+  #fbar{padding:0 24px max(8px,env(safe-area-inset-bottom,0px));height:auto;min-height:44px;flex-wrap:wrap;gap:8px 16px}
   #mb3-wrap{display:none}
   .ch3-sc{max-width:100%}
   #ch-stats,#ch-proc,#ch-price{padding-left:24px;padding-right:24px}
   #ch-proc .ch-ttl,#ch-price .ch-ttl,#ch-stats .ch-ttl{font-size:clamp(24px,7vw,42px)}
   .modal-ov{padding:16px 12px}
+  .chapter{
+    justify-content:flex-start;
+    padding-top:max(56px,calc(env(safe-area-inset-top,0px) + 44px));
+    padding-bottom:max(52px,calc(env(safe-area-inset-bottom,0px) + 36px));
+    box-sizing:border-box;
+  }
+  #ch0{padding-top:max(64px,calc(env(safe-area-inset-top,0px) + 48px))}
+  .ch-ttl{margin-bottom:28px}
+  .ch-eye{margin-bottom:16px}
+  .ch-rule{margin-bottom:20px}
+  .ch-gnum{font-size:clamp(72px,22vw,140px);right:16px;bottom:max(20px,calc(env(safe-area-inset-bottom,0px) + 8px))}
+  .h-ghost-num{font-size:clamp(100px,28vw,200px);right:12px;bottom:max(72px,calc(env(safe-area-inset-bottom,0px) + 48px))}
+  .h-actions{margin-top:32px;flex-direction:column;align-items:stretch;width:100%;max-width:100%}
+  .btn-main,.btn-ghost{justify-content:center;width:100%;max-width:100%;box-sizing:border-box}
+  .h-hint{left:24px;bottom:max(52px,calc(env(safe-area-inset-bottom,0px) + 40px));letter-spacing:.22em;font-size:9px}
+  .t-inner{padding:0 16px}
+  .t-q{margin-bottom:28px}
+  #ch-test{padding-left:8px;padding-right:8px}
+  .c-email{position:relative;bottom:auto;margin-top:28px;padding-bottom:8px;font-size:12px}
+  #ch-cta .c-h{margin-bottom:32px}
+  .nav-logo{font-size:clamp(11px,3.2vw,17px);letter-spacing:.14em}
+  .nav-cta{font-size:9px;letter-spacing:.18em;white-space:nowrap}
+}
+
+@media(max-width:480px){
+  #nav{padding-left:16px;padding-right:16px;gap:8px}
+  .nav-logo{max-width:52%;line-height:1.25}
+  .nav-cta{letter-spacing:.12em;padding-bottom:0;border-bottom:none}
+  #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{padding-left:16px;padding-right:16px}
+  #ch-stats,#ch-proc,#ch-price{padding-left:16px;padding-right:16px}
+  .h-h1{font-size:clamp(36px,11vw,64px)}
+  .ch-ttl{font-size:clamp(28px,9vw,52px)!important;margin-bottom:20px}
+  #ch-proc .ch-ttl,#ch-price .ch-ttl,#ch-stats .ch-ttl{font-size:clamp(22px,6.5vw,36px)!important}
+  .ch-desc{font-size:14px;line-height:1.75}
+  .ch-feat{font-size:12px;gap:10px}
+  .s-grid{grid-template-columns:1fr;gap:1px}
+  .s-n{font-size:clamp(44px,14vw,64px)}
+  .s-blk{padding:22px 18px}
+  #ch-stats{padding-top:max(48px,calc(env(safe-area-inset-top,0px) + 32px))}
+  #ch-proc,#ch-price{padding-top:max(40px,calc(env(safe-area-inset-top,0px) + 28px))}
+  .pr-it{padding:14px 0;gap:10px;grid-template-columns:36px 1fr 28px}
+  .pr-num{font-size:12px}
+  .pr-name{font-size:clamp(16px,4.2vw,22px)}
+  .pr-arrow{font-size:14px}
+  .t-q{font-size:clamp(18px,5.2vw,30px);line-height:1.38}
+  .pc{padding:20px 16px 18px}
+  .pc-price{font-size:clamp(30px,8vw,44px)!important}
+  .pc-price sup{font-size:14px}
+  .pc-preview{font-size:11px;padding:6px 0}
+  .pc-previews .pc-preview:nth-child(3){display:none}
+  .c-h{font-size:clamp(36px,10vw,72px);margin-bottom:24px}
+  .c-acts{flex-direction:column;width:100%;max-width:100%}
+  .c-acts .btn-main,.c-acts .btn-ghost{width:100%;justify-content:center}
+  .fb-copy{font-size:8px;letter-spacing:.06em}
+  .fb-lnks{gap:14px}
+  .fb-lnks a{font-size:9px;letter-spacing:.1em}
+  .ch-d{transform:scale(.9)}
+  .modal-title{font-size:clamp(22px,6vw,36px)}
+  .modal-body{font-size:14px}
+  .intro-wordmark{font-size:clamp(22px,9vw,40px);letter-spacing:.18em}
+}
+
+@media(hover:none) and (pointer:coarse){
+  body{cursor:auto;-webkit-tap-highlight-color:transparent}
+  #cur{display:none}
 }
 </style>
 </head>
@@ -1266,11 +1330,11 @@ function activateCh(idx){
   });
 }
 
-// Zoom the whole MacBook when leaving ch3 → ch4
+// Zoom the whole MacBook when leaving ch3 → ch4 (sur mobile le Mac est masqué → passage direct)
 function zoomIntoCh4(){
   const wrap=document.getElementById('mb3-wrap');
   const mkb=wrap&&wrap.querySelector('.mkb');
-  if(!wrap||!mkb){goto(4);return;}
+  if(!wrap||!mkb||getComputedStyle(wrap).display==='none'){goto(4);return;}
   isAnim=true;
 
   // Fade out text elements
