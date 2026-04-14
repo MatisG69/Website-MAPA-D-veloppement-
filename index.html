@@ -873,7 +873,13 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .cform-success p{font-family:var(--sans);font-size:13px;color:var(--muted);line-height:1.7}
 
 @media(max-width:800px){
-  #nav{padding:max(16px,env(safe-area-inset-top,0px)) 20px 16px 24px}
+  /* Fond sous le logo : sinon le contenu des slides passe « à travers » et se confond avec MAPA */
+  #nav{
+    padding:max(16px,env(safe-area-inset-top,0px)) 20px 16px 24px;
+    background:rgba(9,9,11,.94);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
   .nav-chap-ind{display:none}
   /* Marge droite : ne pas faire chevaucher le texte avec la colonne de points (#ch-dots) */
   #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{
@@ -890,8 +896,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
     touch-action:pan-y;
-    /* Espace sous le logo nav ; marge basse pour la grille */
-    padding-top:max(56px,calc(env(safe-area-inset-top,0px)+50px));
+    /* Logo + CTA sur 2 lignes : besoin de plus que les autres chapitres pour que « 05 — Studio » soit sous la barre */
+    padding-top:max(120px,calc(env(safe-area-inset-top,0px)+112px))!important;
     padding-bottom:max(32px,calc(env(safe-area-inset-bottom,0px)+18px));
   }
   #ch-stats .ch-eye{margin-bottom:10px}
@@ -1042,7 +1048,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 }
 
 @media(max-width:480px){
-  #nav{padding-left:16px;padding-right:16px;gap:8px}
+  /* Ne pas remplacer tout #nav : sinon perte du padding vertical + fond (chevauchement texte / logo) */
+  #nav{
+    padding:max(16px,env(safe-area-inset-top,0px)) 16px 16px;
+    gap:8px;
+    background:rgba(9,9,11,.94);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
   .nav-logo{max-width:52%;line-height:1.25}
   .nav-cta{letter-spacing:.12em;padding-bottom:0;border-bottom:none}
   #ch0,.ch-svc,#ch-stats,#ch-proc,#ch-price,#ch-cta{
@@ -1061,9 +1074,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .s-grid{grid-template-columns:1fr;gap:1px}
   .s-n{font-size:clamp(44px,14vw,64px)}
   .s-blk{padding:22px 18px}
-  /* Studio : « 05 — Studio » sous le titre MAPA (nav fixe) ; scroll interne pour la 4ᵉ carte */
+  /* Studio : même dégagement renforcé (téléphone = logo MAPA souvent sur 2 lignes) */
   #ch-stats.chapter{
-    padding-top:max(52px,calc(env(safe-area-inset-top,0px)+46px))!important;
+    padding-top:max(120px,calc(env(safe-area-inset-top,0px)+112px))!important;
     padding-bottom:max(24px,calc(env(safe-area-inset-bottom,0px)+12px))!important;
   }
   #ch-stats .ch-eye{margin-bottom:6px}
