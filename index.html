@@ -350,10 +350,13 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   font-family:var(--serif);font-size:clamp(36px,3.5vw,52px);font-weight:300;
   letter-spacing:-.04em;line-height:1;margin-bottom:4px;color:var(--cream);
 }
-.pc-price sup{font-size:18px;vertical-align:top;margin-top:8px;display:inline-block}
+.pc-eur{
+  font-family:var(--sans);font-size:0.48em;font-weight:400;
+  vertical-align:0.15em;margin-left:0.08em;color:rgba(237,232,223,.88);
+}
 .pc-ttc{
   font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;
-  color:rgba(237,232,223,.32);vertical-align:middle;margin-left:6px;
+  color:rgba(237,232,223,.32);vertical-align:middle;margin-left:8px;
 }
 .pc-price--devis{
   font-family:var(--serif);font-size:clamp(28px,4vw,40px);font-weight:300;font-style:italic;
@@ -405,7 +408,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 }
 .chapter.on .c-acts{opacity:1;transform:none}
 .c-email{
-  position:absolute;bottom:64px;font-family:var(--serif);font-size:13px;font-style:italic;color:var(--muted);
+  position:absolute;bottom:44px;left:0;right:0;
+  font-family:var(--serif);font-size:13px;font-style:italic;color:var(--muted);
+  transform:translateY(16px);
+  text-align:center;
 }
 .c-email a{color:var(--muted);text-decoration:none;transition:color .3s}
 .c-email a:hover{color:var(--gold)}
@@ -709,6 +715,30 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .modal-rule{width:40px;height:1px;background:rgba(184,151,58,.35);margin-bottom:28px}
 .modal-body{font-family:var(--sans);font-size:15px;font-weight:300;line-height:1.85;color:var(--muted);margin-bottom:32px}
 .modal-body strong{color:var(--cream);font-weight:400}
+/* Mentions légales */
+#legal-modal .modal-box{
+  width:min(780px,94vw);
+  padding:48px 40px 44px;
+}
+#legal-modal .modal-title{margin-bottom:20px}
+.legal-content{
+  font-family:var(--sans);font-size:14px;font-weight:300;line-height:1.78;color:var(--muted);
+  text-align:left;
+}
+.legal-h{
+  font-family:var(--sans);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);
+  margin:28px 0 14px;font-weight:500;
+}
+.legal-h:first-of-type{margin-top:4px}
+.legal-p{margin-bottom:14px}
+.legal-content strong{color:var(--cream);font-weight:400}
+.legal-content a{
+  color:rgba(184,151,58,.92);text-decoration:none;border-bottom:1px solid rgba(184,151,58,.28);
+  transition:color .25s,border-color .25s;
+}
+.legal-content a:hover{color:var(--gold2);border-color:var(--gold)}
+.legal-list{margin:12px 0 16px 1.2em;padding:0}
+.legal-list li{margin-bottom:8px}
 .modal-delivs{list-style:none;margin-top:28px}
 .modal-delivs li{
   font-family:var(--sans);font-size:12px;font-weight:300;color:var(--muted);
@@ -841,6 +871,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   }
   #ch-proc .ch-ttl,#ch-price .ch-ttl,#ch-stats .ch-ttl{font-size:clamp(24px,7vw,42px)}
   .modal-ov{padding:16px 12px}
+  #legal-modal .modal-box{padding:40px 20px 36px}
+  .legal-content{font-size:13px;line-height:1.72}
+  .legal-h{margin:24px 0 12px}
   .chapter{
     justify-content:flex-start;
     padding-top:max(56px,calc(env(safe-area-inset-top,0px) + 44px));
@@ -859,7 +892,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .t-inner{padding:0 16px;max-width:100%;box-sizing:border-box}
   .t-q{margin-bottom:28px}
   #ch-test{padding-left:14px;padding-right:max(48px,calc(env(safe-area-inset-right,0px) + 42px))}
-  .c-email{position:relative;bottom:auto;margin-top:28px;padding-bottom:8px;font-size:12px}
+  .c-email{position:relative;bottom:auto;left:auto;right:auto;transform:none;margin-top:48px;padding-bottom:8px;font-size:12px}
   #ch-cta .c-h{margin-bottom:32px}
   .nav-logo{font-size:clamp(11px,3.2vw,17px);letter-spacing:.14em}
   .nav-cta{font-size:9px;letter-spacing:.18em;white-space:nowrap}
@@ -894,7 +927,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .t-q{font-size:clamp(18px,5.2vw,30px);line-height:1.38}
   .pc{padding:18px 14px 16px}
   .pc-price{font-size:clamp(28px,9vw,42px)!important}
-  .pc-price sup{font-size:13px}
+  .pc-eur{font-size:0.5em}
   .pc-devis .pc-price--devis{font-size:clamp(22px,6.5vw,30px)!important}
   .pc-preview{font-size:11px;padding:6px 0}
   .pc-ttc{font-size:9px;margin-left:4px}
@@ -1183,7 +1216,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         <div class="pc" data-plan="0">
           <div class="pc-top"></div>
           <div class="pc-label">Site web vitrine</div>
-          <div class="pc-price"><sup>€</sup>600 <span class="pc-ttc">TTC</span></div>
+          <div class="pc-price">600<span class="pc-eur">€</span><span class="pc-ttc">TTC</span></div>
           <div class="pc-tagline">Présence en ligne professionnelle</div>
           <div class="pc-previews">
             <div class="pc-preview">Jusqu'à 5 pages · design sur mesure</div>
@@ -1197,7 +1230,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         <div class="pc ft" data-plan="1">
           <div class="pc-top"></div>
           <div class="pc-label">Avec réservation</div>
-          <div class="pc-price"><sup>€</sup>1 000 <span class="pc-ttc">TTC</span></div>
+          <div class="pc-price">1 000<span class="pc-eur">€</span><span class="pc-ttc">TTC</span></div>
           <div class="pc-tagline">Site vitrine + prise de rendez-vous en ligne</div>
           <div class="pc-previews">
             <div class="pc-preview">Tout l'offre vitrine + système de réservation</div>
@@ -1251,8 +1284,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 <div id="fbar">
   <span class="fb-copy">© 2026 Mapa Développement</span>
   <div class="fb-lnks">
-    <a href="#">Mentions légales</a>
-    <a href="#">LinkedIn</a>
+    <a href="#" id="legal-open">Mentions légales</a>
+    <a href="https://www.linkedin.com/in/matis-gouyet-07b22a241/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
   </div>
 </div>
 
@@ -1342,6 +1375,95 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <div class="cform-success-icon">✦</div>
       <h3>Message envoyé !</h3>
       <p>Merci pour votre message.<br>Nous vous recontacterons sous <strong style="color:var(--cream)">2h</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- MENTIONS LÉGALES -->
+<div class="modal-ov" id="legal-modal">
+  <div class="modal-box modal-box--legal">
+    <div class="modal-close" id="legal-close" aria-label="Fermer">
+      <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
+    </div>
+    <div class="modal-eyebrow">Informations</div>
+    <h3 class="modal-title">Mentions <em>légales</em></h3>
+    <div class="modal-rule"></div>
+    <div class="legal-content">
+      <h4 class="legal-h">1. Éditeur du site</h4>
+      <p class="legal-p">Le présent site internet, accessible à l’adresse : <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">https://www.mapa-developpement.fr</a></p>
+      <p class="legal-p">est édité par :</p>
+      <p class="legal-p"><strong>MAPA Développement</strong><br>Matis GOUYET<br>Entrepreneur individuel – Micro-entreprise<br>SIREN : 919 461 301<br>SIRET : 919 461 301 00021<br>Code APE / NAF : 6201Z – Programmation informatique<br>Adresse professionnelle : Rue Yves Decugis, 59650 Villeneuve-d’Ascq, France<br>Adresse e-mail : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a></p>
+      <p class="legal-p">Téléphone : <a href="tel:+33679623942">06 79 62 39 42</a></p>
+      <p class="legal-p">Directeur de la publication : Matis GOUYET</p>
+
+      <h4 class="legal-h">2. Hébergement</h4>
+      <p class="legal-p">Le site est hébergé par :</p>
+      <p class="legal-p"><strong>Hostinger</strong><br>61 Lordou Vironos Street, 6023 Larnaca, Chypre<br>Site : <a href="https://www.hostinger.com" target="_blank" rel="noopener noreferrer">https://www.hostinger.com</a><br>E-mail : <a href="mailto:support@hostinger.com">support@hostinger.com</a></p>
+
+      <h4 class="legal-h">3. Conception et réalisation</h4>
+      <p class="legal-p">Le site a été conçu et réalisé par :</p>
+      <p class="legal-p"><strong>MAPA Développement</strong><br>E-mail : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a></p>
+
+      <h4 class="legal-h">4. Propriété intellectuelle</h4>
+      <p class="legal-p">L’ensemble des éléments présents sur le site, notamment les textes, contenus, visuels, graphismes, logos, icônes, éléments de design, structure, arborescence, ainsi que leur organisation, sont, sauf mention contraire, la propriété exclusive de MAPA Développement.</p>
+      <p class="legal-p">Toute reproduction, représentation, diffusion, adaptation, modification, publication, transmission ou exploitation, totale ou partielle, de tout ou partie du site, par quelque procédé que ce soit, sans autorisation écrite préalable de MAPA Développement, est interdite.</p>
+      <p class="legal-p">Toute utilisation non autorisée du site ou de l’un quelconque de ses éléments pourra donner lieu à des poursuites.</p>
+
+      <h4 class="legal-h">5. Responsabilité</h4>
+      <p class="legal-p">MAPA Développement s’efforce de fournir sur le site des informations aussi précises que possible. Toutefois, les informations diffusées sur le site sont données à titre indicatif et sont susceptibles d’évoluer à tout moment, sans préavis.</p>
+      <p class="legal-p">MAPA Développement ne pourra être tenu responsable :</p>
+      <ul class="legal-list">
+        <li>d’une interruption temporaire du site ;</li>
+        <li>de la survenance de bugs ;</li>
+        <li>de toute inexactitude ou omission portant sur les informations disponibles sur le site ;</li>
+        <li>de tout dommage direct ou indirect résultant de l’accès au site ou de son utilisation ;</li>
+        <li>d’un dysfonctionnement lié à un tiers, à l’hébergeur ou au réseau internet.</li>
+      </ul>
+      <p class="legal-p">L’utilisateur reconnaît utiliser le site sous sa responsabilité exclusive.</p>
+
+      <h4 class="legal-h">6. Liens hypertextes</h4>
+      <p class="legal-p">Le site peut contenir des liens hypertextes vers d’autres sites internet. MAPA Développement ne peut être tenu responsable du contenu, de la politique de confidentialité ou des pratiques de ces sites tiers.</p>
+      <p class="legal-p">La création de liens vers le site <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">https://www.mapa-developpement.fr</a> est autorisée, sous réserve qu’elle ne porte pas atteinte à l’image ou aux intérêts de MAPA Développement et qu’elle ne crée aucune confusion sur l’origine des contenus.</p>
+
+      <h4 class="legal-h">7. Données personnelles</h4>
+      <p class="legal-p">Le site MAPA Développement est un site vitrine permettant notamment aux utilisateurs de prendre contact, de demander des informations ou de solliciter un devis. Pour ce type de site, la CNIL recommande a minima des mentions d’information sur le formulaire, un moyen d’exercer ses droits et des mentions légales identifiant l’éditeur.</p>
+      <p class="legal-p">Les données personnelles susceptibles d’être collectées via le formulaire de contact ou par e-mail sont notamment :</p>
+      <ul class="legal-list">
+        <li>nom et prénom ;</li>
+        <li>adresse e-mail ;</li>
+        <li>numéro de téléphone ;</li>
+        <li>nom de l’entreprise ;</li>
+        <li>contenu du message ;</li>
+        <li>toute information transmise volontairement par l’utilisateur.</li>
+      </ul>
+      <p class="legal-p">Ces données sont collectées uniquement afin de :</p>
+      <ul class="legal-list">
+        <li>répondre aux demandes envoyées via le site ;</li>
+        <li>échanger avec les prospects et clients ;</li>
+        <li>établir un devis ;</li>
+        <li>assurer le suivi précontractuel et commercial.</li>
+      </ul>
+      <p class="legal-p">Les données sont traitées par MAPA Développement, en qualité de responsable du traitement.</p>
+      <p class="legal-p">Conformément au RGPD, l’utilisateur dispose d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et, lorsque cela est applicable, d’un droit à la portabilité. La CNIL rappelle que l’information des personnes doit être claire, transparente et facilement accessible.</p>
+      <p class="legal-p">Toute demande relative aux données personnelles peut être adressée à : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a></p>
+      <p class="legal-p">En cas de difficulté, l’utilisateur peut introduire une réclamation auprès de la CNIL.</p>
+
+      <h4 class="legal-h">8. Cookies</h4>
+      <p class="legal-p">Le site MAPA Développement n’utilise pas de cookies publicitaires, de cookies de mesure d’audience ou de traceurs soumis à consentement.</p>
+      <p class="legal-p">En conséquence, aucun bandeau de consentement aux cookies n’est affiché à ce jour.</p>
+      <p class="legal-p">Si des outils de mesure d’audience ou des traceurs publicitaires étaient ajoutés ultérieurement, MAPA Développement mettrait à jour la présente page ainsi que, le cas échéant, le mécanisme de recueil du consentement conformément aux recommandations de la CNIL.</p>
+
+      <h4 class="legal-h">9. Sécurité</h4>
+      <p class="legal-p">MAPA Développement met en œuvre des mesures techniques et organisationnelles appropriées afin de protéger les données personnelles qui pourraient être transmises via le site.</p>
+      <p class="legal-p">Toutefois, aucun système de transmission ou de stockage n’étant totalement invulnérable, une sécurité absolue ne peut être garantie.</p>
+
+      <h4 class="legal-h">10. Droit applicable</h4>
+      <p class="legal-p">Les présentes mentions légales sont régies par le droit français.</p>
+      <p class="legal-p">En cas de litige, et à défaut de résolution amiable préalable, les juridictions françaises seront seules compétentes, sous réserve des dispositions légales impératives applicables.</p>
+
+      <h4 class="legal-h">11. Contact</h4>
+      <p class="legal-p">Pour toute question relative au site ou à son contenu, vous pouvez contacter :</p>
+      <p class="legal-p"><strong>MAPA Développement</strong><br>Matis GOUYET<br>E-mail : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a><br>Téléphone : <a href="tel:+33679623942">06 79 62 39 42</a></p>
     </div>
   </div>
 </div>
@@ -1705,6 +1827,8 @@ document.getElementById('price-cta').addEventListener('click',()=>{closeModal('p
 // Contact form modal
 document.getElementById('btn-contact-open').addEventListener('click',()=>openModal('form-modal'));
 document.getElementById('form-close').addEventListener('click',()=>closeModal('form-modal'));
+document.getElementById('legal-open').addEventListener('click',e=>{e.preventDefault();openModal('legal-modal');});
+document.getElementById('legal-close').addEventListener('click',()=>closeModal('legal-modal'));
 
 function openModal(id){
   const el=document.getElementById(id);
