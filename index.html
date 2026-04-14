@@ -709,6 +709,33 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   margin-bottom:20px;
 }
 
+/* Méthode (≥801px) : marge titre + lignes plus serrées pour voir les 4 étapes ; scroll interne si écran bas */
+@media (min-width:801px){
+  #ch-proc{padding-top:44px}
+  #ch-proc.chapter{
+    overflow-y:auto;
+    overflow-x:hidden;
+    -webkit-overflow-scrolling:touch;
+  }
+  #ch-proc .ch-eye{margin-bottom:12px}
+  #ch-proc .ch-rule{margin-bottom:14px}
+  #ch-proc .ch-ttl{
+    font-size:clamp(22px,2.85vw,44px);
+    margin-bottom:10px;
+    line-height:0.98;
+  }
+  #ch-proc .pr-items{margin-top:10px}
+  #ch-proc .pr-it{
+    padding:10px 0;
+    gap:28px;
+    grid-template-columns:58px 1fr auto;
+    align-items:center;
+  }
+  #ch-proc .pr-num{font-size:12px}
+  #ch-proc .pr-name{font-size:clamp(16px,1.75vw,26px)}
+  #ch-proc .pr-arrow{font-size:15px}
+}
+
 /* ── MODALS ── */
 .modal-ov{
   position:fixed;inset:0;z-index:5000;
@@ -870,7 +897,17 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
     touch-action:pan-y;
+    /* Moins de marge haute/basse pour voir la 4ᵉ carte (2 h) sans qu’elle soit rognée */
+    padding-top:max(40px,calc(env(safe-area-inset-top,0px)+26px));
+    padding-bottom:max(32px,calc(env(safe-area-inset-bottom,0px)+18px));
   }
+  #ch-stats .ch-eye{margin-bottom:10px}
+  #ch-stats .ch-rule{margin-bottom:12px}
+  #ch-stats .ch-ttl{margin-bottom:12px}
+  #ch-stats .s-grid{margin-top:12px}
+  #ch-stats .s-blk{padding:16px 14px}
+  #ch-stats .s-n{font-size:clamp(32px,8.5vw,52px)}
+  #ch-stats .s-l{margin-top:6px;font-size:9px;letter-spacing:.14em;line-height:1.3}
   .p-grid{
     grid-template-columns:1fr;
     gap:10px;
@@ -1031,7 +1068,18 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .s-grid{grid-template-columns:1fr;gap:1px}
   .s-n{font-size:clamp(44px,14vw,64px)}
   .s-blk{padding:22px 18px}
-  #ch-stats{padding-top:max(48px,calc(env(safe-area-inset-top,0px) + 32px))}
+  /* Studio : remonter tout le bloc + cartes plus basses pour que « 2 h » reste lisible */
+  #ch-stats.chapter{
+    padding-top:max(28px,calc(env(safe-area-inset-top,0px)+18px))!important;
+    padding-bottom:max(24px,calc(env(safe-area-inset-bottom,0px)+12px))!important;
+  }
+  #ch-stats .ch-eye{margin-bottom:6px}
+  #ch-stats .ch-rule{margin-bottom:8px}
+  #ch-stats .ch-ttl{margin-bottom:8px!important}
+  #ch-stats .s-grid{margin-top:8px}
+  #ch-stats .s-blk{padding:12px 14px}
+  #ch-stats .s-n{font-size:clamp(28px,11vw,46px)}
+  #ch-stats .s-l{margin-top:4px;font-size:8px;letter-spacing:.12em;line-height:1.25}
   #ch-proc,#ch-price{padding-top:max(40px,calc(env(safe-area-inset-top,0px) + 28px))}
   #ch-proc.chapter,#ch-price.chapter{padding-top:max(68px,calc(env(safe-area-inset-top,0px) + 54px))!important}
   .pr-it{padding:12px 0;gap:10px;grid-template-columns:36px 1fr 28px}
@@ -1784,6 +1832,24 @@ window.addEventListener('wheel',e=>{
     }
     return;
   }
+  const statsEl=document.getElementById('ch-stats');
+  if(statsEl&&statsEl.classList.contains('on')&&statsEl.scrollHeight>statsEl.clientHeight+2){
+    const el=e.target instanceof Element?e.target:null;
+    if(el&&statsEl.contains(el)){
+      const top=statsEl.scrollTop,max=statsEl.scrollHeight-statsEl.clientHeight;
+      if(e.deltaY>0&&top<max-2){statsEl.scrollTop+=e.deltaY;e.preventDefault();return;}
+      if(e.deltaY<0&&top>2){statsEl.scrollTop+=e.deltaY;e.preventDefault();return;}
+    }
+  }
+  const procEl=document.getElementById('ch-proc');
+  if(procEl&&procEl.classList.contains('on')&&procEl.scrollHeight>procEl.clientHeight+2){
+    const el=e.target instanceof Element?e.target:null;
+    if(el&&procEl.contains(el)){
+      const top=procEl.scrollTop,max=procEl.scrollHeight-procEl.clientHeight;
+      if(e.deltaY>0&&top<max-2){procEl.scrollTop+=e.deltaY;e.preventDefault();return;}
+      if(e.deltaY<0&&top>2){procEl.scrollTop+=e.deltaY;e.preventDefault();return;}
+    }
+  }
   e.preventDefault();
   if(wLock||isAnim)return;
   wLock=true;
@@ -1807,6 +1873,16 @@ window.addEventListener('touchend',e=>{
     if(el&&stats.contains(el)){
       const top=stats.scrollTop,max=stats.scrollHeight-stats.clientHeight;
       /* Swipe = défiler Studio tant qu’il reste du contenu (4ᵉ carte), pas changer de chapitre */
+      if(dy>0&&top<max-8)return;
+      if(dy<0&&top>8)return;
+    }
+  }
+  const proc=document.getElementById('ch-proc');
+  if(proc&&proc.classList.contains('on')&&proc.scrollHeight>proc.clientHeight+2){
+    const t=e.target;
+    const el=t&&t instanceof Element?t:t&&t.parentElement;
+    if(el&&proc.contains(el)){
+      const top=proc.scrollTop,max=proc.scrollHeight-proc.clientHeight;
       if(dy>0&&top<max-8)return;
       if(dy<0&&top>8)return;
     }
