@@ -384,6 +384,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .pc-detail:hover{border-color:var(--gold);color:var(--gold)}
 .pc.ft .pc-detail{background:var(--gold);border-color:var(--gold);color:var(--bg)}
 .pc.ft .pc-detail:hover{background:var(--gold2);border-color:var(--gold2)}
+.pc-d-t--mob{display:none}
+.pc-tl-mob{display:none}
 
 /* CTA FINAL */
 #ch-cta{align-items:center;justify-content:center;text-align:center}
@@ -826,7 +828,23 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     min-height:0;
   }
   .pc.ft{border-color:rgba(184,151,58,.25)}
-  .pc-devis .pc-price--devis{margin-bottom:2px}
+  /* Tarifs mobile : pas de liste à puces, ligne courte + « Voir plus » → modale */
+  #ch-price .pc-previews{display:none!important}
+  #ch-price .pc-tagline{
+    color:rgba(237,232,223,.48);
+    margin-bottom:14px;
+    font-size:12px;
+    line-height:1.45;
+    flex:0;
+  }
+  #ch-price .pc{cursor:default}
+  #ch-price .pc-detail{cursor:pointer;padding:11px 14px;margin-top:0}
+  .pc-d-t--desk{display:none!important}
+  .pc-d-t--mob{display:inline!important}
+  .pc-tl-desk{display:none!important}
+  .pc-tl-mob{display:inline!important}
+  #ch-price .pc-devis .pc-price--devis{margin-bottom:6px;font-size:clamp(24px,7vw,34px)!important}
+  #ch-price .pc-devis{padding:18px 16px 16px}
   .modal-box{padding:36px 22px 32px;max-height:calc(100vh - 40px)}
   .cform-row{grid-template-columns:1fr}
   .pr-it{grid-template-columns:44px 1fr auto;gap:14px}
@@ -1223,7 +1241,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
             <div class="pc-preview">Responsive & formulaire de contact</div>
             <div class="pc-preview">SEO de base & mise en ligne</div>
           </div>
-          <button class="pc-detail">Voir le détail →</button>
+          <button type="button" class="pc-detail"><span class="pc-d-t pc-d-t--desk">Voir le détail →</span><span class="pc-d-t pc-d-t--mob">Voir plus</span></button>
         </div>
 
         <!-- Réservation -->
@@ -1231,13 +1249,13 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <div class="pc-top"></div>
           <div class="pc-label">Avec réservation</div>
           <div class="pc-price">1 000<span class="pc-eur">€</span><span class="pc-ttc">TTC</span></div>
-          <div class="pc-tagline">Site vitrine + prise de rendez-vous en ligne</div>
+          <div class="pc-tagline"><span class="pc-tl-desk">Site vitrine + prise de rendez-vous en ligne</span><span class="pc-tl-mob">Vitrine + rendez-vous en ligne</span></div>
           <div class="pc-previews">
             <div class="pc-preview">Tout l'offre vitrine + système de réservation</div>
             <div class="pc-preview">Calendrier / créneaux configurables</div>
             <div class="pc-preview">Notifications & rappels (selon besoin)</div>
           </div>
-          <button class="pc-detail">Voir le détail →</button>
+          <button type="button" class="pc-detail"><span class="pc-d-t pc-d-t--desk">Voir le détail →</span><span class="pc-d-t pc-d-t--mob">Voir plus</span></button>
         </div>
 
         <!-- Sur devis -->
@@ -1245,12 +1263,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <div class="pc-top"></div>
           <div class="pc-label">Cas spécifiques</div>
           <div class="pc-price pc-price--devis">Sur devis</div>
-          <div class="pc-tagline">CRM, application métier, site très exigeant</div>
+          <div class="pc-tagline"><span class="pc-tl-desk">CRM, application métier, site très exigeant</span><span class="pc-tl-mob">CRM, métier complexe — sur devis</span></div>
           <div class="pc-previews">
             <div class="pc-preview">Création de CRM ou logiciel sur mesure</div>
             <div class="pc-preview">Projets complexes : devis après cadrage</div>
           </div>
-          <button class="pc-detail">Demander un devis →</button>
+          <button type="button" class="pc-detail"><span class="pc-d-t pc-d-t--desk">Demander un devis →</span><span class="pc-d-t pc-d-t--mob">Voir plus</span></button>
         </div>
 
       </div>
