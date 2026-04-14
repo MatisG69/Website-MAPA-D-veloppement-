@@ -890,20 +890,17 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .h-h1{font-size:clamp(44px,12vw,80px)}
   .ch-body{grid-template-columns:1fr;gap:24px}
   .s-grid{grid-template-columns:repeat(2,1fr)}
-  /* Studio : défilement interne si une colonne (≤480px) — la 4ᵉ carte reste accessible sans grille 2×2 */
+  /* Studio : scroll interne ; positionnement = Méthode (même padding chapitre, mêmes marges en-tête) */
   #ch-stats.chapter{
     overflow-y:auto;
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
     touch-action:pan-y;
-    /* Logo + CTA sur 2 lignes : besoin de plus que les autres chapitres pour que « 05 — Studio » soit sous la barre */
-    padding-top:max(120px,calc(env(safe-area-inset-top,0px)+112px))!important;
-    padding-bottom:max(32px,calc(env(safe-area-inset-bottom,0px)+18px));
   }
-  #ch-stats .ch-eye{margin-bottom:10px}
-  #ch-stats .ch-rule{margin-bottom:12px}
-  #ch-stats .ch-ttl{margin-bottom:12px}
-  #ch-stats .s-grid{margin-top:12px}
+  #ch-stats .ch-eye{margin-bottom:12px}
+  #ch-stats .ch-rule{margin-bottom:14px}
+  #ch-stats .ch-ttl{margin-bottom:14px}
+  #ch-stats .s-grid{margin-top:4px}
   #ch-stats .s-blk{padding:16px 14px}
   #ch-stats .s-n{font-size:clamp(32px,8.5vw,52px)}
   #ch-stats .s-l{margin-top:6px;font-size:9px;letter-spacing:.14em;line-height:1.3}
@@ -1026,8 +1023,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     box-sizing:border-box;
   }
   #ch0{padding-top:max(64px,calc(env(safe-area-inset-top,0px) + 48px))}
-  /* Méthode & Investissement : dégager « 06 / 08 — … » du logo nav */
-  #ch-proc.chapter,#ch-price.chapter{
+  /* Méthode, Investissement & Studio : même décalage sous la nav (téléphone) */
+  #ch-proc.chapter,#ch-price.chapter,#ch-stats.chapter{
     padding-top:max(72px,calc(env(safe-area-inset-top,0px) + 58px));
   }
   .ch-ttl{margin-bottom:28px}
@@ -1074,20 +1071,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .s-grid{grid-template-columns:1fr;gap:1px}
   .s-n{font-size:clamp(44px,14vw,64px)}
   .s-blk{padding:22px 18px}
-  /* Studio : même dégagement renforcé (téléphone = logo MAPA souvent sur 2 lignes) */
-  #ch-stats.chapter{
-    padding-top:max(120px,calc(env(safe-area-inset-top,0px)+112px))!important;
-    padding-bottom:max(24px,calc(env(safe-area-inset-bottom,0px)+12px))!important;
-  }
-  #ch-stats .ch-eye{margin-bottom:6px}
-  #ch-stats .ch-rule{margin-bottom:8px}
-  #ch-stats .ch-ttl{margin-bottom:8px!important}
-  #ch-stats .s-grid{margin-top:8px}
+  /* Studio : pas de règle séparée — même padding-top que Méthode (#ch-proc.chapter, …) */
   #ch-stats .s-blk{padding:12px 14px}
   #ch-stats .s-n{font-size:clamp(28px,11vw,46px)}
   #ch-stats .s-l{margin-top:4px;font-size:8px;letter-spacing:.12em;line-height:1.25}
   #ch-proc,#ch-price{padding-top:max(40px,calc(env(safe-area-inset-top,0px) + 28px))}
-  #ch-proc.chapter,#ch-price.chapter{padding-top:max(68px,calc(env(safe-area-inset-top,0px) + 54px))!important}
+  #ch-proc.chapter,#ch-price.chapter,#ch-stats.chapter{padding-top:max(68px,calc(env(safe-area-inset-top,0px) + 54px))!important}
   .pr-it{padding:12px 0;gap:10px;grid-template-columns:36px 1fr 28px}
   #ch-proc .pr-it{padding:16px 0;grid-template-columns:40px 1fr 30px;gap:12px}
   .pr-num{font-size:12px}
