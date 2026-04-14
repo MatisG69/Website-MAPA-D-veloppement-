@@ -310,15 +310,69 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   transition:all 1.1s cubic-bezier(.76,0,.24,1) .2s;
 }
 .chapter.on .t-inner{opacity:1;transform:none}
+.t-quote-block{
+  position:relative;margin-bottom:40px;padding-bottom:8px;
+}
+.t-quote-block::after{
+  content:'';position:absolute;left:50%;bottom:0;transform:translateX(-50%) scaleX(0);
+  width:min(200px,55%);height:1px;
+  background:linear-gradient(90deg,transparent,rgba(184,151,58,.55),transparent);
+  transition:transform .65s cubic-bezier(.76,0,.24,1);
+  pointer-events:none;
+}
+.t-quote-block.t-line-on::after{transform:translateX(-50%) scaleX(1)}
 .t-q{
   font-family:var(--serif);font-size:clamp(22px,3.5vw,46px);font-weight:300;
   font-style:italic;line-height:1.42;letter-spacing:-.01em;color:var(--cream);
-  margin-bottom:44px;transition:opacity .3s ease,transform .3s ease;
+  margin:0;
+  transition:opacity .35s ease,transform .45s cubic-bezier(.76,0,.24,1),filter .4s ease;
+  will-change:transform,opacity,filter;
+}
+.t-quote-block.t-anim-out .t-q{
+  opacity:0;
+  transform:translateY(calc(14px * var(--t-dir,1))) scale(.97);
+  filter:blur(7px);
+}
+.t-quote-block.t-anim-in .t-q{
+  animation:tQIn .75s cubic-bezier(.76,0,.24,1) both;
+}
+@keyframes tQIn{
+  0%{opacity:0;transform:translateY(calc(-18px * var(--t-dir,1))) scale(.94);filter:blur(10px)}
+  100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
+}
+.t-meta{
+  transition:opacity .35s ease,transform .45s cubic-bezier(.76,0,.24,1);
+}
+.t-meta.t-meta-out{
+  opacity:0;
+  transform:translateY(8px);
+}
+.t-meta.t-meta-in{
+  animation:tMetaIn .55s cubic-bezier(.76,0,.24,1) .12s both;
+}
+@keyframes tMetaIn{
+  from{opacity:0;transform:translateY(12px)}
+  to{opacity:1;transform:translateY(0)}
 }
 .t-q em{font-style:normal;color:var(--gold)}
-.t-dots{display:flex;gap:10px;justify-content:center;margin-bottom:28px}
-.t-d{width:5px;height:5px;border-radius:50%;background:var(--muted);border:none;cursor:pointer;transition:background .3s,transform .3s}
-.t-d.on{background:var(--gold);transform:scale(1.5)}
+.t-dots{
+  display:flex;gap:10px;justify-content:center;margin-bottom:28px;
+  transition:transform .45s cubic-bezier(.76,0,.24,1);
+}
+.t-dots.t-dots-nudge{animation:tDotsNudge .55s cubic-bezier(.76,0,.24,1)}
+@keyframes tDotsNudge{
+  0%{transform:translateY(0) scale(1)}
+  35%{transform:translateY(-3px) scale(1.04)}
+  100%{transform:translateY(0) scale(1)}
+}
+.t-d{
+  width:5px;height:5px;border-radius:50%;background:var(--muted);border:none;cursor:pointer;
+  transition:background .4s,transform .45s cubic-bezier(.76,0,.24,1),box-shadow .4s;
+}
+.t-d.on{
+  background:var(--gold);transform:scale(1.55);
+  box-shadow:0 0 16px rgba(184,151,58,.35);
+}
 .t-name{font-family:var(--sans);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:rgba(237,232,223,.7)}
 .t-role{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(184,151,58,.6);margin-top:6px}
 
@@ -809,7 +863,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   }
   .h-h1{font-size:clamp(44px,12vw,80px)}
   .ch-body{grid-template-columns:1fr;gap:24px}
+  /* Studio : grille 2×2 + chiffres plus compacts — une colonne sur mobile faisait dépasser la 4ᵉ carte (overflow:hidden sur .chapter) */
   .s-grid{grid-template-columns:repeat(2,1fr)}
+  .s-n{font-size:clamp(34px,8.5vw,56px)}
+  .s-blk{padding:22px 14px}
+  #ch-stats .s-grid{margin-top:20px}
+  #ch-stats .ch-ttl{margin-bottom:16px}
   .p-grid{
     grid-template-columns:1fr;
     gap:10px;
@@ -967,10 +1026,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #ch-proc .ch-ttl,#ch-price .ch-ttl,#ch-stats .ch-ttl{font-size:clamp(22px,6.5vw,36px)!important}
   .ch-desc{font-size:14px;line-height:1.75}
   .ch-feat{font-size:12px;gap:10px}
-  .s-grid{grid-template-columns:1fr;gap:1px}
-  .s-n{font-size:clamp(44px,14vw,64px)}
-  .s-blk{padding:22px 18px}
+  .s-grid{grid-template-columns:repeat(2,1fr);gap:1px}
+  .s-n{font-size:clamp(30px,11vw,52px)}
+  .s-blk{padding:16px 12px}
+  .s-l{margin-top:6px;font-size:9px;letter-spacing:.14em;line-height:1.35}
   #ch-stats{padding-top:max(48px,calc(env(safe-area-inset-top,0px) + 32px))}
+  #ch-stats .ch-ttl{margin-bottom:12px}
   #ch-proc,#ch-price{padding-top:max(40px,calc(env(safe-area-inset-top,0px) + 28px))}
   #ch-proc.chapter,#ch-price.chapter{padding-top:max(68px,calc(env(safe-area-inset-top,0px) + 54px))!important}
   .pr-it{padding:12px 0;gap:10px;grid-template-columns:36px 1fr 28px}
@@ -1248,20 +1309,32 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           </div>
           <span class="pr-arrow">→</span>
         </div>
+        <div class="pr-it" data-step="4">
+          <span class="pr-num">04</span>
+          <div class="pr-main">
+            <span class="pr-name">Suivi & évolution</span>
+            <span class="pr-hint">Après la mise en ligne : mises à jour, ajustements & accompagnement durable</span>
+          </div>
+          <span class="pr-arrow">→</span>
+        </div>
       </div>
     </section>
 
     <!-- TESTIMONIALS -->
     <section class="chapter" id="ch-test">
       <div class="t-inner">
-        <p class="t-q" id="tq">« Mapa a <em>transformé</em> notre présence en ligne. Le résultat est magnifique, les délais tenus, et notre taux de conversion a triplé en 90 jours. »</p>
+        <div class="t-quote-block t-line-on" id="t-quote-block">
+          <p class="t-q" id="tq">« Mapa a <em>transformé</em> notre présence en ligne. Le résultat est magnifique, les délais tenus, et notre taux de conversion a triplé en 90 jours. »</p>
+        </div>
         <div class="t-dots" id="tdots">
           <button class="t-d on" data-i="0"></button>
           <button class="t-d" data-i="1"></button>
           <button class="t-d" data-i="2"></button>
         </div>
-        <div class="t-name" id="tname">Sophie Laurent</div>
-        <div class="t-role" id="trole">CEO — Atelier Laurent Architecture</div>
+        <div class="t-meta" id="t-meta">
+          <div class="t-name" id="tname">Sophie Laurent</div>
+          <div class="t-role" id="trole">CEO — Atelier Laurent Architecture</div>
+        </div>
       </div>
     </section>
 
@@ -1748,14 +1821,40 @@ const testimonials=[
 ];
 let ti=0;
 const tq=document.getElementById('tq'),tn=document.getElementById('tname'),tr=document.getElementById('trole');
+const tBlock=document.getElementById('t-quote-block');
+const tMeta=document.getElementById('t-meta');
+const tdotsEl=document.getElementById('tdots');
 const tds=document.querySelectorAll('.t-d');
 function showT(i,dir=1){
-  tq.style.cssText='opacity:0;transform:translateY('+(dir*14)+'px);transition:none';
+  const d=dir>=0?1:-1;
+  if(tBlock){
+    tBlock.style.setProperty('--t-dir',String(d));
+    tBlock.classList.remove('t-line-on','t-anim-in');
+    tBlock.classList.add('t-anim-out');
+  }
+  if(tMeta)tMeta.classList.add('t-meta-out');
+  if(tdotsEl)tdotsEl.classList.add('t-dots-nudge');
   setTimeout(()=>{
-    tq.innerHTML=testimonials[i].q;tn.textContent=testimonials[i].a;tr.textContent=testimonials[i].r;
-    tq.style.cssText='opacity:1;transform:translateY(0);transition:all .65s cubic-bezier(.76,0,.24,1)';
-  },300);
-  tds.forEach((d,j)=>d.classList.toggle('on',j===i));
+    tq.innerHTML=testimonials[i].q;
+    tn.textContent=testimonials[i].a;
+    tr.textContent=testimonials[i].r;
+    if(tBlock){
+      tBlock.classList.remove('t-anim-out');
+      void tBlock.offsetWidth;
+      tBlock.classList.add('t-anim-in','t-line-on');
+    }
+    if(tMeta){
+      tMeta.classList.remove('t-meta-out');
+      void tMeta.offsetWidth;
+      tMeta.classList.add('t-meta-in');
+    }
+    setTimeout(()=>{
+      if(tBlock)tBlock.classList.remove('t-anim-in');
+      if(tMeta)tMeta.classList.remove('t-meta-in');
+      if(tdotsEl)tdotsEl.classList.remove('t-dots-nudge');
+    },780);
+    tds.forEach((b,j)=>b.classList.toggle('on',j===i));
+  },280);
 }
 tds.forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;showT(i,i>ti?1:-1);ti=i;}));
 setInterval(()=>{if(cur_ch===7){const n=(ti+1)%3;showT(n,1);ti=n;}},10000);
@@ -1816,6 +1915,13 @@ const procData=[
     dur:'Durée estimée : 3 à 8 semaines',
     body:'Code <strong>propre, documenté et testé</strong>. Nous travaillons en livraisons itératives avec des points de feedback réguliers. Architecture pensée pour durer, performances optimisées, sécurité renforcée. Votre projet est livré clé en main, avec formation et support.',
     delivs:['Application fonctionnelle et testée','Documentation technique complète','Déploiement et mise en production','Formation équipe & support post-livraison']
+  },
+  {
+    eyebrow:'04 — Méthode',
+    title:'Suivi<br><em>&amp; évolution</em>',
+    dur:'Sur la durée — selon votre rythme',
+    body:'Une fois le site ou l’outil en ligne, nous restons <strong>votre point de contact</strong> pour les mises à jour de contenu, les corrections, les évolutions fonctionnelles et les ajustements stratégiques. L’accompagnement peut prendre la forme d’interventions ponctuelles ou d’un <strong>suivi régulier</strong> — l’objectif est que votre présence digitale reste alignée avec votre activité, sans friction.',
+    delivs:['Correctifs & petites évolutions après livraison','Mises à jour de contenu & fonctionnalités','Conseil sur les évolutions à prévoir','Interventions planifiées ou à la demande','Relation de confiance sur le long terme']
   }
 ];
 
