@@ -820,7 +820,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     align-content:start;
   }
   #ch-price.chapter{align-items:stretch}
-  #ch-price .ch-ttl{margin-bottom:12px}
+  #ch-price .p-grid{gap:14px;margin-top:10px}
+  #ch-price .ch-eye{margin-bottom:8px}
+  #ch-price .ch-rule{margin-bottom:10px}
+  #ch-price .ch-ttl{margin-bottom:8px}
   .pc{
     border:1px solid rgba(237,232,223,.08);
     border-radius:2px;
@@ -832,19 +835,35 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #ch-price .pc-previews{display:none!important}
   #ch-price .pc-tagline{
     color:rgba(237,232,223,.48);
-    margin-bottom:14px;
-    font-size:12px;
-    line-height:1.45;
+    margin-bottom:8px;
+    font-size:11px;
+    line-height:1.4;
     flex:0;
   }
-  #ch-price .pc{cursor:default}
-  #ch-price .pc-detail{cursor:pointer;padding:11px 14px;margin-top:0}
+  #ch-price .pc{cursor:default;overflow:hidden}
+  /* Pas de margin-top:auto : le bouton reste dans la carte */
+  #ch-price .pc-detail{cursor:pointer;padding:8px 12px;margin-top:0!important;align-self:stretch}
+  #ch-price .pc:not(.pc-devis){
+    padding:12px 14px 10px;
+  }
+  #ch-price .pc:not(.pc-devis) .pc-label{
+    font-size:9px;
+    letter-spacing:.22em;
+    margin-bottom:6px;
+  }
+  #ch-price .pc:not(.pc-devis) .pc-price{
+    font-size:clamp(22px,6.5vw,32px)!important;
+    margin-bottom:2px;
+  }
+  #ch-price .pc:not(.pc-devis) .pc-ttc{font-size:9px;margin-left:4px}
   .pc-d-t--desk{display:none!important}
   .pc-d-t--mob{display:inline!important}
   .pc-tl-desk{display:none!important}
   .pc-tl-mob{display:inline!important}
-  #ch-price .pc-devis .pc-price--devis{margin-bottom:6px;font-size:clamp(24px,7vw,34px)!important}
-  #ch-price .pc-devis{padding:18px 16px 16px}
+  #ch-price .pc-devis .pc-price--devis{margin-bottom:4px;font-size:clamp(20px,6vw,30px)!important}
+  #ch-price .pc-devis{padding:12px 14px 10px}
+  #ch-price .pc-devis .pc-label{margin-bottom:6px}
+  #ch-price .pc-devis .pc-tagline{font-size:11px;margin-bottom:8px}
   .modal-box{padding:36px 22px 32px;max-height:calc(100vh - 40px)}
   .cform-row{grid-template-columns:1fr}
   .pr-it{grid-template-columns:44px 1fr auto;gap:14px}
@@ -867,22 +886,29 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #mb3-wrap:hover .mkb{transform:none!important}
   #ch3 .ch-gnum{font-size:clamp(56px,18vw,100px);right:12px;bottom:max(8px,calc(env(safe-area-inset-bottom,0px) + 4px))}
   .ch3-sc{max-width:100%}
-  /* Méthode : occuper la hauteur, hints + espacement */
+  /* Méthode : 3 lignes de hauteur équivalente (flex), titre remonté via override plus bas */
   #ch-proc.chapter{justify-content:flex-start}
+  #ch-proc .ch-eye{margin-bottom:8px}
+  #ch-proc .ch-rule{margin-bottom:10px}
+  #ch-proc .ch-ttl{margin-bottom:8px}
   #ch-proc .pr-items{
     flex:1;
     display:flex;
     flex-direction:column;
-    justify-content:space-evenly;
-    margin-top:16px;
+    justify-content:flex-start;
+    gap:0;
+    margin-top:8px;
     min-height:0;
     max-width:none;
   }
   #ch-proc .pr-it{
-    padding:clamp(14px,3.5vh,22px) 0;
+    flex:1 1 0;
+    min-height:0;
+    padding:12px 0;
     align-items:flex-start;
+    align-content:start;
   }
-  .pr-hint{display:block}
+  .pr-hint{display:block;font-size:11px;line-height:1.4}
   #ch-stats,#ch-proc,#ch-price{
     padding-left:24px;
     padding-right:max(44px,calc(env(safe-area-inset-right,0px) + 38px));
@@ -899,6 +925,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     box-sizing:border-box;
   }
   #ch0{padding-top:max(64px,calc(env(safe-area-inset-top,0px) + 48px))}
+  /* Tarifs & méthode : moins de marge haute pour tout voir sur mobile */
+  #ch-proc.chapter,#ch-price.chapter{
+    padding-top:max(36px,calc(env(safe-area-inset-top,0px) + 24px));
+  }
   .ch-ttl{margin-bottom:28px}
   .ch-eye{margin-bottom:16px}
   .ch-rule{margin-bottom:20px}
@@ -937,14 +967,19 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .s-n{font-size:clamp(44px,14vw,64px)}
   .s-blk{padding:22px 18px}
   #ch-stats{padding-top:max(48px,calc(env(safe-area-inset-top,0px) + 32px))}
-  #ch-proc,#ch-price{padding-top:max(40px,calc(env(safe-area-inset-top,0px) + 28px))}
-  .pr-it{padding:14px 0;gap:10px;grid-template-columns:36px 1fr 28px}
+  #ch-proc,#ch-price{padding-top:max(32px,calc(env(safe-area-inset-top,0px) + 20px))}
+  #ch-proc.chapter,#ch-price.chapter{padding-top:max(28px,calc(env(safe-area-inset-top,0px) + 16px))!important}
+  .pr-it{padding:12px 0;gap:10px;grid-template-columns:36px 1fr 28px}
   .pr-num{font-size:12px}
   .pr-name{font-size:clamp(16px,4.2vw,22px)}
   .pr-arrow{font-size:14px}
   .t-q{font-size:clamp(18px,5.2vw,30px);line-height:1.38}
   .pc{padding:18px 14px 16px}
+  #ch-price .pc:not(.pc-devis){padding:10px 12px 8px}
+  #ch-price .pc-devis{padding:10px 12px 8px}
+  #ch-price .p-grid{gap:12px}
   .pc-price{font-size:clamp(28px,9vw,42px)!important}
+  #ch-price .pc:not(.pc-devis) .pc-price{font-size:clamp(20px,6vw,28px)!important}
   .pc-eur{font-size:0.5em}
   .pc-devis .pc-price--devis{font-size:clamp(22px,6.5vw,30px)!important}
   .pc-preview{font-size:11px;padding:6px 0}
