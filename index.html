@@ -709,31 +709,24 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   margin-bottom:20px;
 }
 
-/* Méthode (≥801px) : marge titre + lignes plus serrées pour voir les 4 étapes ; scroll interne si écran bas */
+/* Méthode (grand écran) : léger resserrement pour que les 4 étapes tiennent dans la slide ; scroll interne en secours */
 @media (min-width:801px){
-  #ch-proc{padding-top:44px}
   #ch-proc.chapter{
     overflow-y:auto;
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
+    overscroll-behavior:contain;
   }
-  #ch-proc .ch-eye{margin-bottom:12px}
-  #ch-proc .ch-rule{margin-bottom:14px}
+  #ch-proc{padding-top:60px}
+  #ch-proc .ch-eye{margin-bottom:18px}
+  #ch-proc .ch-rule{margin-bottom:22px}
   #ch-proc .ch-ttl{
-    font-size:clamp(22px,2.85vw,44px);
-    margin-bottom:10px;
-    line-height:0.98;
+    font-size:clamp(26px,3.65vw,56px);
+    margin-bottom:14px;
   }
-  #ch-proc .pr-items{margin-top:10px}
-  #ch-proc .pr-it{
-    padding:10px 0;
-    gap:28px;
-    grid-template-columns:58px 1fr auto;
-    align-items:center;
-  }
-  #ch-proc .pr-num{font-size:12px}
-  #ch-proc .pr-name{font-size:clamp(16px,1.75vw,26px)}
-  #ch-proc .pr-arrow{font-size:15px}
+  #ch-proc .pr-items{margin-top:22px}
+  #ch-proc .pr-it{padding:16px 0;gap:36px}
+  #ch-proc .pr-name{font-size:clamp(19px,2.4vw,31px)}
 }
 
 /* ── MODALS ── */
@@ -897,8 +890,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     overflow-x:hidden;
     -webkit-overflow-scrolling:touch;
     touch-action:pan-y;
-    /* Moins de marge haute/basse pour voir la 4ᵉ carte (2 h) sans qu’elle soit rognée */
-    padding-top:max(40px,calc(env(safe-area-inset-top,0px)+26px));
+    /* Espace sous le logo nav ; marge basse pour la grille */
+    padding-top:max(56px,calc(env(safe-area-inset-top,0px)+50px));
     padding-bottom:max(32px,calc(env(safe-area-inset-bottom,0px)+18px));
   }
   #ch-stats .ch-eye{margin-bottom:10px}
@@ -1068,9 +1061,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .s-grid{grid-template-columns:1fr;gap:1px}
   .s-n{font-size:clamp(44px,14vw,64px)}
   .s-blk{padding:22px 18px}
-  /* Studio : remonter tout le bloc + cartes plus basses pour que « 2 h » reste lisible */
+  /* Studio : « 05 — Studio » sous le titre MAPA (nav fixe) ; scroll interne pour la 4ᵉ carte */
   #ch-stats.chapter{
-    padding-top:max(28px,calc(env(safe-area-inset-top,0px)+18px))!important;
+    padding-top:max(52px,calc(env(safe-area-inset-top,0px)+46px))!important;
     padding-bottom:max(24px,calc(env(safe-area-inset-bottom,0px)+12px))!important;
   }
   #ch-stats .ch-eye{margin-bottom:6px}
