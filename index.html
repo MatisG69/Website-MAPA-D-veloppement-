@@ -11,7 +11,9 @@
 </script>
 <title>Mapa Développement</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -93,7 +95,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   color:var(--muted);font-family:var(--sans);
   display:flex;flex-direction:column;align-items:center;gap:14px;
   opacity:0;transition:opacity .8s ease;
-  cursor:pointer;
+  cursor:pointer;background:none;border:none;padding:0;
 }
 .intro-enter.vis{opacity:1}
 .intro-enter-line{width:1px;height:52px;background:var(--muted);position:relative;overflow:hidden}
@@ -144,6 +146,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .ch-d{
   width:4px;height:4px;border-radius:50%;background:var(--muted);
   cursor:pointer;transition:background .4s,transform .4s;
+  border:none;padding:0;outline:none;appearance:none;
 }
 .ch-d.on{background:var(--gold);transform:scale(1.6)}
 
@@ -1128,13 +1131,13 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   </div>
   <div class="intro-sub">Développement Digital</div>
   <div class="intro-progress-bar" id="ibar"></div>
-  <div class="intro-enter" id="ienter">
+  <button class="intro-enter" id="ienter" type="button" aria-label="Entrer sur le site">
     <span>Entrer</span>
-    <div class="intro-enter-line"></div>
-  </div>
+    <div class="intro-enter-line" aria-hidden="true"></div>
+  </button>
 </div>
 
-<canvas id="webgl"></canvas>
+<canvas id="webgl" aria-hidden="true"></canvas>
 
 <nav id="nav">
   <a href="#" class="nav-logo">Mapa Développement</a>
@@ -1142,11 +1145,11 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   <a href="#" class="nav-cta" id="ncta">Démarrer un projet</a>
 </nav>
 
-<div id="ch-dots"></div>
-<div id="wipe"></div>
-<div id="zoom-ov"></div>
+<nav id="ch-dots" aria-label="Navigation sections"></nav>
+<div id="wipe" aria-hidden="true"></div>
+<div id="zoom-ov" aria-hidden="true"></div>
 
-<div id="scroll-container">
+<div id="scroll-container" role="main">
   <div id="scroll-track">
 
     <!-- HERO -->
@@ -1369,10 +1372,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         <div class="t-quote-block t-line-on" id="t-quote-block">
           <p class="t-q" id="tq">« Mapa a <em>transformé</em> notre présence en ligne. Le résultat est magnifique, les délais tenus, et notre taux de conversion a triplé en 90 jours. »</p>
         </div>
-        <div class="t-dots" id="tdots">
-          <button class="t-d on" data-i="0"></button>
-          <button class="t-d" data-i="1"></button>
-          <button class="t-d" data-i="2"></button>
+        <div class="t-dots" id="tdots" role="tablist" aria-label="Témoignages">
+          <button class="t-d on" data-i="0" aria-label="Témoignage 1" aria-selected="true" role="tab"></button>
+          <button class="t-d" data-i="1" aria-label="Témoignage 2" aria-selected="false" role="tab"></button>
+          <button class="t-d" data-i="2" aria-label="Témoignage 3" aria-selected="false" role="tab"></button>
         </div>
         <div class="t-meta" id="t-meta">
           <div class="t-name" id="tname">Sophie Laurent</div>
@@ -1470,7 +1473,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 <!-- PROCESS MODALS -->
 <div class="modal-ov" id="proc-modal">
   <div class="modal-box">
-    <div class="modal-close" id="proc-close">
+    <div class="modal-close" id="proc-close" role="button" tabindex="0" aria-label="Fermer">
       <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
     </div>
     <div class="modal-eyebrow" id="proc-eyebrow">01 — Méthode</div>
@@ -1485,7 +1488,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 <!-- PRICING DETAIL MODAL -->
 <div class="modal-ov" id="price-modal">
   <div class="modal-box">
-    <div class="modal-close" id="price-close">
+    <div class="modal-close" id="price-close" role="button" tabindex="0" aria-label="Fermer">
       <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
     </div>
     <div class="modal-eyebrow" id="price-eyebrow">Investissement</div>
@@ -1504,8 +1507,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 <!-- CONTACT FORM MODAL -->
 <div class="modal-ov" id="form-modal">
   <div class="modal-box">
-    <div class="modal-close" id="form-close">
-      <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
+    <div class="modal-close" id="form-close" role="button" tabindex="0" aria-label="Fermer">
+      <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
     </div>
     <div class="modal-eyebrow">Parlons de votre projet</div>
     <h3 class="modal-title">Décrivez-nous<br><em>votre vision.</em></h3>
@@ -1514,21 +1517,21 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <form class="cform" id="cform" novalidate>
         <div class="cform-row">
           <div class="cform-field">
-            <label>Prénom &amp; Nom</label>
-            <input type="text" name="name" placeholder="Jean Dupont" required>
+            <label for="cf-name">Prénom &amp; Nom</label>
+            <input id="cf-name" type="text" name="name" placeholder="Jean Dupont" required autocomplete="name">
           </div>
           <div class="cform-field">
-            <label>Email</label>
-            <input type="email" name="email" placeholder="jean@entreprise.fr" required>
+            <label for="cf-email">Email</label>
+            <input id="cf-email" type="email" name="email" placeholder="jean@entreprise.fr" required autocomplete="email">
           </div>
         </div>
         <div class="cform-field">
-          <label>Votre entreprise</label>
-          <input type="text" name="company" placeholder="Nom de votre entreprise">
+          <label for="cf-company">Votre entreprise</label>
+          <input id="cf-company" type="text" name="company" placeholder="Nom de votre entreprise" autocomplete="organization">
         </div>
         <div class="cform-field">
-          <label>Type de projet</label>
-          <select name="type">
+          <label for="cf-type">Type de projet</label>
+          <select id="cf-type" name="type">
             <option value="">Sélectionner...</option>
             <option>Site vitrine (600 € TTC)</option>
             <option>Site + réservation en ligne (1 000 € TTC)</option>
@@ -1540,8 +1543,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           </select>
         </div>
         <div class="cform-field">
-          <label>Décrivez votre projet</label>
-          <textarea name="message" placeholder="Parlez-nous de votre projet, vos objectifs, vos délais..."></textarea>
+          <label for="cf-message">Décrivez votre projet</label>
+          <textarea id="cf-message" name="message" placeholder="Parlez-nous de votre projet, vos objectifs, vos délais..."></textarea>
         </div>
         <div id="cform-error" style="display:none;margin-top:4px;padding:10px 14px;background:rgba(220,50,50,.12);border:1px solid rgba(220,50,50,.3);border-radius:8px;font-family:var(--sans);font-size:12px;color:#f87171;letter-spacing:.02em;">
           Erreur lors de l'envoi. Vérifiez votre connexion ou contactez-nous directement à <a href="mailto:contact@mapa-dev.fr" style="color:inherit;text-decoration:underline;">contact@mapa-dev.fr</a>.
@@ -1719,10 +1722,12 @@ const pts=Array.from({length:55},()=>({
 // Chapter dots
 const dotsWrap=document.getElementById('ch-dots');
 CHAPTERS.forEach((_,i)=>{
-  const d=document.createElement('div');d.className='ch-d'+(i===0?' on':'');
+  const d=document.createElement('button');d.className='ch-d'+(i===0?' on':'');
+  d.setAttribute('aria-label','Aller à la section '+(i+1));
+  d.setAttribute('type','button');
   d.addEventListener('click',()=>goto(i));dotsWrap.appendChild(d);
 });
-function updDots(i){document.querySelectorAll('.ch-d').forEach((d,j)=>d.classList.toggle('on',j===i));}
+function updDots(i){document.querySelectorAll('.ch-d').forEach((d,j)=>{d.classList.toggle('on',j===i);d.setAttribute('aria-label','Aller à la section '+(j+1));});}
 
 // Scroll
 const track=document.getElementById('scroll-track');
@@ -2101,6 +2106,39 @@ document.querySelectorAll('.modal-ov').forEach(ov=>{
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape')document.querySelectorAll('.modal-ov.open').forEach(o=>closeModal(o.id));
 });
+
+// Analytics tracking → Supabase page_views
+(function(){
+  var SB='https://jxnjpwysrsdmuvdgxkqr.supabase.co';
+  var KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imp4bmpwd3lzcnNkbXV2ZGd4a3FyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU5MzQ0MjQsImV4cCI6MjA5MTUxMDQyNH0.lQwsTu4VVTTr07Dm85pzURxz8dgpJSgMJK9TBxJw1bM';
+  var sid=sessionStorage.getItem('mapa_sid');
+  if(!sid){
+    var a=new Uint8Array(16);
+    crypto.getRandomValues(a);
+    a[6]=(a[6]&0x0f)|0x40;a[8]=(a[8]&0x3f)|0x80;
+    sid=Array.from(a).map(function(b,i){return(i===4||i===6||i===8||i===10?'-':'')+b.toString(16).padStart(2,'0');}).join('');
+    sessionStorage.setItem('mapa_sid',sid);
+  }
+  var ua=navigator.userAgent;
+  var dev=/iPad|Tablet/i.test(ua)?'tablet':/Mobi|Android|iPhone|iPod/i.test(ua)?'mobile':'desktop';
+  var H={'Content-Type':'application/json','apikey':KEY,'Authorization':'Bearer '+KEY};
+  var vid=null,t0=Date.now();
+  fetch(SB+'/rest/v1/page_views',{
+    method:'POST',
+    headers:Object.assign({},H,{'Prefer':'return=representation'}),
+    body:JSON.stringify({session_id:sid,page:location.pathname||'/',referrer:document.referrer||null,ua_device:dev})
+  }).then(function(r){return r.ok?r.json():null;})
+    .then(function(d){if(d&&d[0])vid=d[0].id;})
+    .catch(function(){});
+  document.addEventListener('visibilitychange',function(){
+    if(document.visibilityState!=='hidden'||!vid)return;
+    fetch(SB+'/rest/v1/page_views?id=eq.'+vid,{
+      method:'PATCH',headers:H,
+      body:JSON.stringify({duration_sec:Math.round((Date.now()-t0)/1000)}),
+      keepalive:true
+    }).catch(function(){});
+  });
+})();
 
 // Form submit → Supabase
 (function(){
