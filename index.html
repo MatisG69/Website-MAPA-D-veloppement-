@@ -346,20 +346,6 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   0%{opacity:0;transform:translateY(calc(-18px * var(--t-dir,1))) scale(.94);filter:blur(10px)}
   100%{opacity:1;transform:translateY(0) scale(1);filter:blur(0)}
 }
-.t-meta{
-  transition:opacity .35s ease,transform .45s cubic-bezier(.76,0,.24,1);
-}
-.t-meta.t-meta-out{
-  opacity:0;
-  transform:translateY(8px);
-}
-.t-meta.t-meta-in{
-  animation:tMetaIn .55s cubic-bezier(.76,0,.24,1) .12s both;
-}
-@keyframes tMetaIn{
-  from{opacity:0;transform:translateY(12px)}
-  to{opacity:1;transform:translateY(0)}
-}
 .t-q em{font-style:normal;color:var(--gold)}
 .t-dots{
   display:flex;gap:10px;justify-content:center;margin-bottom:28px;
@@ -379,8 +365,6 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   background:var(--gold);transform:scale(1.55);
   box-shadow:0 0 16px rgba(184,151,58,.35);
 }
-.t-name{font-family:var(--sans);font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:rgba(237,232,223,.7)}
-.t-role{font-family:var(--sans);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:rgba(184,151,58,.6);margin-top:6px}
 
 /* PRICING */
 #ch-price{background:#0c0b0a;padding:72px 56px 0;justify-content:flex-start}
@@ -601,90 +585,24 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 }
 
 /* ════════════════════════════════
-   MOCK WEBSITE (same palette)
+   ÉCRAN MACBOOK - LOGO MAPA
 ════════════════════════════════ */
 .ms{
   width:100%;height:100%;background:#09090b;
-  display:flex;flex-direction:column;font-family:var(--sans);overflow:hidden;
-}
-/* ── nav ── */
-.ms-nav{
-  display:flex;align-items:center;justify-content:space-between;
-  padding:7px 12px;
-  border-bottom:1px solid rgba(237,232,223,.04);
-  flex-shrink:0;
-}
-.ms-brand{font-family:var(--serif);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream)}
-.ms-nav-links{display:flex;gap:9px}
-.ms-nav-links span{font-size:5.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(237,232,223,.28)}
-.ms-nav-cta{
-  font-size:5.5px;letter-spacing:.16em;text-transform:uppercase;
-  background:var(--gold);color:#09090b;padding:3px 8px;
-}
-/* ── hero ── */
-.ms-hero{
-  flex:1;display:grid;grid-template-columns:1fr 56px;
-  padding:13px 12px 8px;gap:8px;align-items:center;
-}
-.ms-left{display:flex;flex-direction:column}
-.ms-eyebrow{
-  font-size:5px;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:7px;
-  display:flex;align-items:center;gap:5px;
-}
-.ms-eyebrow::before{content:'';width:10px;height:1px;background:var(--gold)}
-.ms-headline{
-  font-family:var(--serif);font-size:clamp(13px,2vw,19px);
-  font-weight:300;line-height:1.05;letter-spacing:-.01em;
-  color:var(--cream);margin-bottom:7px;
-}
-.ms-headline em{font-style:italic;color:var(--gold)}
-.ms-desc{
-  font-size:5.5px;line-height:1.65;
-  color:rgba(237,232,223,.3);margin-bottom:10px;max-width:190px;
-}
-.ms-btns{display:flex;gap:5px;align-items:center}
-.ms-btn-p{
-  background:var(--gold);color:#09090b;
-  font-size:5px;letter-spacing:.15em;text-transform:uppercase;
-  padding:4px 9px;
-}
-.ms-btn-s{
-  font-size:5px;letter-spacing:.13em;text-transform:uppercase;
-  color:rgba(237,232,223,.3);padding:4px 6px;
-  border:1px solid rgba(237,232,223,.1);
-}
-/* decorative right element */
-.ms-deco{display:flex;flex-direction:column;align-items:center;gap:5px;opacity:.55}
-.ms-deco-ring{
-  width:44px;height:44px;border-radius:50%;
-  border:1px solid rgba(184,151,58,.22);
   display:flex;align-items:center;justify-content:center;
-  position:relative;
+  padding:10% 12%;overflow:hidden;position:relative;
 }
-.ms-deco-ring::before{
-  content:'';position:absolute;width:32px;height:32px;border-radius:50%;
-  border:1px solid rgba(184,151,58,.1);
+.ms::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at center,rgba(184,151,58,.06) 0%,transparent 60%);
+  pointer-events:none;
 }
-.ms-deco-ring::after{
-  content:'◈';font-size:11px;color:rgba(184,151,58,.45);
+.ms-logo{
+  width:100%;height:auto;max-width:100%;max-height:100%;
+  object-fit:contain;
+  filter:drop-shadow(0 4px 18px rgba(0,0,0,.45));
+  position:relative;z-index:1;
 }
-.ms-deco-line{width:1px;height:12px;background:linear-gradient(to bottom,rgba(184,151,58,.28),transparent)}
-.ms-deco-n{font-family:var(--serif);font-size:15px;font-weight:300;color:rgba(184,151,58,.1);letter-spacing:-.04em}
-/* ── stats strip ── */
-.ms-stats{
-  display:grid;grid-template-columns:repeat(4,1fr);
-  border-top:1px solid rgba(237,232,223,.04);
-  flex-shrink:0;background:rgba(237,232,223,.006);
-}
-.ms-stat{
-  padding:5px 6px;display:flex;flex-direction:column;align-items:center;gap:1px;
-  border-right:1px solid rgba(237,232,223,.04);
-}
-.ms-stat:last-child{border-right:none}
-.ms-stat-n{font-family:var(--serif);font-size:11px;font-weight:300;letter-spacing:-.03em;color:var(--cream)}
-.ms-stat-n s{text-decoration:none;color:var(--gold)}
-.ms-stat-l{font-size:5px;letter-spacing:.12em;text-transform:uppercase;color:rgba(237,232,223,.24)}
 
 /* ── ZOOM OVERLAY ── */
 #zoom-ov{
@@ -741,21 +659,21 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #ch-proc .pr-name{font-size:clamp(19px,2.4vw,31px)}
 }
 
-/* Laptops courts (≈ 1280-1600 × 720-900) : tarifs / studio / méthode tenaient mal — resserrage titres, paddings, cartes */
+/* Laptops courts (≈ 1280-1600 × 720-900) : tarifs / studio / méthode tenaient mal - resserrage titres, paddings, cartes */
 @media (min-width:801px) and (max-height:900px){
   /* Services : décale un peu le titre et le corps pour ne pas taper la nav */
   .ch-svc{padding-top:80px;padding-bottom:40px;justify-content:flex-start}
   .ch-ttl{font-size:clamp(38px,5.4vw,84px);margin-bottom:32px}
   .ch-body{gap:56px}
 
-  /* Studio — grille 4 chiffres */
+  /* Studio - grille 4 chiffres */
   #ch-stats{padding-top:58px}
   #ch-stats .ch-ttl{font-size:clamp(26px,3.3vw,50px);margin-bottom:18px}
   #ch-stats .s-grid{margin-top:22px}
   #ch-stats .s-blk{padding:24px 22px}
   #ch-stats .s-n{font-size:clamp(44px,5vw,64px)}
 
-  /* Investissement — cartes tarifs (le principal souci : carte centrale débordait en bas) */
+  /* Investissement - cartes tarifs (le principal souci : carte centrale débordait en bas) */
   #ch-price{padding-top:58px}
   #ch-price .ch-eye{margin-bottom:18px}
   #ch-price .ch-rule{margin-bottom:20px}
@@ -770,7 +688,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .pc-preview{padding:6px 0;font-size:11.5px}
   .pc-detail{padding:10px 12px;font-size:9.5px}
 
-  /* Hero — évite que le titre + boutons empiètent sur le hint bas */
+  /* Hero - évite que le titre + boutons empiètent sur le hint bas */
   .h-h1{font-size:clamp(52px,7.6vw,120px)}
   .h-actions{margin-top:42px}
 }
@@ -784,7 +702,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   padding:32px 20px;
   opacity:0;pointer-events:none;
   transition:opacity .45s ease;
-  /* overflow sur l'overlay désactivé — c'est la box qui scroll */
+  /* overflow sur l'overlay désactivé - c'est la box qui scroll */
 }
 .modal-ov.open{opacity:1;pointer-events:all}
 .modal-box{
@@ -1117,7 +1035,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .s-grid{grid-template-columns:1fr;gap:1px}
   .s-n{font-size:clamp(44px,14vw,64px)}
   .s-blk{padding:22px 18px}
-  /* Studio : pas de règle séparée — même padding-top que Méthode (#ch-proc.chapter, …) */
+  /* Studio : pas de règle séparée - même padding-top que Méthode (#ch-proc.chapter, …) */
   #ch-stats .s-blk{padding:12px 14px}
   #ch-stats .s-n{font-size:clamp(28px,11vw,46px)}
   #ch-stats .s-l{margin-top:4px;font-size:8px;letter-spacing:.12em;line-height:1.25}
@@ -1219,14 +1137,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- SVC 1 -->
     <section class="chapter ch-svc" id="ch1">
-      <div class="ch-eye">01 — Services</div>
+      <div class="ch-eye">01 - Services</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Sites vitrine</span></span>
         <span class="l"><span class="inn">& landing <em>pages</em></span></span>
       </h2>
       <div class="ch-body">
-        <p class="ch-desc">Un site vitrine n'est pas qu'une carte de visite en ligne. C'est votre <strong>premier commercial</strong>, ouvert 24h/24. Nous concevons des expériences qui captivent et qui convertissent — belles, rapides, inoubliables.</p>
+        <p class="ch-desc">Un site vitrine n'est pas qu'une carte de visite en ligne. C'est votre <strong>premier commercial</strong>, ouvert 24h/24. Nous concevons des expériences qui captivent et qui convertissent - belles, rapides, inoubliables.</p>
         <div class="ch-feats">
           <div class="ch-feat"><span class="ch-feat-dot"></span>Design 100% personnalisé</div>
           <div class="ch-feat"><span class="ch-feat-dot"></span>Performance & rapidité maximale</div>
@@ -1241,14 +1159,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- SVC 2 -->
     <section class="chapter ch-svc" id="ch2">
-      <div class="ch-eye">02 — Services</div>
+      <div class="ch-eye">02 - Services</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Logiciel interne</span></span>
         <span class="l"><span class="inn">& CRM <em>sur mesure</em></span></span>
       </h2>
       <div class="ch-body">
-        <p class="ch-desc">Un logiciel web interne, c'est votre <strong>avantage concurrentiel invisible</strong>. CRM, gestion de projet, outils métier — nous développons des solutions qui automatisent vos processus et centralisent vos données.</p>
+        <p class="ch-desc">Un logiciel web interne, c'est votre <strong>avantage concurrentiel invisible</strong>. CRM, gestion de projet, outils métier - nous développons des solutions qui automatisent vos processus et centralisent vos données.</p>
         <div class="ch-feats">
           <div class="ch-feat"><span class="ch-feat-dot"></span>Interface 100% adaptée à vos processus</div>
           <div class="ch-feat"><span class="ch-feat-dot"></span>Automatisation des tâches répétitives</div>
@@ -1262,14 +1180,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- SVC 3 -->
     <section class="chapter ch-svc" id="ch3">
-      <div class="ch-eye">03 — Services</div>
+      <div class="ch-eye">03 - Services</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Applications web</span></span>
         <span class="l"><span class="inn"><em>sur mesure</em></span></span>
       </h2>
       <div class="ch-body ch3-sc">
-        <p class="ch-desc">SaaS, dashboards, outils métier — nous développons des applications <strong>robustes et scalables</strong>. Architecture pensée pour durer, code documenté, sécurité renforcée. Votre outil, exactement comme vous l'imaginez.</p>
+        <p class="ch-desc">SaaS, dashboards, outils métier - nous développons des applications <strong>robustes et scalables</strong>. Architecture pensée pour durer, code documenté, sécurité renforcée. Votre outil, exactement comme vous l'imaginez.</p>
       </div>
 
       <!-- ── MacBook Pro ── -->
@@ -1279,37 +1197,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <div class="mkb-lid">
             <div class="mkb-notch"></div>
             <div class="mkb-screen" id="mb3-screen">
-              <!-- Mock website — same palette, different content -->
               <div class="ms">
-                <div class="ms-nav">
-                  <span class="ms-brand">Studio</span>
-                  <div class="ms-nav-links">
-                    <span>Projets</span><span>Agence</span><span>Contact</span>
-                  </div>
-                  <span class="ms-nav-cta">Démarrer</span>
-                </div>
-                <div class="ms-hero">
-                  <div class="ms-left">
-                    <div class="ms-eyebrow">Design &amp; Développement</div>
-                    <h3 class="ms-headline">L'excellence<br><em>digitale,</em><br>à votre service.</h3>
-                    <p class="ms-desc">Nous créons des expériences web qui captivent et convertissent.</p>
-                    <div class="ms-btns">
-                      <div class="ms-btn-p">Nos projets</div>
-                      <div class="ms-btn-s">En savoir plus</div>
-                    </div>
-                  </div>
-                  <div class="ms-deco">
-                    <div class="ms-deco-ring"></div>
-                    <div class="ms-deco-line"></div>
-                    <div class="ms-deco-n">01</div>
-                  </div>
-                </div>
-                <div class="ms-stats">
-                  <div class="ms-stat"><span class="ms-stat-n">120<s>+</s></span><span class="ms-stat-l">Projets</span></div>
-                  <div class="ms-stat"><span class="ms-stat-n">97<s>%</s></span><span class="ms-stat-l">Satisfaction</span></div>
-                  <div class="ms-stat"><span class="ms-stat-n">3<s>×</s></span><span class="ms-stat-l">ROI moyen</span></div>
-                  <div class="ms-stat"><span class="ms-stat-n">8<s>+</s></span><span class="ms-stat-l">Années</span></div>
-                </div>
+                <img src="logo.png" alt="MAPA Développement" class="ms-logo">
               </div>
             </div>
             <div class="mkb-glare"></div>
@@ -1330,14 +1219,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- SVC 4 -->
     <section class="chapter ch-svc" id="ch4">
-      <div class="ch-eye">04 — Services</div>
+      <div class="ch-eye">04 - Services</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Design <em>UI/UX</em></span></span>
         <span class="l"><span class="inn">& identité digitale</span></span>
       </h2>
       <div class="ch-body">
-        <p class="ch-desc">L'esthétique au service de la fonctionnalité. Nous créons des interfaces <strong>élégantes et intuitives</strong> — prototypage, tests utilisateurs, système de design cohérent sur toutes vos surfaces digitales.</p>
+        <p class="ch-desc">L'esthétique au service de la fonctionnalité. Nous créons des interfaces <strong>élégantes et intuitives</strong> - prototypage, tests utilisateurs, système de design cohérent sur toutes vos surfaces digitales.</p>
         <div class="ch-feats">
           <div class="ch-feat"><span class="ch-feat-dot"></span>Identité visuelle forte & cohérente</div>
           <div class="ch-feat"><span class="ch-feat-dot"></span>Expérience utilisateur pensée en détail</div>
@@ -1351,7 +1240,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- STATS -->
     <section class="chapter" id="ch-stats">
-      <div class="ch-eye">05 — Studio</div>
+      <div class="ch-eye">05 - Studio</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">4 ans de <em>savoir-faire,</em></span></span>
@@ -1367,7 +1256,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- PROCESS -->
     <section class="chapter" id="ch-proc">
-      <div class="ch-eye">06 — Méthode</div>
+      <div class="ch-eye">06 - Méthode</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Un processus <em>rigoureux,</em></span></span>
@@ -1420,16 +1309,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <button class="t-d" data-i="1" aria-label="Témoignage 2" aria-selected="false" role="tab"></button>
           <button class="t-d" data-i="2" aria-label="Témoignage 3" aria-selected="false" role="tab"></button>
         </div>
-        <div class="t-meta" id="t-meta">
-          <div class="t-name" id="tname">Sophie Laurent</div>
-          <div class="t-role" id="trole">CEO — Atelier Laurent Architecture</div>
-        </div>
       </div>
     </section>
 
     <!-- PRICING -->
     <section class="chapter" id="ch-price">
-      <div class="ch-eye">08 — Investissement</div>
+      <div class="ch-eye">08 - Investissement</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Tarifs clairs, <em>sans ambiguïté.</em></span></span>
@@ -1469,7 +1354,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <div class="pc-top"></div>
           <div class="pc-label">Cas spécifiques</div>
           <div class="pc-price pc-price--devis">Sur devis</div>
-          <div class="pc-tagline"><span class="pc-tl-desk">CRM, application métier, site très exigeant</span><span class="pc-tl-mob">CRM, métier complexe — sur devis</span></div>
+          <div class="pc-tagline"><span class="pc-tl-desk">CRM, application métier, site très exigeant</span><span class="pc-tl-mob">CRM, métier complexe - sur devis</span></div>
           <div class="pc-previews">
             <div class="pc-preview">Création de CRM ou logiciel sur mesure</div>
             <div class="pc-preview">Projets complexes : devis après cadrage</div>
@@ -1519,7 +1404,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     <div class="modal-close" id="proc-close" role="button" tabindex="0" aria-label="Fermer">
       <svg width="12" height="12" viewBox="0 0 12 12"><line x1="1" y1="1" x2="11" y2="11" stroke="currentColor" stroke-width="1.2"/><line x1="11" y1="1" x2="1" y2="11" stroke="currentColor" stroke-width="1.2"/></svg>
     </div>
-    <div class="modal-eyebrow" id="proc-eyebrow">01 — Méthode</div>
+    <div class="modal-eyebrow" id="proc-eyebrow">01 - Méthode</div>
     <h3 class="modal-title" id="proc-title">Découverte<br><em>&amp; Stratégie</em></h3>
     <div class="modal-rule"></div>
     <div class="modal-dur" id="proc-dur">Durée estimée : 1 à 2 semaines</div>
@@ -1701,7 +1586,7 @@ const TOTAL = CHAPTERS.length;
 const chNames = ['Introduction','Sites vitrine','E-commerce','Applications','Design UI/UX','Studio','Méthode','Témoignages','Investissement','Contact'];
 let cur_ch = 0, isAnim = false;
 
-/* Hauteur d’une « page » = innerHeight / visualViewport — doit matcher .chapter (--slide-h), sinon 100vh sur mobile > zone visible → deux sections à l’écran */
+/* Hauteur d’une « page » = innerHeight / visualViewport - doit matcher .chapter (--slide-h), sinon 100vh sur mobile > zone visible → deux sections à l’écran */
 function slidePx(){
   const vv=window.visualViewport;
   if(vv&&vv.height>80)return Math.round(vv.height);
@@ -1806,12 +1691,12 @@ function zoomIntoCh4(){
     if(el){el.style.transition='opacity .3s ease';el.style.opacity='0';}
   });
 
-  // Step 1 — straighten MacBook to face camera
+  // Step 1 - straighten MacBook to face camera
   mkb.style.transition='transform .42s cubic-bezier(.76,0,.24,1)';
   mkb.style.transform='perspective(1100px) rotateY(0deg) rotateX(0deg)';
 
   setTimeout(()=>{
-    // Step 2 — clip-path from the whole laptop rect → fullscreen
+    // Step 2 - clip-path from the whole laptop rect → fullscreen
     const r=wrap.getBoundingClientRect();
     const W=window.innerWidth,H=slidePx();
     const ov=document.getElementById('zoom-ov');
@@ -1860,12 +1745,12 @@ function doScroll(dir){
   else{goto(cur_ch+(dir>0?1:-1));}
 }
 
-// Vérifie si un modal est ouvert — dans ce cas on laisse le scroll naturel du navigateur
+// Vérifie si un modal est ouvert - dans ce cas on laisse le scroll naturel du navigateur
 function anyModalOpen(){return document.querySelector('.modal-ov.open')!==null;}
 
 let wLock=false;
 window.addEventListener('wheel',e=>{
-  // Fenêtre flottante : html/body en overflow:hidden — on fait défiler .modal-box explicitement
+  // Fenêtre flottante : html/body en overflow:hidden - on fait défiler .modal-box explicitement
   if(anyModalOpen()){
     const t=e.target instanceof Element?e.target:e.target.parentElement;
     const ov=t&&t.closest('.modal-ov');
@@ -1949,14 +1834,13 @@ document.querySelectorAll('.pc-btn').forEach(b=>b.addEventListener('click',e=>{e
 
 // Testimonials
 const testimonials=[
-  {q:'« Mapa a <em>transformé</em> notre présence en ligne. Le résultat est magnifique, les délais tenus, et notre taux de conversion a triplé en 90 jours. »',a:'Sophie Laurent',r:'CEO — Atelier Laurent Architecture'},
-  {q:'« Une équipe qui comprend vraiment les enjeux business. Pas juste des développeurs — de vrais <em>partenaires stratégiques</em> pour notre croissance. »',a:'Marc Roux',r:'Fondateur — Roux & Partenaires'},
-  {q:'« Livrés à temps, <em>au centime près</em>, avec un résultat qui dépasse toutes nos attentes. La référence absolue en développement web. »',a:'Amélie Chen',r:'Directrice Marketing — TechParis'},
+  {q:'« Mapa a <em>transformé</em> notre présence en ligne. Le résultat est magnifique, les délais tenus, et notre taux de conversion a triplé en 90 jours. »'},
+  {q:'« Une équipe qui comprend vraiment les enjeux business. Pas juste des développeurs - de vrais <em>partenaires stratégiques</em> pour notre croissance. »'},
+  {q:'« Livrés à temps, <em>au centime près</em>, avec un résultat qui dépasse toutes nos attentes. La référence absolue en développement web. »'},
 ];
 let ti=0;
-const tq=document.getElementById('tq'),tn=document.getElementById('tname'),tr=document.getElementById('trole');
+const tq=document.getElementById('tq');
 const tBlock=document.getElementById('t-quote-block');
-const tMeta=document.getElementById('t-meta');
 const tdotsEl=document.getElementById('tdots');
 const tds=document.querySelectorAll('.t-d');
 function showT(i,dir=1){
@@ -1966,25 +1850,16 @@ function showT(i,dir=1){
     tBlock.classList.remove('t-line-on','t-anim-in');
     tBlock.classList.add('t-anim-out');
   }
-  if(tMeta)tMeta.classList.add('t-meta-out');
   if(tdotsEl)tdotsEl.classList.add('t-dots-nudge');
   setTimeout(()=>{
     tq.innerHTML=testimonials[i].q;
-    tn.textContent=testimonials[i].a;
-    tr.textContent=testimonials[i].r;
     if(tBlock){
       tBlock.classList.remove('t-anim-out');
       void tBlock.offsetWidth;
       tBlock.classList.add('t-anim-in','t-line-on');
     }
-    if(tMeta){
-      tMeta.classList.remove('t-meta-out');
-      void tMeta.offsetWidth;
-      tMeta.classList.add('t-meta-in');
-    }
     setTimeout(()=>{
       if(tBlock)tBlock.classList.remove('t-anim-in');
-      if(tMeta)tMeta.classList.remove('t-meta-in');
       if(tdotsEl)tdotsEl.classList.remove('t-dots-nudge');
     },780);
     tds.forEach((b,j)=>b.classList.toggle('on',j===i));
@@ -2030,31 +1905,31 @@ document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&docum
 // Process modals data
 const procData=[
   {
-    eyebrow:'01 — Méthode',
+    eyebrow:'01 - Méthode',
     title:'Découverte<br><em>&amp; Stratégie</em>',
     dur:'Durée estimée : 1 à 2 semaines',
-    body:'Avant d\'écrire une seule ligne de code, nous plongeons dans <strong>votre univers</strong>. Audit de l\'existant, analyse concurrentielle, compréhension de vos cibles et de vos objectifs business. Cette phase pose les fondations stratégiques de tout le projet — une feuille de route claire, sans zone d\'ombre.',
+    body:'Avant d\'écrire une seule ligne de code, nous plongeons dans <strong>votre univers</strong>. Audit de l\'existant, analyse concurrentielle, compréhension de vos cibles et de vos objectifs business. Cette phase pose les fondations stratégiques de tout le projet - une feuille de route claire, sans zone d\'ombre.',
     delivs:['Brief détaillé & cahier des charges complet','Analyse concurrentielle & positionnement','Feuille de route et planning projet','Budget prévisionnel affiné']
   },
   {
-    eyebrow:'02 — Méthode',
+    eyebrow:'02 - Méthode',
     title:'Conception<br><em>&amp; Design</em>',
     dur:'Durée estimée : 2 à 3 semaines',
     body:'Aucun développement ne commence sans validation complète du design. Nous créons les <strong>wireframes, les maquettes haute-fidélité et les prototypes interactifs</strong>. Chaque écran, chaque interaction est pensé, discuté et validé avec vous avant de passer au code.',
     delivs:['Wireframes basse et haute fidélité','Maquettes desktop & mobile','Prototype interactif cliquable','Charte graphique & design system']
   },
   {
-    eyebrow:'03 — Méthode',
+    eyebrow:'03 - Méthode',
     title:'Développement<br><em>&amp; Livraison</em>',
     dur:'Durée estimée : 3 à 8 semaines',
     body:'Code <strong>propre, documenté et testé</strong>. Nous travaillons en livraisons itératives avec des points de feedback réguliers. Architecture pensée pour durer, performances optimisées, sécurité renforcée. Votre projet est livré clé en main, avec formation et support.',
     delivs:['Application fonctionnelle et testée','Documentation technique complète','Déploiement et mise en production','Formation équipe & support post-livraison']
   },
   {
-    eyebrow:'04 — Méthode',
+    eyebrow:'04 - Méthode',
     title:'Suivi<br><em>&amp; évolution</em>',
-    dur:'Sur la durée — selon votre rythme',
-    body:'Une fois le site ou l’outil en ligne, nous restons <strong>votre point de contact</strong> pour les mises à jour de contenu, les corrections, les évolutions fonctionnelles et les ajustements stratégiques. L’accompagnement peut prendre la forme d’interventions ponctuelles ou d’un <strong>suivi régulier</strong> — l’objectif est que votre présence digitale reste alignée avec votre activité, sans friction.',
+    dur:'Sur la durée - selon votre rythme',
+    body:'Une fois le site ou l’outil en ligne, nous restons <strong>votre point de contact</strong> pour les mises à jour de contenu, les corrections, les évolutions fonctionnelles et les ajustements stratégiques. L’accompagnement peut prendre la forme d’interventions ponctuelles ou d’un <strong>suivi régulier</strong> - l’objectif est que votre présence digitale reste alignée avec votre activité, sans friction.',
     delivs:['Correctifs & petites évolutions après livraison','Mises à jour de contenu & fonctionnalités','Conseil sur les évolutions à prévoir','Interventions planifiées ou à la demande','Relation de confiance sur le long terme']
   }
 ];
@@ -2098,7 +1973,7 @@ const priceData=[
     eyebrow:'Cas spécifiques',
     title:'CRM, app métier<br><em>& projets exigeants</em>',
     sub:'Tarification sur devis après analyse du besoin',
-    body:'Création de <strong>CRM</strong>, outil interne, application web avancée ou site aux contraintes fortes : nous cadrons le périmètre ensemble, puis nous vous remettons un <strong>devis détaillé</strong> — sans grille tarifaire imposée.',
+    body:'Création de <strong>CRM</strong>, outil interne, application web avancée ou site aux contraintes fortes : nous cadrons le périmètre ensemble, puis nous vous remettons un <strong>devis détaillé</strong> - sans grille tarifaire imposée.',
     features:['Atelier de cadrage & chiffrage transparent','CRM ou logiciel sur mesure','Intégrations & flux métier','Architecture adaptée à votre croissance','Accompagnement projet de bout en bout'],
     cta:'Demander un devis'
   }
