@@ -10,13 +10,26 @@
 })();
 </script>
 <title>Mapa Développement</title>
-<link rel="icon" type="image/png" href="logo.png">
-<link rel="shortcut icon" type="image/png" href="logo.png">
-<link rel="apple-touch-icon" href="logo.png">
+<meta name="description" content="MAPA Développement — Agence digitale premium. Sites vitrine, applications web, CRM et logiciels sur mesure.">
+<meta name="theme-color" content="#09090b">
+
+<!-- Favicons : versions carrées du logo (fond noir + logo MAPA centré) pour un rendu net dans tous les onglets -->
+<link rel="icon" type="image/x-icon" href="favicon.ico?v=3">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=3">
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png?v=3">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
+<link rel="mask-icon" href="favicon-192.png?v=3" color="#b8973a">
+
+<!-- Preload de l'image LCP (logo utilisé dans l'écran MacBook et comme identité visuelle) -->
+<link rel="preload" as="image" href="logo2.webp?v=2" type="image/webp" fetchpriority="high">
+
+<!-- Preconnect fonts Google -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400;1,600;1,700&family=Raleway:wght@200;300;400;500&display=swap" rel="stylesheet"></noscript>
+
+<!-- Fonts : uniquement les poids réellement utilisés (Cormorant 300/300i/600/700, Raleway 300/400/500) -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300&family=Raleway:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 :root{
@@ -167,6 +180,14 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .fb-lnks{display:flex;gap:24px}
 .fb-lnks a{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(237,232,223,.28);text-decoration:none;transition:color .3s}
 .fb-lnks a:hover{color:var(--gold)}
+.fb-email{
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+  font-size:10px;letter-spacing:.14em;text-transform:lowercase;
+  color:rgba(237,232,223,.32);text-decoration:none;
+  transition:color .3s;
+  white-space:nowrap;
+}
+.fb-email:hover{color:var(--gold)}
 
 /* ── WIPE ── */
 #wipe{position:fixed;inset:0;z-index:7000;background:var(--bg);transform:translateY(-100%);pointer-events:none}
@@ -486,7 +507,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .chapter.on .c-acts{opacity:1;transform:none}
 .c-email{
   position:absolute;bottom:44px;left:0;right:0;
-  font-family:var(--serif);font-size:13px;font-style:italic;color:var(--muted);
+  font-family:var(--serif);font-size:13px;font-weight:300;font-style:italic;color:var(--muted);
   transform:translateY(16px);
   text-align:center;
 }
@@ -851,6 +872,90 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 }
 .cform-field textarea{resize:vertical;min-height:110px}
 .cform-field select option{background:#0d0d0f;color:var(--cream)}
+
+/* ── CSELECT : dropdown flottant premium (inspiré des modales) ── */
+.cselect{position:relative;width:100%}
+.cselect-trigger{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  width:100%;
+  background:rgba(237,232,223,.03);
+  border:1px solid rgba(237,232,223,.1);
+  color:var(--cream);
+  font-family:var(--sans);font-size:14px;font-weight:300;
+  padding:14px 18px;
+  text-align:left;cursor:pointer;
+  transition:border-color .3s,background .3s;
+  -webkit-appearance:none;appearance:none;
+}
+.cselect-trigger:hover{border-color:rgba(184,151,58,.35)}
+.cselect-trigger:focus-visible{outline:none;border-color:rgba(184,151,58,.55);background:rgba(184,151,58,.03)}
+.cselect.open .cselect-trigger{border-color:rgba(184,151,58,.55);background:rgba(184,151,58,.03)}
+.cselect-value{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.cselect-value[data-placeholder="1"]{color:rgba(237,232,223,.45)}
+.cselect-caret{
+  flex-shrink:0;color:rgba(184,151,58,.7);
+  transition:transform .3s cubic-bezier(.76,0,.24,1);
+}
+.cselect.open .cselect-caret{transform:rotate(180deg);color:var(--gold)}
+
+/* Pop-over flottant */
+.cselect-pop{
+  position:absolute;left:0;right:0;top:calc(100% + 8px);z-index:5200;
+  background:#0d0d0f;
+  border:1px solid rgba(237,232,223,.08);
+  box-shadow:
+    0 24px 60px -10px rgba(0,0,0,.85),
+    0 8px 20px -6px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.02);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  padding:6px;
+  display:flex;flex-direction:column;gap:2px;
+  opacity:0;transform:translateY(-6px) scale(.98);pointer-events:none;
+  transition:opacity .22s cubic-bezier(.76,0,.24,1),transform .28s cubic-bezier(.76,0,.24,1);
+  max-height:min(320px,60vh);overflow-y:auto;
+  scrollbar-width:thin;scrollbar-color:var(--gold) rgba(237,232,223,.06);
+}
+.cselect-pop::-webkit-scrollbar{width:4px}
+.cselect-pop::-webkit-scrollbar-thumb{background:var(--gold);border-radius:2px}
+.cselect.open .cselect-pop{opacity:1;transform:translateY(0) scale(1);pointer-events:all}
+
+.cselect-opt{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  width:100%;
+  background:transparent;border:none;cursor:pointer;
+  padding:13px 14px;
+  font-family:var(--sans);font-size:13px;font-weight:300;color:var(--cream);
+  text-align:left;
+  transition:background .18s ease,color .18s ease,padding .18s ease;
+  position:relative;
+  border-left:2px solid transparent;
+}
+.cselect-opt:hover,.cselect-opt:focus-visible{
+  background:rgba(184,151,58,.08);
+  color:var(--cream);
+  border-left-color:var(--gold);
+  padding-left:18px;
+  outline:none;
+}
+.cselect-opt.is-selected{
+  background:rgba(184,151,58,.12);
+  border-left-color:var(--gold);
+}
+.cselect-opt.is-selected .cselect-opt-label{color:var(--gold)}
+.cselect-opt-label{
+  flex:1;min-width:0;
+  letter-spacing:.02em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.cselect-opt-price{
+  flex-shrink:0;
+  font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(184,151,58,.65);
+  font-weight:400;
+}
+.cselect-opt:hover .cselect-opt-price,
+.cselect-opt:focus-visible .cselect-opt-price{color:var(--gold)}
+
 .cform-submit{
   background:var(--gold);color:var(--bg);
   font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;
@@ -959,7 +1064,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .cform-row{grid-template-columns:1fr}
   .pr-it{grid-template-columns:44px 1fr auto;gap:14px}
   #ch-dots{right:18px}
-  #fbar{padding:0 24px max(8px,env(safe-area-inset-bottom,0px));height:auto;min-height:44px;flex-wrap:wrap;gap:8px 16px}
+  #fbar{padding:8px 24px max(8px,env(safe-area-inset-bottom,0px));height:auto;min-height:44px;flex-wrap:wrap;gap:6px 16px;justify-content:space-between}
+  /* Sur mobile, l'email prend sa propre ligne centrée (l'absolute desktop gêne le wrap) */
+  .fb-email{position:static;transform:none;order:3;width:100%;flex-basis:100%;text-align:center;font-size:9px;letter-spacing:.08em;padding-top:2px}
   /* Ch.3 : MacBook en flux sous le texte, sans 3D (lisible au doigt) */
   #ch3.chapter{align-items:stretch}
   #ch3 .ch-body.ch3-sc{margin-bottom:0;max-width:100%}
@@ -1114,6 +1221,11 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .modal-title{font-size:clamp(22px,6vw,36px)}
   .modal-body{font-size:14px}
   .intro-wordmark{font-size:clamp(22px,9vw,40px);letter-spacing:.18em}
+  /* Intro accélérée sur mobile : transitions plus courtes → FCP/LCP améliorés */
+  .intro-wordmark span{transition:transform .7s cubic-bezier(.76,0,.24,1)}
+  .intro-progress-bar{transition:width 1s cubic-bezier(.76,0,.24,1) .2s}
+  #intro.gone{transition:opacity .5s ease}
+  .intro-sub{transition:opacity .55s ease .2s}
 }
 
 /* ════════════════════════════════════════════════
@@ -1582,8 +1694,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     <span></span><span></span><span></span>
   </div>
   <div class="logo-fx-stage">
-    <img src="logo.png" alt="" class="logo-fx-img">
-    <img src="logo.png" alt="" class="logo-fx-ghost">
+    <img src="logo2.webp?v=2" alt="" class="logo-fx-img">
+    <img src="logo2.webp?v=2" alt="" class="logo-fx-ghost">
   </div>
   <div class="logo-fx-particles" id="logo-fx-particles"></div>
   <div class="logo-fx-flash"></div>
@@ -1631,9 +1743,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <div class="h-ghost-num">M</div>
     </section>
 
-    <!-- SVC 1 -->
+    <!-- 01 — Site vitrine -->
     <section class="chapter ch-svc" id="ch1">
-      <div class="ch-eye">01 - Services</div>
+      <div class="ch-eye">01 - Site vitrine</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Sites vitrine</span></span>
@@ -1653,9 +1765,9 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <div class="ch-gnum">01</div>
     </section>
 
-    <!-- SVC 2 -->
+    <!-- 02 — Logiciels & CRM -->
     <section class="chapter ch-svc" id="ch2">
-      <div class="ch-eye">02 - Services</div>
+      <div class="ch-eye">02 - Logiciels & CRM</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Logiciel interne</span></span>
@@ -1674,9 +1786,52 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
       <div class="ch-gnum">02</div>
     </section>
 
-    <!-- SVC 3 -->
+    <!-- 03 — Design UI/UX -->
+    <section class="chapter ch-svc" id="ch4">
+      <div class="ch-eye">03 - Design UI/UX</div>
+      <div class="ch-rule"></div>
+      <h2 class="ch-ttl">
+        <span class="l"><span class="inn">Design <em>UI/UX</em></span></span>
+        <span class="l"><span class="inn">& identité digitale</span></span>
+      </h2>
+      <div class="ch-body">
+        <p class="ch-desc">L'esthétique au service de la fonctionnalité. Nous créons des interfaces <strong>élégantes et intuitives</strong> - prototypage, tests utilisateurs, système de design cohérent sur toutes vos surfaces digitales.</p>
+        <div class="ch-feats">
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Identité visuelle forte & cohérente</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Expérience utilisateur pensée en détail</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Interfaces intuitives & accessibles</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Motion design & micro-interactions</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Cohérence sur toutes vos surfaces</div>
+        </div>
+      </div>
+      <div class="ch-gnum">03</div>
+    </section>
+
+    <!-- 04 — SEO & Référencement -->
+    <section class="chapter ch-svc" id="ch-seo">
+      <div class="ch-eye">04 - SEO & Référencement</div>
+      <div class="ch-rule"></div>
+      <h2 class="ch-ttl">
+        <span class="l"><span class="inn">SEO &</span></span>
+        <span class="l"><span class="inn"><em>référencement</em></span></span>
+      </h2>
+      <div class="ch-body">
+        <p class="ch-desc">Un site invisible dans Google ne vend pas. Le SEO, c'est votre <strong>commercial qui travaille pendant que vous dormez</strong> : trafic qualifié, visiteurs qui cherchaient déjà votre service, acquisition durable sans payer la publicité. Chaque mois, votre autorité grandit et votre coût d'acquisition diminue.</p>
+        <div class="ch-feats">
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Audit SEO & analyse de positionnement</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Optimisation technique (vitesse, mobile, structure)</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Stratégie mots-clés ciblée sur votre marché</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Référencement local (Google Business, avis)</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Netlinking & autorité du domaine</div>
+          <div class="ch-feat"><span class="ch-feat-dot"></span>Suivi mensuel & reporting transparent</div>
+        </div>
+      </div>
+      <div class="ch-gnum">04</div>
+    </section>
+
+    <!-- 05 — Application web (avec animation 3D en sortie) -->
     <section class="chapter ch-svc" id="ch3">
-      <div class="ch-eye">03 - Services</div>
+      <div class="ch-eye">05 - Application web</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Applications web</span></span>
@@ -1695,7 +1850,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
             <div class="mkb-notch"></div>
             <div class="mkb-screen" id="mb3-screen">
               <div class="ms">
-                <img src="logo.png" alt="MAPA Développement" class="ms-logo">
+                <img src="logo2.webp?v=2" alt="MAPA Développement" class="ms-logo" width="1409" height="752" decoding="async" fetchpriority="high" loading="eager">
               </div>
             </div>
             <div class="mkb-glare"></div>
@@ -1711,33 +1866,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         </div>
       </div>
 
-      <div class="ch-gnum">03</div>
-    </section>
-
-    <!-- SVC 4 -->
-    <section class="chapter ch-svc" id="ch4">
-      <div class="ch-eye">04 - Services</div>
-      <div class="ch-rule"></div>
-      <h2 class="ch-ttl">
-        <span class="l"><span class="inn">Design <em>UI/UX</em></span></span>
-        <span class="l"><span class="inn">& identité digitale</span></span>
-      </h2>
-      <div class="ch-body">
-        <p class="ch-desc">L'esthétique au service de la fonctionnalité. Nous créons des interfaces <strong>élégantes et intuitives</strong> - prototypage, tests utilisateurs, système de design cohérent sur toutes vos surfaces digitales.</p>
-        <div class="ch-feats">
-          <div class="ch-feat"><span class="ch-feat-dot"></span>Identité visuelle forte & cohérente</div>
-          <div class="ch-feat"><span class="ch-feat-dot"></span>Expérience utilisateur pensée en détail</div>
-          <div class="ch-feat"><span class="ch-feat-dot"></span>Interfaces intuitives & accessibles</div>
-          <div class="ch-feat"><span class="ch-feat-dot"></span>Motion design & micro-interactions</div>
-          <div class="ch-feat"><span class="ch-feat-dot"></span>Cohérence sur toutes vos surfaces</div>
-        </div>
-      </div>
-      <div class="ch-gnum">04</div>
+      <div class="ch-gnum">05</div>
     </section>
 
     <!-- STATS -->
     <section class="chapter" id="ch-stats">
-      <div class="ch-eye">05 - Studio</div>
+      <div class="ch-eye">06 - Studio</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">4 ans de <em>savoir-faire,</em></span></span>
@@ -1753,7 +1887,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- PROCESS -->
     <section class="chapter" id="ch-proc">
-      <div class="ch-eye">06 - Méthode</div>
+      <div class="ch-eye">07 - Méthode</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Un processus <em>rigoureux,</em></span></span>
@@ -1797,7 +1931,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- TESTIMONIALS -->
     <section class="chapter" id="ch-test">
-      <div class="ch-eye ch-test-eye">07 - Témoignages</div>
+      <div class="ch-eye ch-test-eye">08 - Témoignages</div>
       <div class="ch-rule ch-test-rule"></div>
       <div class="t-inner">
         <div class="t-quote-block t-line-on" id="t-quote-block">
@@ -1813,7 +1947,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- PRICING -->
     <section class="chapter" id="ch-price">
-      <div class="ch-eye">08 - Investissement</div>
+      <div class="ch-eye">09 - Investissement</div>
       <div class="ch-rule"></div>
       <h2 class="ch-ttl">
         <span class="l"><span class="inn">Tarifs clairs, <em>sans ambiguïté.</em></span></span>
@@ -1824,7 +1958,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         <div class="pc" data-plan="0">
           <div class="pc-top"></div>
           <div class="pc-label">Site web vitrine</div>
-          <div class="pc-price">600<span class="pc-eur">€</span><span class="pc-ttc">TTC</span></div>
+          <div class="pc-price">600<span class="pc-eur">€</span><span class="pc-ttc">HT</span></div>
           <div class="pc-tagline">Présence en ligne professionnelle</div>
           <div class="pc-previews">
             <div class="pc-preview">Jusqu'à 5 pages · design sur mesure</div>
@@ -1838,7 +1972,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         <div class="pc ft" data-plan="1">
           <div class="pc-top"></div>
           <div class="pc-label">Avec réservation</div>
-          <div class="pc-price">1 000<span class="pc-eur">€</span><span class="pc-ttc">TTC</span></div>
+          <div class="pc-price">1 000<span class="pc-eur">€</span><span class="pc-ttc">HT</span></div>
           <div class="pc-tagline"><span class="pc-tl-desk">Site vitrine + prise de rendez-vous en ligne</span><span class="pc-tl-mob">Vitrine + rendez-vous en ligne</span></div>
           <div class="pc-previews">
             <div class="pc-preview">Tout l'offre vitrine + système de réservation</div>
@@ -1880,7 +2014,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
         <a href="tel:+33679623942" class="btn-ghost">+33 6 79 62 39 42</a>
       </div>
       <div class="c-email">
-        <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a>
+        <a href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a>
         &nbsp;·&nbsp;
         <a href="tel:+33679623942">+33 6 79 62 39 42</a>
       </div>
@@ -1891,6 +2025,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
 <div id="fbar">
   <span class="fb-copy">© 2026 Mapa Développement</span>
+  <a class="fb-email" href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a>
   <div class="fb-lnks">
     <a href="#" id="legal-open">Mentions légales</a>
     <a href="https://www.linkedin.com/in/matis-gouyet-07b22a241/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
@@ -1957,24 +2092,60 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
           <input id="cf-company" type="text" name="company" placeholder="Nom de votre entreprise" autocomplete="organization">
         </div>
         <div class="cform-field">
-          <label for="cf-type">Type de projet</label>
-          <select id="cf-type" name="type">
-            <option value="">Sélectionner...</option>
-            <option>Site vitrine (600 € TTC)</option>
-            <option>Site + réservation en ligne (1 000 € TTC)</option>
-            <option>CRM / logiciel / projet sur devis</option>
-            <option>Logiciel interne / CRM</option>
-            <option>Application web sur mesure</option>
-            <option>Design UI/UX</option>
-            <option>Autre</option>
-          </select>
+          <label id="cf-type-label">Type de projet</label>
+          <div class="cselect" id="cf-type-wrap">
+            <button
+              type="button"
+              id="cf-type-btn"
+              class="cselect-trigger"
+              aria-haspopup="listbox"
+              aria-expanded="false"
+              aria-labelledby="cf-type-label"
+            >
+              <span class="cselect-value" data-placeholder="1">Sélectionner…</span>
+              <svg class="cselect-caret" width="11" height="7" viewBox="0 0 11 7" fill="none" aria-hidden="true">
+                <path d="M1 1l4.5 4.5L10 1" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="cselect-pop" id="cf-type-pop" role="listbox" aria-labelledby="cf-type-label" aria-hidden="true">
+              <button type="button" class="cselect-opt" role="option" data-value="Site vitrine (600 € HT)">
+                <span class="cselect-opt-label">Site vitrine</span>
+                <span class="cselect-opt-price">600 € HT</span>
+              </button>
+              <button type="button" class="cselect-opt" role="option" data-value="Site + réservation en ligne (1 000 € HT)">
+                <span class="cselect-opt-label">Site + réservation en ligne</span>
+                <span class="cselect-opt-price">1 000 € HT</span>
+              </button>
+              <button type="button" class="cselect-opt" role="option" data-value="CRM / logiciel / projet sur devis">
+                <span class="cselect-opt-label">CRM / logiciel sur mesure</span>
+                <span class="cselect-opt-price">Sur devis</span>
+              </button>
+              <button type="button" class="cselect-opt" role="option" data-value="Logiciel interne / CRM">
+                <span class="cselect-opt-label">Logiciel interne</span>
+                <span class="cselect-opt-price">Sur devis</span>
+              </button>
+              <button type="button" class="cselect-opt" role="option" data-value="Application web sur mesure">
+                <span class="cselect-opt-label">Application web</span>
+                <span class="cselect-opt-price">Sur devis</span>
+              </button>
+              <button type="button" class="cselect-opt" role="option" data-value="Design UI/UX">
+                <span class="cselect-opt-label">Design UI / UX</span>
+                <span class="cselect-opt-price">Sur devis</span>
+              </button>
+              <button type="button" class="cselect-opt" role="option" data-value="Autre">
+                <span class="cselect-opt-label">Autre</span>
+                <span class="cselect-opt-price">À définir</span>
+              </button>
+            </div>
+            <input type="hidden" name="type" id="cf-type" value="">
+          </div>
         </div>
         <div class="cform-field">
           <label for="cf-message">Décrivez votre projet</label>
           <textarea id="cf-message" name="message" placeholder="Parlez-nous de votre projet, vos objectifs, vos délais..."></textarea>
         </div>
         <div id="cform-error" style="display:none;margin-top:4px;padding:10px 14px;background:rgba(220,50,50,.12);border:1px solid rgba(220,50,50,.3);border-radius:8px;font-family:var(--sans);font-size:12px;color:#f87171;letter-spacing:.02em;">
-          Erreur lors de l'envoi. Vérifiez votre connexion ou contactez-nous directement à <a href="mailto:contact@mapa-dev.fr" style="color:inherit;text-decoration:underline;">contact@mapa-dev.fr</a>.
+          Erreur lors de l'envoi. Vérifiez votre connexion ou contactez-nous directement à <a href="mailto:contact@mapa-developpement.fr" style="color:inherit;text-decoration:underline;">contact@mapa-developpement.fr</a>.
         </div>
         <button type="submit" class="cform-submit">
           Envoyer ma demande
@@ -2000,81 +2171,145 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     <h3 class="modal-title">Mentions <em>légales</em></h3>
     <div class="modal-rule"></div>
     <div class="legal-content">
+      <p class="legal-p"><em>Conformément à l'article 6 III-1 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique (LCEN) et au Règlement Général sur la Protection des Données (RGPD) n° 2016/679.</em></p>
+
       <h4 class="legal-h">1. Éditeur du site</h4>
-      <p class="legal-p">Le présent site internet, accessible à l’adresse : <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">https://www.mapa-developpement.fr</a></p>
-      <p class="legal-p">est édité par :</p>
-      <p class="legal-p"><strong>MAPA Développement</strong><br>Matis GOUYET<br>Entrepreneur individuel – Micro-entreprise<br>SIREN : 919 461 301<br>SIRET : 919 461 301 00021<br>Code APE / NAF : 6201Z – Programmation informatique<br>Adresse professionnelle : Rue Yves Decugis, 59650 Villeneuve-d’Ascq, France<br>Adresse e-mail : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a></p>
-      <p class="legal-p">Téléphone : <a href="tel:+33679623942">06 79 62 39 42</a></p>
-      <p class="legal-p">Directeur de la publication : Matis GOUYET</p>
+      <p class="legal-p">Le présent site internet, accessible à l'adresse <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">https://www.mapa-developpement.fr</a> (ci-après « le Site »), est édité par :</p>
+      <p class="legal-p"><strong>MAPA Développement</strong><br>
+      Exploité par Matis GOUYET<br>
+      Forme juridique : Entrepreneur individuel – Micro-entreprise<br>
+      SIREN : 919 461 301<br>
+      SIRET (siège) : 919 461 301 00021<br>
+      Code APE / NAF : 6201Z – Programmation informatique<br>
+      Immatriculation : Registre National des Entreprises (RNE) / RCS de Lille Métropole<br>
+      N° de TVA intracommunautaire : non applicable – article 293 B du Code général des impôts (franchise en base de TVA – micro-entreprise)<br>
+      Siège et adresse professionnelle : Rue Yves Decugis, 59650 Villeneuve-d'Ascq, France<br>
+      Courriel : <a href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a><br>
+      Téléphone : <a href="tel:+33679623942">+33 6 79 62 39 42</a></p>
 
-      <h4 class="legal-h">2. Hébergement</h4>
-      <p class="legal-p">Le site est hébergé par :</p>
-      <p class="legal-p"><strong>Hostinger</strong><br>61 Lordou Vironos Street, 6023 Larnaca, Chypre<br>Site : <a href="https://www.hostinger.com" target="_blank" rel="noopener noreferrer">https://www.hostinger.com</a><br>E-mail : <a href="mailto:support@hostinger.com">support@hostinger.com</a></p>
+      <h4 class="legal-h">2. Directeur de la publication</h4>
+      <p class="legal-p">Monsieur Matis GOUYET, en qualité d'exploitant individuel de MAPA Développement.<br>
+      Contact : <a href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a></p>
 
-      <h4 class="legal-h">3. Conception et réalisation</h4>
-      <p class="legal-p">Le site a été conçu et réalisé par :</p>
-      <p class="legal-p"><strong>MAPA Développement</strong><br>E-mail : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a></p>
+      <h4 class="legal-h">3. Hébergeur</h4>
+      <p class="legal-p">Le Site est hébergé par :</p>
+      <p class="legal-p"><strong>Vercel Inc.</strong><br>
+      440 N Barranca Ave #4133, Covina, CA 91723, États-Unis<br>
+      Site internet : <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">https://vercel.com</a><br>
+      Courriel : <a href="mailto:privacy@vercel.com">privacy@vercel.com</a></p>
+      <p class="legal-p">L'hébergeur étant établi aux États-Unis, les éventuels transferts de données sont encadrés par des garanties appropriées (clauses contractuelles types adoptées par la Commission européenne et, le cas échéant, adhésion au <em>Data Privacy Framework</em>).</p>
 
-      <h4 class="legal-h">4. Propriété intellectuelle</h4>
-      <p class="legal-p">L’ensemble des éléments présents sur le site, notamment les textes, contenus, visuels, graphismes, logos, icônes, éléments de design, structure, arborescence, ainsi que leur organisation, sont, sauf mention contraire, la propriété exclusive de MAPA Développement.</p>
-      <p class="legal-p">Toute reproduction, représentation, diffusion, adaptation, modification, publication, transmission ou exploitation, totale ou partielle, de tout ou partie du site, par quelque procédé que ce soit, sans autorisation écrite préalable de MAPA Développement, est interdite.</p>
-      <p class="legal-p">Toute utilisation non autorisée du site ou de l’un quelconque de ses éléments pourra donner lieu à des poursuites.</p>
+      <h4 class="legal-h">3 bis. Bureau d'enregistrement du nom de domaine</h4>
+      <p class="legal-p">Le nom de domaine <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">mapa-developpement.fr</a> est enregistré auprès de :</p>
+      <p class="legal-p"><strong>Hostinger International Ltd.</strong><br>
+      61 Lordou Vironos Street, 6023 Larnaca, Chypre<br>
+      Téléphone : +370 5 214 2256<br>
+      Site internet : <a href="https://www.hostinger.com" target="_blank" rel="noopener noreferrer">https://www.hostinger.com</a><br>
+      Courriel : <a href="mailto:support@hostinger.com">support@hostinger.com</a></p>
 
-      <h4 class="legal-h">5. Responsabilité</h4>
-      <p class="legal-p">MAPA Développement s’efforce de fournir sur le site des informations aussi précises que possible. Toutefois, les informations diffusées sur le site sont données à titre indicatif et sont susceptibles d’évoluer à tout moment, sans préavis.</p>
-      <p class="legal-p">MAPA Développement ne pourra être tenu responsable :</p>
-      <ul class="legal-list">
-        <li>d’une interruption temporaire du site ;</li>
-        <li>de la survenance de bugs ;</li>
-        <li>de toute inexactitude ou omission portant sur les informations disponibles sur le site ;</li>
-        <li>de tout dommage direct ou indirect résultant de l’accès au site ou de son utilisation ;</li>
-        <li>d’un dysfonctionnement lié à un tiers, à l’hébergeur ou au réseau internet.</li>
-      </ul>
-      <p class="legal-p">L’utilisateur reconnaît utiliser le site sous sa responsabilité exclusive.</p>
+      <h4 class="legal-h">4. Conception et réalisation</h4>
+      <p class="legal-p">Le Site a été intégralement conçu, développé et mis en ligne par <strong>MAPA Développement</strong>. Toute question relative au développement du Site peut être adressée à <a href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a>.</p>
+
+      <h4 class="legal-h">5. Propriété intellectuelle</h4>
+      <p class="legal-p">L'ensemble des éléments composant le Site – textes, contenus éditoriaux, visuels, graphismes, logos, icônes, photographies, vidéos, éléments de design, structure, arborescence, code source, animations et bases de données – sont, sauf mention contraire, la propriété exclusive de MAPA Développement ou font l'objet d'une autorisation d'utilisation.</p>
+      <p class="legal-p">Ils sont protégés par le Code de la propriété intellectuelle français, notamment ses articles <strong>L. 111-1, L. 112-1, L. 122-4 et L. 335-2 et suivants</strong>, ainsi que par les conventions internationales applicables.</p>
+      <p class="legal-p">Toute reproduction, représentation, diffusion, adaptation, modification, publication, transmission, dénaturation, commercialisation ou exploitation, totale ou partielle, de tout ou partie du Site, par quelque procédé que ce soit et sur quelque support que ce soit, sans autorisation écrite préalable de MAPA Développement, est <strong>strictement interdite</strong> et constitue une contrefaçon sanctionnée par les articles L. 335-2 et suivants du Code de la propriété intellectuelle.</p>
+      <p class="legal-p">Les marques, logos et noms commerciaux cités sur le Site sont la propriété de leurs titulaires respectifs.</p>
 
       <h4 class="legal-h">6. Liens hypertextes</h4>
-      <p class="legal-p">Le site peut contenir des liens hypertextes vers d’autres sites internet. MAPA Développement ne peut être tenu responsable du contenu, de la politique de confidentialité ou des pratiques de ces sites tiers.</p>
-      <p class="legal-p">La création de liens vers le site <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">https://www.mapa-developpement.fr</a> est autorisée, sous réserve qu’elle ne porte pas atteinte à l’image ou aux intérêts de MAPA Développement et qu’elle ne crée aucune confusion sur l’origine des contenus.</p>
+      <p class="legal-p">Le Site peut contenir des liens hypertextes vers des sites tiers. MAPA Développement n'exerce aucun contrôle sur ces sites et décline toute responsabilité quant à leur contenu, leur politique de confidentialité ou leurs pratiques commerciales. La consultation de ces sites relève de la seule responsabilité de l'utilisateur.</p>
+      <p class="legal-p">La création de liens hypertextes pointant vers <a href="https://www.mapa-developpement.fr" target="_blank" rel="noopener noreferrer">https://www.mapa-developpement.fr</a> est autorisée à condition qu'elle ne porte pas atteinte à l'image ou aux intérêts de MAPA Développement et qu'elle ne crée aucune confusion quant à l'origine des contenus. MAPA Développement se réserve le droit de demander la suppression d'un lien qu'elle estimerait contraire à ses intérêts.</p>
 
-      <h4 class="legal-h">7. Données personnelles</h4>
-      <p class="legal-p">Le site MAPA Développement est un site vitrine permettant notamment aux utilisateurs de prendre contact, de demander des informations ou de solliciter un devis. Pour ce type de site, la CNIL recommande a minima des mentions d’information sur le formulaire, un moyen d’exercer ses droits et des mentions légales identifiant l’éditeur.</p>
-      <p class="legal-p">Les données personnelles susceptibles d’être collectées via le formulaire de contact ou par e-mail sont notamment :</p>
+      <h4 class="legal-h">7. Responsabilité</h4>
+      <p class="legal-p">MAPA Développement s'efforce d'assurer l'exactitude et la mise à jour des informations publiées sur le Site. Ces informations sont néanmoins fournies à titre indicatif et sont susceptibles d'évoluer à tout moment sans préavis.</p>
+      <p class="legal-p">MAPA Développement ne saurait être tenue responsable :</p>
+      <ul class="legal-list">
+        <li>d'une interruption temporaire d'accès au Site, pour maintenance ou toute autre cause technique ;</li>
+        <li>de la survenance de bugs, d'erreurs ou d'anomalies de fonctionnement ;</li>
+        <li>de toute inexactitude, omission ou imprécision portant sur les informations disponibles sur le Site ;</li>
+        <li>de tout dommage direct, indirect, matériel ou immatériel, quelle qu'en soit la cause, résultant de l'accès au Site ou de son utilisation ;</li>
+        <li>d'un dysfonctionnement imputable à un tiers, à l'hébergeur ou au réseau internet ;</li>
+        <li>de toute contamination par virus ou intrusion frauduleuse.</li>
+      </ul>
+      <p class="legal-p">L'utilisateur reconnaît utiliser le Site sous sa responsabilité exclusive et disposer des compétences et moyens techniques nécessaires à son utilisation.</p>
+
+      <h4 class="legal-h">8. Protection des données personnelles (RGPD)</h4>
+
+      <p class="legal-p"><strong>Responsable du traitement</strong> — Les données personnelles collectées via le Site sont traitées par MAPA Développement (coordonnées en section 1), agissant en qualité de responsable du traitement au sens de l'article 4 du RGPD.</p>
+
+      <p class="legal-p"><strong>Données collectées</strong> — Les données à caractère personnel susceptibles d'être collectées via le formulaire de contact ou par courriel sont :</p>
       <ul class="legal-list">
         <li>nom et prénom ;</li>
-        <li>adresse e-mail ;</li>
+        <li>adresse de courriel ;</li>
         <li>numéro de téléphone ;</li>
-        <li>nom de l’entreprise ;</li>
+        <li>nom de l'entreprise et fonction ;</li>
+        <li>type de projet sollicité ;</li>
         <li>contenu du message ;</li>
-        <li>toute information transmise volontairement par l’utilisateur.</li>
+        <li>toute information transmise volontairement par l'utilisateur.</li>
       </ul>
-      <p class="legal-p">Ces données sont collectées uniquement afin de :</p>
+
+      <p class="legal-p"><strong>Finalités et bases légales du traitement</strong> — Les données sont traitées exclusivement pour les finalités suivantes, fondées sur les bases légales indiquées (article 6 du RGPD) :</p>
       <ul class="legal-list">
-        <li>répondre aux demandes envoyées via le site ;</li>
-        <li>échanger avec les prospects et clients ;</li>
-        <li>établir un devis ;</li>
-        <li>assurer le suivi précontractuel et commercial.</li>
+        <li>répondre aux demandes de contact, d'information ou de devis — base légale : <em>mesures précontractuelles prises à la demande de l'utilisateur</em> (art. 6.1.b RGPD) ;</li>
+        <li>assurer le suivi commercial et la gestion de la relation client — base légale : <em>exécution du contrat</em> ou <em>intérêt légitime</em> de l'éditeur (art. 6.1.b et 6.1.f RGPD) ;</li>
+        <li>respecter les obligations légales, comptables et fiscales — base légale : <em>obligation légale</em> (art. 6.1.c RGPD).</li>
       </ul>
-      <p class="legal-p">Les données sont traitées par MAPA Développement, en qualité de responsable du traitement.</p>
-      <p class="legal-p">Conformément au RGPD, l’utilisateur dispose d’un droit d’accès, de rectification, d’effacement, de limitation, d’opposition et, lorsque cela est applicable, d’un droit à la portabilité. La CNIL rappelle que l’information des personnes doit être claire, transparente et facilement accessible.</p>
-      <p class="legal-p">Toute demande relative aux données personnelles peut être adressée à : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a></p>
-      <p class="legal-p">En cas de difficulté, l’utilisateur peut introduire une réclamation auprès de la CNIL.</p>
 
-      <h4 class="legal-h">8. Cookies</h4>
-      <p class="legal-p">Le site MAPA Développement n’utilise pas de cookies publicitaires, de cookies de mesure d’audience ou de traceurs soumis à consentement.</p>
-      <p class="legal-p">En conséquence, aucun bandeau de consentement aux cookies n’est affiché à ce jour.</p>
-      <p class="legal-p">Si des outils de mesure d’audience ou des traceurs publicitaires étaient ajoutés ultérieurement, MAPA Développement mettrait à jour la présente page ainsi que, le cas échéant, le mécanisme de recueil du consentement conformément aux recommandations de la CNIL.</p>
+      <p class="legal-p"><strong>Destinataires</strong> — Les données sont destinées à MAPA Développement et à ses éventuels sous-traitants techniques strictement nécessaires au fonctionnement du Site et à la gestion commerciale (hébergeur, fournisseur de boîte courriel, outils de gestion interne). Les données <strong>ne sont ni vendues, ni louées, ni cédées</strong> à des tiers à des fins commerciales.</p>
 
-      <h4 class="legal-h">9. Sécurité</h4>
-      <p class="legal-p">MAPA Développement met en œuvre des mesures techniques et organisationnelles appropriées afin de protéger les données personnelles qui pourraient être transmises via le site.</p>
-      <p class="legal-p">Toutefois, aucun système de transmission ou de stockage n’étant totalement invulnérable, une sécurité absolue ne peut être garantie.</p>
+      <p class="legal-p"><strong>Transferts hors Union européenne</strong> — Certains sous-traitants techniques peuvent être établis en dehors de l'Union européenne. Dans cette hypothèse, MAPA Développement s'assure que ces transferts sont encadrés par des garanties appropriées (clauses contractuelles types de la Commission européenne ou décision d'adéquation).</p>
 
-      <h4 class="legal-h">10. Droit applicable</h4>
-      <p class="legal-p">Les présentes mentions légales sont régies par le droit français.</p>
-      <p class="legal-p">En cas de litige, et à défaut de résolution amiable préalable, les juridictions françaises seront seules compétentes, sous réserve des dispositions légales impératives applicables.</p>
+      <p class="legal-p"><strong>Durées de conservation</strong> — Les données sont conservées pour une durée limitée, fonction de la finalité :</p>
+      <ul class="legal-list">
+        <li>demandes de contact sans suite commerciale : <strong>3 ans</strong> à compter du dernier contact ;</li>
+        <li>prospects et clients actifs : pendant toute la durée de la relation commerciale ;</li>
+        <li>données comptables et fiscales : <strong>10 ans</strong> à compter de la clôture de l'exercice concerné, conformément à l'article L. 123-22 du Code de commerce ;</li>
+        <li>journaux techniques (logs serveur) : maximum <strong>12 mois</strong>.</li>
+      </ul>
 
-      <h4 class="legal-h">11. Contact</h4>
-      <p class="legal-p">Pour toute question relative au site ou à son contenu, vous pouvez contacter :</p>
-      <p class="legal-p"><strong>MAPA Développement</strong><br>Matis GOUYET<br>E-mail : <a href="mailto:contact@mapa-dev.fr">contact@mapa-dev.fr</a><br>Téléphone : <a href="tel:+33679623942">06 79 62 39 42</a></p>
+      <p class="legal-p"><strong>Droits de l'utilisateur</strong> — Conformément aux articles 15 à 22 du RGPD et à la loi Informatique et Libertés modifiée, l'utilisateur dispose des droits suivants sur ses données :</p>
+      <ul class="legal-list">
+        <li>droit d'accès et droit d'information ;</li>
+        <li>droit de rectification des données inexactes ou incomplètes ;</li>
+        <li>droit à l'effacement (« droit à l'oubli ») ;</li>
+        <li>droit à la limitation du traitement ;</li>
+        <li>droit d'opposition au traitement ;</li>
+        <li>droit à la portabilité des données ;</li>
+        <li>droit de définir des directives relatives au sort des données après décès.</li>
+      </ul>
+      <p class="legal-p">Ces droits peuvent être exercés à tout moment en écrivant à <a href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a> ou par courrier à l'adresse du siège. Une réponse sera apportée dans un délai maximal d'un mois (prorogeable de deux mois pour les demandes complexes).</p>
+
+      <p class="legal-p"><strong>Réclamation</strong> — En cas de désaccord persistant sur le traitement de ses données, l'utilisateur a le droit d'introduire une réclamation auprès de la <strong>Commission Nationale de l'Informatique et des Libertés (CNIL)</strong>, 3 Place de Fontenoy, TSA 80715, 75334 PARIS CEDEX 07 – <a href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer">www.cnil.fr</a>.</p>
+
+      <h4 class="legal-h">9. Cookies et traceurs</h4>
+      <p class="legal-p">Le Site n'utilise <strong>aucun cookie publicitaire, aucun cookie de mesure d'audience ni aucun traceur soumis à consentement préalable</strong> au sens de l'article 82 de la loi Informatique et Libertés. En conséquence, aucun bandeau de consentement n'est affiché.</p>
+      <p class="legal-p">Seuls des cookies strictement nécessaires au fonctionnement technique du Site (préférences d'affichage, session) peuvent être utilisés ; ceux-ci sont exemptés de consentement conformément aux recommandations de la CNIL.</p>
+      <p class="legal-p">Si des outils de mesure d'audience ou des traceurs publicitaires venaient à être ajoutés ultérieurement, la présente page et le mécanisme de recueil du consentement seraient mis à jour en conformité avec les lignes directrices de la CNIL.</p>
+
+      <h4 class="legal-h">10. Sécurité des données</h4>
+      <p class="legal-p">MAPA Développement met en œuvre les mesures techniques et organisationnelles appropriées, proportionnées aux risques et à la nature des données traitées, afin de préserver la confidentialité, l'intégrité et la disponibilité des données à caractère personnel : chiffrement des communications (HTTPS/TLS), restrictions d'accès, principe de moindre privilège, sauvegardes régulières.</p>
+      <p class="legal-p">L'utilisateur est néanmoins informé qu'aucune transmission ou conservation de données sur internet n'est totalement invulnérable ; une sécurité absolue ne peut en conséquence être garantie.</p>
+
+      <h4 class="legal-h">11. Médiation et résolution des litiges</h4>
+      <p class="legal-p">Conformément à l'article L. 612-1 du Code de la consommation, tout client ayant la qualité de consommateur dispose du droit de recourir gratuitement à un médiateur de la consommation en cas de différend n'ayant pu être résolu à l'amiable avec MAPA Développement, après tentative écrite préalable de règlement direct.</p>
+      <p class="legal-p">La plateforme européenne de règlement en ligne des litiges de consommation est également accessible à l'adresse suivante : <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener noreferrer">https://ec.europa.eu/consumers/odr</a>.</p>
+
+      <h4 class="legal-h">12. Droit applicable et juridiction compétente</h4>
+      <p class="legal-p">Les présentes mentions légales et toute question relative au Site sont régies par le <strong>droit français</strong>, à l'exclusion de toute autre législation.</p>
+      <p class="legal-p">À défaut de résolution amiable préalable et de recours à la médiation, tout litige sera porté devant les <strong>tribunaux compétents de Lille</strong>, sous réserve des règles de compétence impératives protectrices du consommateur lorsqu'elles sont applicables.</p>
+
+      <h4 class="legal-h">13. Modification des mentions légales</h4>
+      <p class="legal-p">MAPA Développement se réserve le droit de modifier les présentes mentions légales à tout moment afin de refléter les évolutions légales, réglementaires, jurisprudentielles ou techniques. L'utilisateur est invité à les consulter régulièrement. La version applicable est celle en vigueur à la date d'utilisation du Site.</p>
+
+      <h4 class="legal-h">14. Contact</h4>
+      <p class="legal-p">Pour toute question relative au Site, aux présentes mentions légales ou à l'exercice des droits RGPD :</p>
+      <p class="legal-p"><strong>MAPA Développement</strong><br>
+      Matis GOUYET<br>
+      Rue Yves Decugis, 59650 Villeneuve-d'Ascq, France<br>
+      Courriel : <a href="mailto:contact@mapa-developpement.fr">contact@mapa-developpement.fr</a><br>
+      Téléphone : <a href="tel:+33679623942">+33 6 79 62 39 42</a></p>
+
+      <p class="legal-p" style="margin-top:28px;padding-top:16px;border-top:1px solid rgba(237,232,223,.08);font-size:.92em;color:rgba(237,232,223,.42)"><em>Dernière mise à jour : 24 avril 2026.</em></p>
     </div>
   </div>
 </div>
@@ -2082,7 +2317,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 <script>
 const CHAPTERS = document.querySelectorAll('.chapter');
 const TOTAL = CHAPTERS.length;
-const chNames = ['Introduction','Sites vitrine','E-commerce','Applications','Design UI/UX','Studio','Méthode','Témoignages','Investissement','Contact'];
+const chNames = ['Introduction','Site vitrine','Logiciels & CRM','Design UI/UX','SEO & Référencement','Application web','Studio','Méthode','Témoignages','Investissement','Contact'];
 let cur_ch = 0, isAnim = false;
 
 /* Hauteur d’une « page » = innerHeight / visualViewport - doit matcher .chapter (--slide-h), sinon 100vh sur mobile > zone visible → deux sections à l’écran */
@@ -2113,38 +2348,52 @@ document.querySelectorAll('a,button,.pc,.s-blk,.pr-it,.ch-tag').forEach(e=>{
   e.addEventListener('mouseleave',()=>document.body.classList.remove('cur-hover'));
 });
 
-// Canvas particles
+// Canvas particles — init différé pour ne pas peser sur FCP/LCP,
+// particules réduites sur mobile, skippé sur connexion lente + reduced-motion
 const cv=document.getElementById('webgl');
-const c=cv.getContext('2d');
-let W,H;
-function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
-rsz();window.addEventListener('resize',rsz);
-const pts=Array.from({length:55},()=>({
-  x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
-  vx:(Math.random()-.5)*.13,vy:(Math.random()-.5)*.13,
-  sz:Math.random()*1.1+.3,a:Math.random()*.16+.03,
-  ph:Math.random()*Math.PI*2,sp:.003+Math.random()*.004
-}));
-(function draw(){
-  c.clearRect(0,0,W,H);
-  pts.forEach(p=>{
-    p.x+=p.vx;p.y+=p.vy;p.ph+=p.sp;
-    if(p.x<0)p.x=W;if(p.x>W)p.x=0;
-    if(p.y<0)p.y=H;if(p.y>H)p.y=0;
-    const a=p.a*(0.55+0.45*Math.sin(p.ph));
-    c.beginPath();c.arc(p.x,p.y,p.sz,0,Math.PI*2);
-    c.fillStyle=`rgba(184,151,58,${a})`;c.fill();
-  });
-  // ambient lines
-  const t=Date.now()*.0003;
-  for(let i=0;i<3;i++){
-    c.beginPath();
-    c.moveTo(0,H*.18+i*H*.3+Math.sin(t+i*1.2)*.6);
-    c.lineTo(W,H*.18+i*H*.3+Math.sin(t+i*1.2+Math.PI)*.6);
-    c.strokeStyle='rgba(184,151,58,0.022)';c.lineWidth=1;c.stroke();
-  }
-  requestAnimationFrame(draw);
-})();
+function startCanvasAmbient(){
+  const reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const nav=navigator.connection||navigator.mozConnection||navigator.webkitConnection;
+  const slow=nav&&(nav.saveData||/^(slow-2g|2g|3g)$/.test(nav.effectiveType||''));
+  if(reduced||slow){cv.style.display='none';return;}
+  const isMobile=window.innerWidth<=800;
+  const pointCount=isMobile?24:55;
+  const c=cv.getContext('2d');
+  let W,H;
+  function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  rsz();window.addEventListener('resize',rsz);
+  const pts=Array.from({length:pointCount},()=>({
+    x:Math.random()*window.innerWidth,y:Math.random()*window.innerHeight,
+    vx:(Math.random()-.5)*.13,vy:(Math.random()-.5)*.13,
+    sz:Math.random()*1.1+.3,a:Math.random()*.16+.03,
+    ph:Math.random()*Math.PI*2,sp:.003+Math.random()*.004
+  }));
+  (function draw(){
+    c.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.x+=p.vx;p.y+=p.vy;p.ph+=p.sp;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;
+      if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      const a=p.a*(0.55+0.45*Math.sin(p.ph));
+      c.beginPath();c.arc(p.x,p.y,p.sz,0,Math.PI*2);
+      c.fillStyle=`rgba(184,151,58,${a})`;c.fill();
+    });
+    const t=Date.now()*.0003;
+    for(let i=0;i<3;i++){
+      c.beginPath();
+      c.moveTo(0,H*.18+i*H*.3+Math.sin(t+i*1.2)*.6);
+      c.lineTo(W,H*.18+i*H*.3+Math.sin(t+i*1.2+Math.PI)*.6);
+      c.strokeStyle='rgba(184,151,58,0.022)';c.lineWidth=1;c.stroke();
+    }
+    requestAnimationFrame(draw);
+  })();
+}
+// Démarrage ambient après le premier paint (rIC si dispo, sinon setTimeout)
+if('requestIdleCallback' in window){
+  requestIdleCallback(startCanvasAmbient,{timeout:1200});
+}else{
+  setTimeout(startCanvasAmbient,600);
+}
 
 // Chapter dots
 const dotsWrap=document.getElementById('ch-dots');
@@ -2188,9 +2437,9 @@ function zoomIntoCh4(){
   const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const hiddenWrap=wrap&&getComputedStyle(wrap).display==='none';
 
-  // Pas de FX possible (mobile / reduced-motion / wrap absent) → transition propre classique
+  // Pas de FX possible (mobile / reduced-motion / wrap absent) → transition propre classique vers Studio
   if(!wrap||!mkb||hiddenWrap||reducedMotion||!logoFx){
-    goto(4);
+    goto(6);
     return;
   }
 
@@ -2220,15 +2469,15 @@ function zoomIntoCh4(){
     logoFx.classList.add('fx-play');
   });
 
-  // Au pic du flash (~1050ms) : saut silencieux vers ch4 pendant que l'œil est aveuglé,
+  // Au pic du flash (~1050ms) : saut silencieux vers Studio (index 6) pendant que l'œil est aveuglé,
   // puis on pose l'acte cinématographique par-dessus (fond noir, wordmark qui monte)
   const cine=document.getElementById('cine-reveal');
   setTimeout(()=>{
-    cur_ch=4;
+    cur_ch=6;
     track.style.transition='none';
-    track.style.transform=`translateY(${-4*slidePx()}px)`;
-    activateCh(4);updDots(4);
-    document.getElementById('nci').textContent=chNames[4];
+    track.style.transform=`translateY(${-6*slidePx()}px)`;
+    activateCh(6);updDots(6);
+    document.getElementById('nci').textContent=chNames[6];
     document.getElementById('fbar').classList.add('vis');
     if(cine){
       cine.classList.remove('leaving');
@@ -2291,7 +2540,8 @@ function spawnGoldParticles(container,count){
 }
 
 function doScroll(dir){
-  if(dir>0&&cur_ch===3){zoomIntoCh4();}
+  // Animation 3D déclenchée quand on quitte le slide "05 - Application web" (index 5) vers le suivant
+  if(dir>0&&cur_ch===5){zoomIntoCh4();}
   else{goto(cur_ch+(dir>0?1:-1));}
 }
 
@@ -2334,7 +2584,7 @@ window.addEventListener('wheel',e=>{
   e.preventDefault();
   if(wLock||isAnim)return;
   wLock=true;
-  const isZoom=(e.deltaY>0&&cur_ch===3);
+  const isZoom=(e.deltaY>0&&cur_ch===5);
   setTimeout(()=>wLock=false,isZoom?6200:900);
   doScroll(e.deltaY);
 },{passive:false});
@@ -2378,7 +2628,7 @@ window.addEventListener('keydown',e=>{
 
 // Nav links
 document.getElementById('btn-disc').addEventListener('click',e=>{e.preventDefault();goto(1);});
-document.getElementById('btn-proj').addEventListener('click',e=>{e.preventDefault();goto(4);});
+document.getElementById('btn-proj').addEventListener('click',e=>{e.preventDefault();goto(6);});
 document.getElementById('ncta').addEventListener('click',e=>{e.preventDefault();goto(TOTAL-1);});
 document.querySelectorAll('.pc-btn').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();goto(TOTAL-1);}));
 
@@ -2416,7 +2666,7 @@ function showT(i,dir=1){
   },280);
 }
 tds.forEach(b=>b.addEventListener('click',()=>{const i=+b.dataset.i;showT(i,i>ti?1:-1);ti=i;}));
-setInterval(()=>{if(cur_ch===7){const n=(ti+1)%3;showT(n,1);ti=n;}},10000);
+setInterval(()=>{if(cur_ch===8){const n=(ti+1)%3;showT(n,1);ti=n;}},10000);
 
 // Resize
 function onViewportResize(){
@@ -2431,23 +2681,31 @@ window.addEventListener('orientationchange',()=>{
   setTimeout(onViewportResize,250);
 });
 
-// INTRO
+// INTRO — timings resserrés (mobile en priorité) pour accélérer FCP/LCP
+const isMobileView=window.innerWidth<=800;
+const introKick=isMobileView?60:140;
+const introLetterStep=isMobileView?55:90;
+const introSubDelay=isMobileView?320:480;
+const introEnterDelay=isMobileView?900:1400;
 setTimeout(()=>{
-  document.querySelectorAll('.intro-wordmark span').forEach((s,i)=>setTimeout(()=>s.classList.add('up'),120+i*90));
-  setTimeout(()=>{document.querySelector('.intro-sub').classList.add('vis');document.getElementById('ibar').classList.add('fill');},650);
-  setTimeout(()=>document.getElementById('ienter').classList.add('vis'),1900);
-},350);
+  document.querySelectorAll('.intro-wordmark span').forEach((s,i)=>setTimeout(()=>s.classList.add('up'),introLetterStep*i));
+  setTimeout(()=>{document.querySelector('.intro-sub').classList.add('vis');document.getElementById('ibar').classList.add('fill');},introSubDelay);
+  setTimeout(()=>document.getElementById('ienter').classList.add('vis'),introEnterDelay);
+},introKick);
 
 function enter(){
-  document.getElementById('intro').classList.add('gone');
+  const intro=document.getElementById('intro');
+  if(intro)intro.classList.add('gone');
+  // Fade-out plus court sur mobile (matche la transition CSS accélérée)
+  const fadeMs=window.innerWidth<=800?520:950;
   setTimeout(()=>{
-    try{document.getElementById('intro').remove();}catch(e){}
+    try{intro&&intro.remove();}catch(e){}
     document.getElementById('htag').classList.add('vis');
     document.getElementById('hacts').classList.add('vis');
     document.getElementById('hhint').classList.add('vis');
     ['hi0','hi1','hi2'].forEach(id=>document.getElementById(id).classList.add('up'));
     document.getElementById('ch0').classList.add('on');
-  },950);
+  },fadeMs);
 }
 document.getElementById('ienter').addEventListener('click',enter);
 document.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&document.getElementById('intro'))enter();},{once:true});
@@ -2505,7 +2763,7 @@ document.getElementById('proc-close').addEventListener('click',()=>closeModal('p
 const priceData=[
   {
     eyebrow:'Site web vitrine',
-    title:'Site web vitrine<br><em>600 € TTC</em>',
+    title:'Site web vitrine<br><em>600 € HT</em>',
     sub:'Présentation claire de votre activité · livraison selon cadrage',
     body:'L’offre idéale pour une <strong>première présence web professionnelle</strong> : pages essentielles, design soigné, affichage mobile, formulaire de contact et bases SEO pour être trouvé localement.',
     features:['Jusqu’à 5 pages','Design sur mesure (charte & mise en page)','Responsive mobile & tablette','Formulaire de contact','SEO technique de base','Mise en ligne & handover'],
@@ -2513,7 +2771,7 @@ const priceData=[
   },
   {
     eyebrow:'Avec réservation',
-    title:'Site + réservation<br><em>1 000 € TTC</em>',
+    title:'Site + réservation<br><em>1 000 € HT</em>',
     sub:'Vitrine enrichie d’un système de prise de rendez-vous en ligne',
     body:'Pour les professions qui vivent au rythme des <strong>créneaux</strong> : tout l’essentiel de la vitrine, plus un module de réservation adapté à votre logique (créneaux, services, notifications selon besoin).',
     features:['Tout l’offre vitrine','Prise de rendez-vous / réservation en ligne','Paramétrage calendrier & prestations','Parcours utilisateur simplifié','Accompagnement à la prise en main'],
@@ -2606,6 +2864,100 @@ document.addEventListener('keydown',e=>{
       keepalive:true
     }).catch(function(){});
   });
+})();
+
+// CSELECT : dropdown custom « type de projet »
+(function(){
+  var wrap=document.getElementById('cf-type-wrap');
+  if(!wrap)return;
+  var btn=document.getElementById('cf-type-btn');
+  var pop=document.getElementById('cf-type-pop');
+  var hidden=document.getElementById('cf-type');
+  var valueSpan=btn.querySelector('.cselect-value');
+  var opts=Array.prototype.slice.call(pop.querySelectorAll('.cselect-opt'));
+  var form=document.getElementById('cform');
+
+  function setOpen(open){
+    if(open){
+      // Flip : on ouvre vers le haut s'il n'y a pas assez de place en bas
+      var btnRect=btn.getBoundingClientRect();
+      var spaceBelow=window.innerHeight-btnRect.bottom;
+      var spaceAbove=btnRect.top;
+      var needed=Math.min(320,opts.length*46+20);
+      if(spaceBelow<needed+24&&spaceAbove>spaceBelow){
+        pop.style.top='auto';pop.style.bottom='calc(100% + 8px)';
+        pop.style.transform='';
+        wrap.classList.add('flip-up');
+      }else{
+        pop.style.bottom='auto';pop.style.top='calc(100% + 8px)';
+        wrap.classList.remove('flip-up');
+      }
+    }
+    wrap.classList.toggle('open',open);
+    btn.setAttribute('aria-expanded',open?'true':'false');
+    pop.setAttribute('aria-hidden',open?'false':'true');
+    if(open){
+      var sel=pop.querySelector('.cselect-opt.is-selected')||opts[0];
+      if(sel)setTimeout(function(){sel.focus();},10);
+    }
+  }
+
+  function select(opt){
+    var value=opt.getAttribute('data-value');
+    var label=opt.querySelector('.cselect-opt-label').textContent;
+    hidden.value=value;
+    valueSpan.textContent=label;
+    valueSpan.removeAttribute('data-placeholder');
+    opts.forEach(function(o){o.classList.toggle('is-selected',o===opt);});
+    setOpen(false);
+    btn.focus();
+    // Déclenche un event 'change' sur le hidden pour d'éventuels listeners
+    hidden.dispatchEvent(new Event('change',{bubbles:true}));
+  }
+
+  function reset(){
+    hidden.value='';
+    valueSpan.textContent='Sélectionner…';
+    valueSpan.setAttribute('data-placeholder','1');
+    opts.forEach(function(o){o.classList.remove('is-selected');});
+  }
+
+  btn.addEventListener('click',function(e){
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+
+  opts.forEach(function(opt,idx){
+    opt.addEventListener('click',function(e){e.stopPropagation();select(opt);});
+    opt.addEventListener('keydown',function(e){
+      if(e.key==='ArrowDown'){e.preventDefault();(opts[idx+1]||opts[0]).focus();}
+      else if(e.key==='ArrowUp'){e.preventDefault();(opts[idx-1]||opts[opts.length-1]).focus();}
+      else if(e.key==='Home'){e.preventDefault();opts[0].focus();}
+      else if(e.key==='End'){e.preventDefault();opts[opts.length-1].focus();}
+      else if(e.key==='Enter'||e.key===' '){e.preventDefault();select(opt);}
+      else if(e.key==='Escape'){e.preventDefault();setOpen(false);btn.focus();}
+    });
+  });
+
+  btn.addEventListener('keydown',function(e){
+    if(e.key==='ArrowDown'||e.key==='Enter'||e.key===' '){
+      e.preventDefault();
+      setOpen(true);
+    }
+  });
+
+  // Click en dehors → fermer
+  document.addEventListener('click',function(e){
+    if(!wrap.contains(e.target))setOpen(false);
+  });
+
+  // ESC global
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&wrap.classList.contains('open')){setOpen(false);btn.focus();}
+  });
+
+  // Reset du formulaire → remettre le placeholder
+  if(form){form.addEventListener('reset',function(){setTimeout(reset,0);});}
 })();
 
 // Form submit → Supabase
