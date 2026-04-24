@@ -117,7 +117,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
    --slide-h (px) = même hauteur que translateY dans le JS → évite le « demi-écran » sur mobile où 100vh ≠ innerHeight */
 .chapter{
   width:100vw;position:relative;
-  height:100vh;height:var(--slide-h,100vh);min-height:var(--slide-h,100vh);max-height:var(--slide-h,100vh);
+  height:100vh;height:100dvh;height:var(--slide-h,100vh);min-height:var(--slide-h,100vh);max-height:var(--slide-h,100vh);
   display:flex;flex-direction:column;justify-content:center;overflow:hidden;flex-shrink:0;
 }
 
@@ -174,7 +174,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 /* ══ CHAPTER STYLES ══ */
 
 /* HERO */
-#ch0{padding:0 56px;align-items:flex-start}
+#ch0{padding:60px 56px 0;align-items:flex-start;justify-content:flex-start}
 .h-tag{
   font-family:var(--sans);font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);
   margin-bottom:30px;display:flex;align-items:center;gap:14px;
@@ -232,7 +232,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .btn-ghost:hover{color:var(--cream);border-color:rgba(237,232,223,.28)}
 
 /* SERVICE chapters */
-.ch-svc{padding:0 56px;align-items:flex-start;border-top:1px solid rgba(237,232,223,.05)}
+.ch-svc{padding:60px 56px 0;align-items:flex-start;justify-content:flex-start;border-top:1px solid rgba(237,232,223,.05)}
 .ch-eye{
   font-family:var(--sans);font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);
   margin-bottom:24px;display:flex;align-items:center;gap:12px;
@@ -269,7 +269,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 .ch-gnum{position:absolute;right:52px;bottom:44px;font-family:var(--serif);font-size:190px;font-weight:700;color:rgba(184,151,58,.04);line-height:1;letter-spacing:-.04em;pointer-events:none}
 
 /* STATS */
-#ch-stats{padding:80px 56px 0;justify-content:flex-start}
+#ch-stats{padding:72px 56px 0;justify-content:flex-start}
 .s-grid{
   display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
   background:rgba(237,232,223,.06);margin-top:28px;
@@ -310,6 +310,37 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
 /* TESTIMONIALS */
 #ch-test{background:var(--bg);align-items:center;justify-content:center}
+/* Eyebrow en haut à gauche sous la nav, calé à 60px comme Méthode / Studio / Investissement */
+.ch-test-eye{
+  position:absolute;
+  top:60px;left:56px;
+  margin:0;
+}
+.ch-test-rule{
+  position:absolute;
+  top:88px;left:56px;
+  margin:0;
+}
+@media(max-width:800px){
+  .ch-test-eye{
+    top:max(72px,calc(env(safe-area-inset-top,0px) + 58px));
+    left:24px;
+  }
+  .ch-test-rule{
+    top:calc(max(72px,calc(env(safe-area-inset-top,0px) + 58px)) + 22px);
+    left:24px;
+  }
+}
+@media(max-width:480px){
+  .ch-test-eye{
+    top:max(68px,calc(env(safe-area-inset-top,0px) + 54px));
+    left:16px;
+  }
+  .ch-test-rule{
+    top:calc(max(68px,calc(env(safe-area-inset-top,0px) + 54px)) + 20px);
+    left:16px;
+  }
+}
 .t-inner{
   max-width:840px;text-align:center;padding:0 40px;
   opacity:0;transform:translateY(28px);
@@ -633,7 +664,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   margin-bottom:20px;
 }
 
-/* Méthode / Studio / Investissement (grand écran) : léger resserrement pour tenir dans la slide ; scroll interne en secours */
+/* Méthode / Studio / Investissement / Témoignages (grand écran) :
+   spacing header unifié à 60px sous la nav (référence = Méthode) ; scroll interne en secours */
 @media (min-width:801px){
   #ch-proc.chapter,
   #ch-stats.chapter,
@@ -647,9 +679,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #ch-proc.chapter::-webkit-scrollbar,
   #ch-stats.chapter::-webkit-scrollbar,
   #ch-price.chapter::-webkit-scrollbar{width:0;height:0;display:none}
-  #ch-proc{padding-top:60px}
-  #ch-proc .ch-eye{margin-bottom:18px}
-  #ch-proc .ch-rule{margin-bottom:22px}
+  /* Header uniforme : padding-top:60px pour les trois sections + position absolute équivalente pour ch-test */
+  #ch-proc,#ch-stats,#ch-price{padding-top:60px}
+  #ch-proc .ch-eye,#ch-stats .ch-eye,#ch-price .ch-eye{margin-bottom:18px}
+  #ch-proc .ch-rule,#ch-stats .ch-rule,#ch-price .ch-rule{margin-bottom:22px}
   #ch-proc .ch-ttl{
     font-size:clamp(26px,3.65vw,56px);
     margin-bottom:14px;
@@ -661,20 +694,20 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
 /* Laptops courts (≈ 1280-1600 × 720-900) : tarifs / studio / méthode tenaient mal - resserrage titres, paddings, cartes */
 @media (min-width:801px) and (max-height:900px){
-  /* Services : décale un peu le titre et le corps pour ne pas taper la nav */
-  .ch-svc{padding-top:80px;padding-bottom:40px;justify-content:flex-start}
+  /* Services : même spacing que Méthode (60px) */
+  .ch-svc{padding-top:60px;padding-bottom:40px}
   .ch-ttl{font-size:clamp(38px,5.4vw,84px);margin-bottom:32px}
   .ch-body{gap:56px}
 
   /* Studio - grille 4 chiffres */
-  #ch-stats{padding-top:58px}
+  #ch-stats{padding-top:60px}
   #ch-stats .ch-ttl{font-size:clamp(26px,3.3vw,50px);margin-bottom:18px}
   #ch-stats .s-grid{margin-top:22px}
   #ch-stats .s-blk{padding:24px 22px}
   #ch-stats .s-n{font-size:clamp(44px,5vw,64px)}
 
   /* Investissement - cartes tarifs (le principal souci : carte centrale débordait en bas) */
-  #ch-price{padding-top:58px}
+  #ch-price{padding-top:60px}
   #ch-price .ch-eye{margin-bottom:18px}
   #ch-price .ch-rule{margin-bottom:20px}
   #ch-price .ch-ttl{font-size:clamp(26px,3.3vw,50px);margin-bottom:18px}
@@ -980,17 +1013,21 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #legal-modal .modal-box{padding:40px 20px 36px}
   .legal-content{font-size:13px;line-height:1.72}
   .legal-h{margin:24px 0 12px}
-  .chapter{
+  /* SPACING UNIFIÉ : toutes les sections partent au même décalage sous la nav (équivalent mobile du 60px desktop) */
+  .chapter,
+  #ch0.chapter,
+  .ch-svc.chapter,
+  #ch-proc.chapter,
+  #ch-price.chapter,
+  #ch-stats.chapter,
+  #ch-cta.chapter{
     justify-content:flex-start;
-    padding-top:max(56px,calc(env(safe-area-inset-top,0px) + 44px));
+    padding-top:max(72px,calc(env(safe-area-inset-top,0px) + 58px));
     padding-bottom:max(52px,calc(env(safe-area-inset-bottom,0px) + 36px));
     box-sizing:border-box;
   }
-  #ch0{padding-top:max(64px,calc(env(safe-area-inset-top,0px) + 48px))}
-  /* Méthode, Investissement & Studio : même décalage sous la nav (téléphone) */
-  #ch-proc.chapter,#ch-price.chapter,#ch-stats.chapter{
-    padding-top:max(72px,calc(env(safe-area-inset-top,0px) + 58px));
-  }
+  /* CTA Final : reste centré visuellement (tête + gros titre centré) */
+  #ch-cta.chapter{justify-content:center;padding-top:max(96px,calc(env(safe-area-inset-top,0px) + 76px))}
   .ch-ttl{margin-bottom:28px}
   .ch-eye{margin-bottom:16px}
   .ch-rule{margin-bottom:20px}
@@ -1039,8 +1076,12 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   #ch-stats .s-blk{padding:12px 14px}
   #ch-stats .s-n{font-size:clamp(28px,11vw,46px)}
   #ch-stats .s-l{margin-top:4px;font-size:8px;letter-spacing:.12em;line-height:1.25}
-  #ch-proc,#ch-price{padding-top:max(40px,calc(env(safe-area-inset-top,0px) + 28px))}
-  #ch-proc.chapter,#ch-price.chapter,#ch-stats.chapter{padding-top:max(68px,calc(env(safe-area-inset-top,0px) + 54px))!important}
+  /* Petit écran : spacing header unifié à 68px (cohérent avec le reste) */
+  #ch0.chapter,
+  .ch-svc.chapter,
+  #ch-proc.chapter,
+  #ch-price.chapter,
+  #ch-stats.chapter{padding-top:max(68px,calc(env(safe-area-inset-top,0px) + 54px))!important}
   .pr-it{padding:12px 0;gap:10px;grid-template-columns:36px 1fr 28px}
   #ch-proc .pr-it{padding:16px 0;grid-template-columns:40px 1fr 30px;gap:12px}
   .pr-num{font-size:12px}
@@ -1073,6 +1114,430 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .modal-title{font-size:clamp(22px,6vw,36px)}
   .modal-body{font-size:14px}
   .intro-wordmark{font-size:clamp(22px,9vw,40px);letter-spacing:.18em}
+}
+
+/* ════════════════════════════════════════════════
+   TRANSITION CINÉMATIQUE CH3 → CH4
+   Logo émerge du MacBook, rotation 3D, particules or
+   Orchestrée depuis JS (zoomIntoCh4)
+   ════════════════════════════════════════════════ */
+
+/* Aura dorée autour du MacBook pendant la transition */
+.mb3-aura{
+  position:absolute;inset:-30%;
+  background:
+    radial-gradient(ellipse at center,rgba(184,151,58,.55) 0%,rgba(184,151,58,.15) 35%,transparent 65%),
+    radial-gradient(ellipse at center,rgba(212,185,106,.3) 0%,transparent 50%);
+  opacity:0;
+  filter:blur(40px);
+  pointer-events:none;
+  z-index:-1;
+  transition:opacity .55s cubic-bezier(.22,.61,.36,1);
+  will-change:opacity;
+}
+#mb3-wrap.fx-active .mb3-aura{opacity:1}
+
+/* MacBook en mode FX : straighten + zoom + brightness pump, puis retrait vers l'arrière */
+#mb3-wrap.fx-active .mkb{
+  animation:mkbFxOut 1.55s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes mkbFxOut{
+  0%  {transform:perspective(1100px) rotateY(-11deg) rotateX(4deg) scale(1);filter:brightness(1) blur(0)}
+  14% {transform:perspective(1100px) rotateY(0deg) rotateX(0deg) scale(1.04);filter:brightness(1.25) blur(0)}
+  32% {transform:perspective(1100px) rotateY(0deg) rotateX(-2deg) scale(1.08);filter:brightness(1.55) blur(0)}
+  55% {transform:perspective(1100px) rotateY(0deg) rotateX(14deg) scale(.92) translateZ(-80px);filter:brightness(.6) blur(1px);opacity:.55}
+  100%{transform:perspective(1100px) rotateY(0deg) rotateX(38deg) scale(.22) translateZ(-600px);filter:brightness(0) blur(10px);opacity:0}
+}
+
+/* Overlay fixe qui contient le logo volant + particules */
+#logo-fx{
+  position:fixed;
+  top:50%;left:50%;
+  width:0;height:0;
+  z-index:6500;
+  pointer-events:none;
+  opacity:0;
+  perspective:1600px;
+  transform-style:preserve-3d;
+}
+#logo-fx.fx-active{opacity:1}
+
+/* Scène 3D qui porte le logo */
+.logo-fx-stage{
+  position:absolute;
+  top:0;left:0;
+  width:min(42vw,460px);
+  aspect-ratio:684 / 365;
+  transform:translate(-50%,-50%) rotateY(0deg) rotateX(0deg) scale(.35);
+  transform-style:preserve-3d;
+  will-change:transform,opacity,filter;
+}
+.logo-fx-img,.logo-fx-ghost{
+  position:absolute;inset:0;
+  width:100%;height:100%;
+  object-fit:contain;
+  backface-visibility:visible;
+}
+.logo-fx-img{
+  filter:drop-shadow(0 22px 60px rgba(0,0,0,.85)) drop-shadow(0 0 60px rgba(184,151,58,.45));
+  z-index:2;
+}
+/* Ghost : seconde copie légèrement décalée pour effet parallaxe / relief 3D */
+.logo-fx-ghost{
+  opacity:.35;
+  mix-blend-mode:screen;
+  filter:blur(2px) brightness(1.5);
+  transform:translateZ(-28px);
+}
+
+#logo-fx.fx-play .logo-fx-stage{
+  animation:logoFxStage 1.55s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes logoFxStage{
+  0%  {transform:translate(-50%,-50%) rotateY(0deg) rotateX(0deg) scale(.35);opacity:0;filter:blur(8px) brightness(1.2)}
+  18% {transform:translate(-50%,-50%) rotateY(60deg) rotateX(-4deg) scale(.75);opacity:1;filter:blur(0) brightness(1.35)}
+  42% {transform:translate(-50%,-52%) rotateY(200deg) rotateX(-8deg) scale(1.15);opacity:1;filter:blur(0) brightness(1.2)}
+  68% {transform:translate(-50%,-54%) rotateY(340deg) rotateX(-4deg) scale(1.55);opacity:1;filter:blur(0) brightness(1.05)}
+  85% {transform:translate(-50%,-56%) rotateY(460deg) rotateX(6deg) scale(2.1);opacity:.85;filter:blur(2px) brightness(1)}
+  100%{transform:translate(-50%,-60%) rotateY(540deg) rotateX(14deg) scale(3.2);opacity:0;filter:blur(14px) brightness(1)}
+}
+
+/* Halo derrière le logo (bloom doré) */
+.logo-fx-halo{
+  position:absolute;
+  top:0;left:0;
+  width:min(60vw,700px);
+  aspect-ratio:1;
+  transform:translate(-50%,-50%) scale(.2);
+  background:radial-gradient(circle at center,rgba(184,151,58,.55) 0%,rgba(184,151,58,.18) 28%,rgba(184,151,58,.04) 55%,transparent 70%);
+  filter:blur(30px);
+  opacity:0;
+  will-change:transform,opacity;
+}
+#logo-fx.fx-play .logo-fx-halo{
+  animation:logoFxHalo 1.55s cubic-bezier(.22,.61,.36,1) forwards;
+}
+@keyframes logoFxHalo{
+  0%  {opacity:0;transform:translate(-50%,-50%) scale(.25)}
+  25% {opacity:1;transform:translate(-50%,-50%) scale(.9)}
+  55% {opacity:.9;transform:translate(-50%,-54%) scale(1.4)}
+  100%{opacity:0;transform:translate(-50%,-60%) scale(2.8)}
+}
+
+/* Anneaux concentriques qui pulsent depuis le centre */
+.logo-fx-rings{position:absolute;top:0;left:0;pointer-events:none}
+.logo-fx-rings span{
+  position:absolute;top:0;left:0;
+  width:min(38vw,420px);aspect-ratio:1;border-radius:50%;
+  border:1px solid rgba(184,151,58,.45);
+  transform:translate(-50%,-50%) scale(0);
+  opacity:0;
+  will-change:transform,opacity;
+}
+#logo-fx.fx-play .logo-fx-rings span{
+  animation:logoFxRing 1.3s cubic-bezier(.22,.61,.36,1) forwards;
+}
+#logo-fx.fx-play .logo-fx-rings span:nth-child(1){animation-delay:.12s}
+#logo-fx.fx-play .logo-fx-rings span:nth-child(2){animation-delay:.32s;border-color:rgba(212,185,106,.32)}
+#logo-fx.fx-play .logo-fx-rings span:nth-child(3){animation-delay:.52s;border-color:rgba(184,151,58,.22)}
+@keyframes logoFxRing{
+  0%  {transform:translate(-50%,-50%) scale(.15);opacity:0}
+  15% {opacity:.85}
+  100%{transform:translate(-50%,-50%) scale(2.6);opacity:0}
+}
+
+/* Particules : gouttelettes d'or qui jaillissent en spirale */
+.logo-fx-particles{position:absolute;top:0;left:0;pointer-events:none}
+.logo-fx-particle{
+  position:absolute;top:0;left:0;
+  width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle,#f0d98a 0%,#d4b96a 40%,#b8973a 75%,transparent 100%);
+  box-shadow:0 0 10px rgba(212,185,106,.9),0 0 20px rgba(184,151,58,.5);
+  transform:translate(-50%,-50%) scale(0);
+  opacity:0;
+  will-change:transform,opacity;
+}
+@keyframes logoFxParticle{
+  0%  {transform:translate(-50%,-50%) scale(0);opacity:0}
+  8%  {opacity:1;transform:translate(calc(-50% + var(--px,0) * .15),calc(-50% + var(--py,0) * .15)) scale(1.4)}
+  60% {opacity:.9;transform:translate(calc(-50% + var(--px,0) * .7),calc(-50% + var(--py,0) * .7)) scale(1)}
+  100%{transform:translate(calc(-50% + var(--px,0)),calc(-50% + var(--py,0))) scale(.1);opacity:0}
+}
+
+/* Flash blanc bref au moment de transition (≈ 900ms) */
+.logo-fx-flash{
+  position:fixed;inset:0;
+  background:radial-gradient(circle at center,rgba(255,250,230,.85) 0%,rgba(184,151,58,.25) 35%,transparent 65%);
+  opacity:0;
+  pointer-events:none;
+  mix-blend-mode:screen;
+  will-change:opacity;
+}
+#logo-fx.fx-play .logo-fx-flash{
+  animation:logoFxFlash .9s cubic-bezier(.22,.61,.36,1) .7s forwards;
+}
+@keyframes logoFxFlash{
+  0%  {opacity:0}
+  40% {opacity:.8}
+  100%{opacity:0}
+}
+
+/* ═══════════════════════════════════════════
+   ACTE CINÉMATOGRAPHIQUE — BRAND REVEAL
+   Apparaît après l'animation logo, avant ch4
+   ═══════════════════════════════════════════ */
+#cine-reveal{
+  position:fixed;inset:0;z-index:6800;
+  background:#060607;
+  display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;
+  will-change:opacity;
+  transition:opacity .5s cubic-bezier(.22,.61,.36,1);
+  /* Vignette subtile pour profondeur cinéma */
+  background:
+    radial-gradient(ellipse at center,#0a0a0c 0%,#060607 55%,#030304 100%);
+}
+#cine-reveal.on{opacity:1;pointer-events:all}
+#cine-reveal.leaving{
+  animation:cineLeave .85s cubic-bezier(.76,0,.24,1) forwards;
+}
+@keyframes cineLeave{
+  0%  {opacity:1;filter:blur(0)}
+  60% {opacity:.6;filter:blur(4px)}
+  100%{opacity:0;filter:blur(10px)}
+}
+
+.cine-stage{
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 6vw;text-align:center;
+  max-width:1200px;
+}
+
+/* Eyebrow minuscule au-dessus */
+.cine-eyebrow{
+  font-family:var(--sans);
+  font-size:10px;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);
+  margin-bottom:40px;
+  overflow:hidden;
+  display:flex;
+}
+.cine-eyebrow span{
+  display:inline-block;
+  transform:translateY(120%);
+  transition:transform 1s cubic-bezier(.76,0,.24,1) .15s;
+}
+#cine-reveal.on .cine-eyebrow span{transform:translateY(0)}
+
+/* Wordmark : "MAPA" sur une ligne, "DÉVELOPPEMENT" en dessous */
+.cine-wordmark{
+  font-family:var(--serif);
+  font-weight:300;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  color:var(--cream);
+  display:flex;flex-direction:column;align-items:center;
+  line-height:1.05;
+  position:relative;
+}
+.cine-word{
+  display:flex;
+  overflow:hidden;
+  padding-bottom:.08em;
+}
+.cine-wordmark .cine-word:nth-child(1){
+  font-size:clamp(54px,10vw,148px);
+  letter-spacing:.3em;
+  margin-left:.3em;
+}
+.cine-wordmark .cine-word:nth-child(2){
+  font-size:clamp(18px,2.8vw,36px);
+  letter-spacing:.42em;
+  margin-top:14px;
+  color:var(--cream);
+  opacity:.85;
+  margin-left:.42em;
+}
+.cw-char{
+  display:inline-block;
+  transform:translateY(110%);
+  transition:transform 1.15s cubic-bezier(.76,0,.24,1);
+}
+#cine-reveal.on .cw-char{transform:translateY(0)}
+/* Stagger : ligne 1 (MAPA) */
+#cine-reveal.on .cine-word:nth-child(1) .cw-char:nth-child(1){transition-delay:.30s}
+#cine-reveal.on .cine-word:nth-child(1) .cw-char:nth-child(2){transition-delay:.38s}
+#cine-reveal.on .cine-word:nth-child(1) .cw-char:nth-child(3){transition-delay:.46s}
+#cine-reveal.on .cine-word:nth-child(1) .cw-char:nth-child(4){transition-delay:.54s}
+/* Stagger : ligne 2 (DÉVELOPPEMENT) */
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(1){transition-delay:.72s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(2){transition-delay:.76s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(3){transition-delay:.80s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(4){transition-delay:.84s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(5){transition-delay:.88s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(6){transition-delay:.92s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(7){transition-delay:.96s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(8){transition-delay:1.00s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(9){transition-delay:1.04s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(10){transition-delay:1.08s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(11){transition-delay:1.12s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(12){transition-delay:1.16s}
+#cine-reveal.on .cine-word:nth-child(2) .cw-char:nth-child(13){transition-delay:1.20s}
+
+/* Liséré or qui scanne sous le wordmark */
+.cine-rule{
+  margin-top:36px;width:min(520px,58vw);height:1px;
+  background:rgba(237,232,223,.06);
+  position:relative;overflow:hidden;
+}
+.cine-rule span{
+  position:absolute;top:0;left:0;height:100%;width:0;
+  background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,transparent);
+  transition:width 1.3s cubic-bezier(.76,0,.24,1) 1.05s;
+}
+#cine-reveal.on .cine-rule span{width:100%}
+
+/* Sous-titre final en petit */
+.cine-sub{
+  margin-top:24px;
+  font-family:var(--sans);
+  font-size:11px;letter-spacing:.38em;text-transform:uppercase;
+  color:rgba(237,232,223,.35);
+  opacity:0;
+  transform:translateY(8px);
+  transition:opacity .8s ease 1.7s,transform .8s cubic-bezier(.76,0,.24,1) 1.7s;
+}
+#cine-reveal.on .cine-sub{opacity:1;transform:translateY(0)}
+
+/* Fallback mobile : le MacBook est déjà masqué → pas de FX, on fait un fondu */
+@media(max-width:800px){
+  #logo-fx,.mb3-aura{display:none!important}
+  .cine-wordmark .cine-word:nth-child(1){font-size:clamp(42px,13vw,80px);letter-spacing:.22em}
+  .cine-wordmark .cine-word:nth-child(2){font-size:clamp(14px,3.2vw,22px);letter-spacing:.32em}
+  .cine-eyebrow{font-size:9px;letter-spacing:.35em;margin-bottom:28px}
+  .cine-sub{font-size:10px;letter-spacing:.28em}
+}
+
+/* Respect de l'accessibilité motion */
+@media (prefers-reduced-motion:reduce){
+  #logo-fx,.mb3-aura{display:none!important}
+  #mb3-wrap.fx-active .mkb{animation:none!important}
+  #cine-reveal,#cine-reveal *{transition:none!important;animation:none!important}
+  #cine-reveal.on .cw-char{transform:none}
+}
+
+/* ═══════════════════════════════════════════
+   MOBILE POLISH — touch, landscape, safe-areas
+   ═══════════════════════════════════════════ */
+@media(max-width:800px){
+  /* Scroll et zoom : plus fluide, pas de délai tap */
+  html,body{touch-action:manipulation;-webkit-text-size-adjust:100%}
+  /* Pas de surlignage bleu/gris au tap sur iOS/Android */
+  *{-webkit-tap-highlight-color:rgba(184,151,58,.12)}
+  a,button,.pc,.pr-it,.t-d,.ch-d,.btn-main,.btn-ghost{-webkit-tap-highlight-color:rgba(184,151,58,.18)}
+
+  /* NAV mobile : réduction propre + compensation de l'effet de chevauchement */
+  #nav{padding:max(14px,env(safe-area-inset-top,0px)) 22px 14px 22px}
+
+  /* Hero : h-tag cohérent avec les autres eyebrows */
+  .h-tag{margin-bottom:22px}
+  .h-h1{letter-spacing:-.02em;line-height:.98}
+  /* Boutons full-width confortables, ≥ 48px de hauteur tactile */
+  .btn-main,.btn-ghost{padding:16px 24px;font-size:11px}
+
+  /* Services : feats plus lisibles, ch-body scrollable si nécessaire */
+  .ch-svc .ch-body{overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;padding-right:8px}
+  .ch-svc .ch-body::-webkit-scrollbar{width:0}
+  .ch-desc{font-size:15px}
+  .ch-feats{gap:12px}
+  .ch-feat{font-size:13px;line-height:1.5}
+  .ch-feat-dot{width:5px;height:5px}
+
+  /* Chapter dots (colonne droite) : zone tactile ≥ 36px même si le visuel reste petit */
+  .ch-d{
+    width:4px;height:4px;
+    position:relative;
+  }
+  .ch-d::after{
+    content:'';position:absolute;inset:-16px;border-radius:50%;
+  }
+  /* Gap visuel conservé, la zone tactile ne chevauche pas grâce à l'espacement original */
+  #ch-dots{gap:22px}
+
+  /* Testimonial dots : vraie zone tactile sans casser le layout */
+  .t-dots{gap:4px}
+  .t-d{
+    width:6px;height:6px;
+    position:relative;
+    padding:0;
+  }
+  .t-d::after{
+    content:'';position:absolute;inset:-15px;border-radius:50%;
+  }
+
+  /* Bouton détail tarifs : + de confort tactile */
+  .pc-detail{padding:14px 12px!important;min-height:44px;font-size:10px}
+
+  /* Formulaire : champs ≥ 48px pour confort et pour empêcher zoom iOS */
+  .cform-field input,.cform-field textarea,.cform-field select{
+    font-size:16px;padding:14px 16px;min-height:48px;
+  }
+  .cform-field textarea{min-height:120px}
+  .cform-submit{min-height:52px;padding:16px 36px;font-size:11px}
+
+  /* Footer bar sur deux lignes si étroit */
+  #fbar{padding-left:16px;padding-right:16px;font-size:9px}
+
+  /* Cine-reveal : responsive fin pour que "DÉVELOPPEMENT" (13 lettres) ne déborde pas */
+  .cine-wordmark .cine-word:nth-child(2){letter-spacing:.25em}
+  .cine-stage{padding:0 18px}
+  .cine-rule{width:min(360px,72vw)}
+
+  /* Modals : plus d'espace vertical utilisable */
+  .modal-box{max-height:calc(100dvh - 32px);border-radius:3px}
+  #proc-modal .modal-delivs li{font-size:11.5px}
+}
+
+/* ≤ 480px : derniers ajustements pour très petits écrans (iPhone SE, etc.) */
+@media(max-width:480px){
+  .h-tag{font-size:9px;letter-spacing:.3em;margin-bottom:18px}
+  .h-h1{font-size:clamp(38px,11.5vw,64px);line-height:.96}
+  .h-actions{margin-top:24px;gap:10px}
+
+  /* Services : densification pour tenir tout le contenu sans scroll */
+  .ch-feats{gap:10px;padding-top:2px}
+  .ch-feat{font-size:12.5px}
+
+  /* Pricing : gap serré + cartes plus compactes */
+  #ch-price .p-grid{gap:10px}
+
+  /* Cine reveal */
+  .cine-eyebrow{letter-spacing:.3em;margin-bottom:22px;font-size:8.5px}
+  .cine-wordmark .cine-word:nth-child(1){letter-spacing:.18em;font-size:clamp(40px,13vw,72px)}
+  .cine-wordmark .cine-word:nth-child(2){letter-spacing:.2em;font-size:clamp(12px,3vw,18px);margin-top:10px}
+  .cine-rule{margin-top:28px;width:min(260px,70vw)}
+  .cine-sub{margin-top:18px;font-size:9.5px;letter-spacing:.24em}
+}
+
+/* Landscape mobile : réduction verticale des paddings pour ne pas perdre de place */
+@media(max-width:900px) and (orientation:landscape) and (max-height:500px){
+  .chapter,
+  #ch0.chapter,
+  .ch-svc.chapter,
+  #ch-proc.chapter,
+  #ch-price.chapter,
+  #ch-stats.chapter{padding-top:max(48px,calc(env(safe-area-inset-top,0px) + 36px))!important;padding-bottom:28px!important}
+  .ch-test-eye{top:max(48px,calc(env(safe-area-inset-top,0px) + 36px))!important}
+  .ch-test-rule{top:calc(max(48px,calc(env(safe-area-inset-top,0px) + 36px)) + 20px)!important}
+  .h-h1{font-size:clamp(28px,7vw,48px)}
+  .h-actions{margin-top:18px;flex-direction:row}
+  .btn-main,.btn-ghost{width:auto;padding:12px 22px}
+  .ch-ttl{font-size:clamp(22px,5vw,38px)!important;margin-bottom:14px}
+  .ch-desc{font-size:13px;line-height:1.6}
+  .cine-stage{gap:8px}
+  .cine-wordmark .cine-word:nth-child(1){font-size:clamp(32px,8vw,64px)}
+  .cine-wordmark .cine-word:nth-child(2){font-size:clamp(11px,2vw,18px);margin-top:6px}
+  .cine-eyebrow{margin-bottom:14px}
 }
 
 @media(hover:none) and (pointer:coarse){
@@ -1109,6 +1574,37 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 <nav id="ch-dots" aria-label="Navigation sections"></nav>
 <div id="wipe" aria-hidden="true"></div>
 <div id="zoom-ov" aria-hidden="true"></div>
+
+<!-- Transition 3D ch3 → ch4 : logo qui émerge de l'écran MacBook -->
+<div id="logo-fx" aria-hidden="true">
+  <div class="logo-fx-halo"></div>
+  <div class="logo-fx-rings">
+    <span></span><span></span><span></span>
+  </div>
+  <div class="logo-fx-stage">
+    <img src="logo.png" alt="" class="logo-fx-img">
+    <img src="logo.png" alt="" class="logo-fx-ghost">
+  </div>
+  <div class="logo-fx-particles" id="logo-fx-particles"></div>
+  <div class="logo-fx-flash"></div>
+</div>
+
+<!-- Acte cinématographique post-FX : fond noir, wordmark qui monte, liséré or -->
+<div id="cine-reveal" aria-hidden="true">
+  <div class="cine-stage">
+    <div class="cine-eyebrow"><span>Agence digitale</span></div>
+    <div class="cine-wordmark">
+      <span class="cine-word">
+        <span class="cw-char">M</span><span class="cw-char">A</span><span class="cw-char">P</span><span class="cw-char">A</span>
+      </span>
+      <span class="cine-word">
+        <span class="cw-char">D</span><span class="cw-char">É</span><span class="cw-char">V</span><span class="cw-char">E</span><span class="cw-char">L</span><span class="cw-char">O</span><span class="cw-char">P</span><span class="cw-char">P</span><span class="cw-char">E</span><span class="cw-char">M</span><span class="cw-char">E</span><span class="cw-char">N</span><span class="cw-char">T</span>
+      </span>
+    </div>
+    <div class="cine-rule"><span></span></div>
+    <div class="cine-sub">Studio de développement</div>
+  </div>
+</div>
 
 <div id="scroll-container" role="main">
   <div id="scroll-track">
@@ -1192,6 +1688,7 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
       <!-- ── MacBook Pro ── -->
       <div id="mb3-wrap">
+        <div class="mb3-aura" aria-hidden="true"></div>
         <div class="mkb">
           <!-- Lid -->
           <div class="mkb-lid">
@@ -1300,6 +1797,8 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 
     <!-- TESTIMONIALS -->
     <section class="chapter" id="ch-test">
+      <div class="ch-eye ch-test-eye">07 - Témoignages</div>
+      <div class="ch-rule ch-test-rule"></div>
       <div class="t-inner">
         <div class="t-quote-block t-line-on" id="t-quote-block">
           <p class="t-q" id="tq">« Mapa a <em>transformé</em> notre présence en ligne. Le résultat est magnifique, les délais tenus, et notre taux de conversion a triplé en 90 jours. »</p>
@@ -1677,67 +2176,118 @@ function activateCh(idx){
   });
 }
 
-// Zoom the whole MacBook when leaving ch3 → ch4 (sur mobile le Mac est masqué → passage direct)
+// Transition cinématique ch3 → ch4 : logo émerge en 3D du MacBook, rotation,
+// particules dorées, flash. Mobile / reduced-motion : fondu simple.
 function zoomIntoCh4(){
   const wrap=document.getElementById('mb3-wrap');
   const mkb=wrap&&wrap.querySelector('.mkb');
-  if(!wrap||!mkb||getComputedStyle(wrap).display==='none'){goto(4);return;}
+  const logoFx=document.getElementById('logo-fx');
+  const particles=document.getElementById('logo-fx-particles');
+  const screenEl=document.getElementById('mb3-screen');
+
+  const reducedMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const hiddenWrap=wrap&&getComputedStyle(wrap).display==='none';
+
+  // Pas de FX possible (mobile / reduced-motion / wrap absent) → transition propre classique
+  if(!wrap||!mkb||hiddenWrap||reducedMotion||!logoFx){
+    goto(4);
+    return;
+  }
+
   isAnim=true;
 
-  // Fade out text elements
+  // Fade out des éléments texte
   const fadeEls=['#ch3 .ch-body','#ch3 .ch-ttl','#ch3 .ch-eye','#ch3 .ch-rule'];
   fadeEls.forEach(sel=>{
     const el=document.querySelector(sel);
     if(el){el.style.transition='opacity .3s ease';el.style.opacity='0';}
   });
 
-  // Step 1 - straighten MacBook to face camera
-  mkb.style.transition='transform .42s cubic-bezier(.76,0,.24,1)';
-  mkb.style.transform='perspective(1100px) rotateY(0deg) rotateX(0deg)';
+  // Positionnement du logo FX sur le centre de l'écran MacBook
+  const sr=screenEl.getBoundingClientRect();
+  const cx=sr.left+sr.width/2;
+  const cy=sr.top+sr.height/2;
+  logoFx.style.left=cx+'px';
+  logoFx.style.top=cy+'px';
+  logoFx.classList.add('fx-active');
 
+  // Burst de particules dorées
+  spawnGoldParticles(particles,36);
+
+  // Kick-off des keyframes au frame suivant (assure que le DOM a bien pris le style)
+  requestAnimationFrame(()=>{
+    wrap.classList.add('fx-active');
+    logoFx.classList.add('fx-play');
+  });
+
+  // Au pic du flash (~1050ms) : saut silencieux vers ch4 pendant que l'œil est aveuglé,
+  // puis on pose l'acte cinématographique par-dessus (fond noir, wordmark qui monte)
+  const cine=document.getElementById('cine-reveal');
   setTimeout(()=>{
-    // Step 2 - clip-path from the whole laptop rect → fullscreen
-    const r=wrap.getBoundingClientRect();
-    const W=window.innerWidth,H=slidePx();
-    const ov=document.getElementById('zoom-ov');
-    const pad=6; // slight inset so it starts right at the laptop edges
-    const t=Math.max(0,r.top+pad),ri=Math.max(0,W-r.right+pad);
-    const b=Math.max(0,H-r.bottom+pad),l=Math.max(0,r.left+pad);
+    cur_ch=4;
+    track.style.transition='none';
+    track.style.transform=`translateY(${-4*slidePx()}px)`;
+    activateCh(4);updDots(4);
+    document.getElementById('nci').textContent=chNames[4];
+    document.getElementById('fbar').classList.add('vis');
+    if(cine){
+      cine.classList.remove('leaving');
+      requestAnimationFrame(()=>cine.classList.add('on'));
+    }
+  },1050);
 
-    ov.style.transition='none';
-    ov.style.opacity='1';
-    ov.style.clipPath=`inset(${t}px ${ri}px ${b}px ${l}px round 11px)`;
-    void ov.offsetHeight;
-    ov.style.transition='clip-path .9s cubic-bezier(.76,0,.24,1)';
-    ov.style.clipPath='inset(0px 0px 0px 0px round 0px)';
+  // Nettoyage intermédiaire : le logo FX a terminé son envol, on libère ses éléments
+  setTimeout(()=>{
+    wrap.classList.remove('fx-active');
+    logoFx.classList.remove('fx-active','fx-play');
+    if(particles)particles.innerHTML='';
+    mkb.style.transition='';
+    mkb.style.transform='';
+  },1750);
 
-    setTimeout(()=>{
-      // Jump to ch4 behind the overlay
-      cur_ch=4;
-      track.style.transition='none';
-      track.style.transform=`translateY(${-4*slidePx()}px)`;
-      activateCh(4);updDots(4);
-      document.getElementById('nci').textContent=chNames[4];
-      document.getElementById('fbar').classList.add('vis');
+  // Sortie du reveal cinéma : blur + fade → ch4 apparaît (~5200ms)
+  setTimeout(()=>{
+    if(cine){
+      cine.classList.add('leaving');
+      cine.classList.remove('on');
+    }
+  },5200);
 
-      // Fade out overlay
-      ov.style.transition='opacity .5s ease';
-      ov.style.opacity='0';
+  // Cleanup final + déverrouillage scroll (~6100ms)
+  setTimeout(()=>{
+    if(cine)cine.classList.remove('leaving');
+    track.style.transition='';
+    fadeEls.forEach(sel=>{
+      const el=document.querySelector(sel);
+      if(el){el.style.opacity='';el.style.transition='';}
+    });
+    isAnim=false;
+  },6100);
+}
 
-      setTimeout(()=>{
-        // Reset ch3 state silently
-        ov.style.clipPath='inset(50% 50% 50% 50% round 0px)';
-        track.style.transition='';
-        mkb.style.transition='none';
-        mkb.style.transform='';
-        fadeEls.forEach(sel=>{
-          const el=document.querySelector(sel);
-          if(el){el.style.opacity='';el.style.transition='';}
-        });
-        isAnim=false;
-      },520);
-    },920);
-  },440);
+// Génère les particules dorées (spirale aléatoire) autour du logo FX
+function spawnGoldParticles(container,count){
+  if(!container)return;
+  container.innerHTML='';
+  const frag=document.createDocumentFragment();
+  for(let i=0;i<count;i++){
+    const p=document.createElement('div');
+    p.className='logo-fx-particle';
+    const angle=(i/count)*Math.PI*2+Math.random()*0.4;
+    const radius=180+Math.random()*260;
+    const px=Math.cos(angle)*radius;
+    const py=Math.sin(angle)*radius*0.78;
+    const delay=120+Math.random()*420;
+    const duration=1000+Math.random()*520;
+    const size=3+Math.random()*4;
+    p.style.width=size+'px';
+    p.style.height=size+'px';
+    p.style.setProperty('--px',px+'px');
+    p.style.setProperty('--py',py+'px');
+    p.style.animation=`logoFxParticle ${duration}ms cubic-bezier(.16,1,.3,1) ${delay}ms forwards`;
+    frag.appendChild(p);
+  }
+  container.appendChild(frag);
 }
 
 function doScroll(dir){
@@ -1785,7 +2335,7 @@ window.addEventListener('wheel',e=>{
   if(wLock||isAnim)return;
   wLock=true;
   const isZoom=(e.deltaY>0&&cur_ch===3);
-  setTimeout(()=>wLock=false,isZoom?1600:900);
+  setTimeout(()=>wLock=false,isZoom?6200:900);
   doScroll(e.deltaY);
 },{passive:false});
 let ty0=0;
