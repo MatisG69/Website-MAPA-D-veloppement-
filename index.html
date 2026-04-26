@@ -1523,17 +1523,44 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 }
 #cine-reveal.on .cine-sub{opacity:1;transform:translateY(0)}
 
-/* Mobile : version simplifiée du FX cinématique (sans 3D extrême) — l'animation s'exécute */
+/* ════════════════════════════════════════════════════════════════════
+   MOBILE — Animation cinématique repensée pour petit écran
+   ─────────────────────────────────────────────────────────────────────
+   Choix de design :
+   - Pas de rotation 3D du logo (illisible <360px)
+   - MacBook reste stable, sa luminosité monte puis fond
+   - Logo émerge depuis le centre du MacBook, monte légèrement vers
+     le centre visuel et s'agrandit jusqu'à occuper tout l'écran
+   - Aura et halo recadrés pour ne pas déborder
+   - Durée 1.55s alignée sur la JS timing (cine-reveal kick à 1050ms)
+   ════════════════════════════════════════════════════════════════════ */
 @media(max-width:800px){
-  /* Le MacBook peut réellement s'animer pendant fx-active : on lève le transform:none par défaut */
-  #mb3-wrap.fx-active .mkb{transform:none}
-  #mb3-wrap.fx-active .mkb{animation:mkbFxOutMobile 1.25s cubic-bezier(.22,.61,.36,1) forwards!important}
+  /* MacBook : on lève le transform:none par défaut pour laisser jouer les keyframes */
+  #mb3-wrap.fx-active .mkb{
+    transform:none;
+    animation:mkbFxOutMobile 1.55s cubic-bezier(.22,.61,.36,1) forwards!important;
+  }
 
-  /* Logo FX réduit, sans rotation 3D agressive (lisible sur petit écran) */
-  .logo-fx-stage{width:min(72vw,360px)}
-  #logo-fx.fx-play .logo-fx-stage{animation:logoFxStageMobile 1.25s cubic-bezier(.22,.61,.36,1) forwards!important}
+  /* Aura : recadrée autour du MacBook, plus douce */
+  .mb3-aura{inset:-18%!important;filter:blur(28px)!important}
+
+  /* Stage du logo : taille adaptée smartphone, ratio respecté */
+  .logo-fx-stage{width:min(60vw,280px)}
+  #logo-fx.fx-play .logo-fx-stage{
+    animation:logoFxStageMobile 1.55s cubic-bezier(.22,.61,.36,1) forwards!important;
+  }
+
+  /* Pas d'effet parallaxe ghost (perd son sens sans rotation 3D) */
   .logo-fx-ghost{display:none}
-  .logo-fx-halo{width:min(85vw,520px)}
+
+  /* Halo doré plus contenu pour ne pas saturer l'écran */
+  .logo-fx-halo{width:min(78vw,420px)}
+  #logo-fx.fx-play .logo-fx-halo{
+    animation:logoFxHaloMobile 1.55s cubic-bezier(.22,.61,.36,1) forwards!important;
+  }
+
+  /* Particules : déplacement adouci, taille réduite (cf. JS qui passe count à 16) */
+  .logo-fx-particle{filter:drop-shadow(0 0 6px rgba(212,185,106,.7))}
 
   .cine-wordmark .cine-word:nth-child(1){font-size:clamp(42px,13vw,80px);letter-spacing:.22em}
   .cine-wordmark .cine-word:nth-child(2){font-size:clamp(14px,3.2vw,22px);letter-spacing:.32em}
@@ -1541,21 +1568,31 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
   .cine-sub{font-size:10px;letter-spacing:.28em}
 }
 
-/* Keyframes mobile : retrait du MacBook sans perspective 3D (plus stable sur petit écran) */
+/* MacBook mobile : flash → fade pur, sans transform agressif (anti-jank) */
 @keyframes mkbFxOutMobile{
-  0%  {transform:scale(1);filter:brightness(1)}
-  20% {transform:scale(1.05);filter:brightness(1.4)}
-  55% {transform:scale(.92) translateY(-12px);filter:brightness(.7);opacity:.55}
-  100%{transform:scale(.32) translateY(-40px);filter:brightness(0) blur(8px);opacity:0}
+  0%   {transform:scale(1);                    filter:brightness(1);              opacity:1}
+  14%  {transform:scale(1.04);                 filter:brightness(1.55);           opacity:1}
+  35%  {transform:scale(1);                    filter:brightness(1.15) blur(.5px);opacity:.85}
+  62%  {transform:scale(.9) translateY(-6px);  filter:brightness(.5) blur(3px);   opacity:.4}
+  100% {transform:scale(.55) translateY(-18px);filter:brightness(0) blur(10px);   opacity:0}
 }
 
-/* Keyframes mobile : le logo monte et s'agrandit, sans rotation Y multiple */
+/* Logo mobile : émerge → monte légèrement → s'agrandit jusqu'au plein écran */
 @keyframes logoFxStageMobile{
-  0%  {transform:translate(-50%,-50%) scale(.4);opacity:0;filter:blur(6px) brightness(1.3)}
-  18% {transform:translate(-50%,-50%) scale(.85);opacity:1;filter:blur(0) brightness(1.4)}
-  55% {transform:translate(-50%,-54%) scale(1.4);opacity:1;filter:blur(0) brightness(1.1)}
-  85% {transform:translate(-50%,-58%) scale(2);opacity:.85;filter:blur(2px) brightness(1)}
-  100%{transform:translate(-50%,-62%) scale(2.7);opacity:0;filter:blur(12px) brightness(1)}
+  0%   {transform:translate(-50%,-50%) scale(.28);opacity:0;  filter:blur(8px)  brightness(1.4)}
+  18%  {transform:translate(-50%,-50%) scale(.75);opacity:1;  filter:blur(0)    brightness(1.5)}
+  42%  {transform:translate(-50%,-54%) scale(1.15);opacity:1; filter:blur(0)    brightness(1.25)}
+  68%  {transform:translate(-50%,-58%) scale(1.65);opacity:.95;filter:blur(1px) brightness(1.08)}
+  85%  {transform:translate(-50%,-62%) scale(2.05);opacity:.7; filter:blur(3px) brightness(1)}
+  100% {transform:translate(-50%,-66%) scale(2.5);opacity:0;  filter:blur(14px) brightness(1)}
+}
+
+/* Halo mobile : pulse doux synchronisé avec le logo */
+@keyframes logoFxHaloMobile{
+  0%   {opacity:0;  transform:translate(-50%,-50%) scale(.4)}
+  22%  {opacity:.85;transform:translate(-50%,-50%) scale(1)}
+  60%  {opacity:.6; transform:translate(-50%,-58%) scale(1.5)}
+  100% {opacity:0;  transform:translate(-50%,-68%) scale(2.2)}
 }
 
 /* Respect de l'accessibilité motion */
@@ -2488,16 +2525,29 @@ function zoomIntoCh4(){
     if(el){el.style.transition='opacity .3s ease';el.style.opacity='0';}
   });
 
-  // Positionnement du logo FX sur le centre de l'écran MacBook
+  // Positionnement du logo FX :
+  //   - Desktop : centre exact de l'écran MacBook (effet « émerge depuis l'écran »)
+  //   - Mobile  : milieu pondéré entre MacBook et centre viewport (équilibre visuel)
+  //               sinon le logo sortirait du bas de l'écran, hors zone de regard
+  const isMobileViewport=window.innerWidth<=800;
   const sr=screenEl.getBoundingClientRect();
-  const cx=sr.left+sr.width/2;
-  const cy=sr.top+sr.height/2;
+  const mbCx=sr.left+sr.width/2;
+  const mbCy=sr.top+sr.height/2;
+  let cx=mbCx, cy=mbCy;
+  if(isMobileViewport){
+    const vCx=window.innerWidth/2;
+    const vCy=window.innerHeight/2;
+    // Pondération 30% MacBook / 70% centre viewport — garde le lien visuel
+    // tout en plaçant le logo dans la zone de focalisation
+    cx=mbCx*0.3+vCx*0.7;
+    cy=mbCy*0.3+vCy*0.7;
+  }
   logoFx.style.left=cx+'px';
   logoFx.style.top=cy+'px';
   logoFx.classList.add('fx-active');
 
   // Burst de particules dorées (réduit sur mobile pour la fluidité)
-  const particleCount=window.innerWidth<=800?16:36;
+  const particleCount=isMobileViewport?16:36;
   spawnGoldParticles(particles,particleCount);
 
   // Kick-off des keyframes au frame suivant (assure que le DOM a bien pris le style)
@@ -2552,20 +2602,26 @@ function zoomIntoCh4(){
 }
 
 // Génère les particules dorées (spirale aléatoire) autour du logo FX
+// Sur mobile : rayon réduit + taille réduite pour rester contenu dans le viewport
 function spawnGoldParticles(container,count){
   if(!container)return;
   container.innerHTML='';
+  const isMobile=window.innerWidth<=800;
+  const radiusBase=isMobile?90:180;
+  const radiusVar=isMobile?110:260;
+  const sizeBase=isMobile?2.2:3;
+  const sizeVar=isMobile?2.6:4;
   const frag=document.createDocumentFragment();
   for(let i=0;i<count;i++){
     const p=document.createElement('div');
     p.className='logo-fx-particle';
     const angle=(i/count)*Math.PI*2+Math.random()*0.4;
-    const radius=180+Math.random()*260;
+    const radius=radiusBase+Math.random()*radiusVar;
     const px=Math.cos(angle)*radius;
     const py=Math.sin(angle)*radius*0.78;
     const delay=120+Math.random()*420;
     const duration=1000+Math.random()*520;
-    const size=3+Math.random()*4;
+    const size=sizeBase+Math.random()*sizeVar;
     p.style.width=size+'px';
     p.style.height=size+'px';
     p.style.setProperty('--px',px+'px');
