@@ -1080,8 +1080,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
     filter:drop-shadow(0 24px 48px rgba(0,0,0,.75)) drop-shadow(0 8px 20px rgba(0,0,0,.5));
   }
   .chapter.on #mb3-wrap{opacity:1;transform:none}
-  #mb3-wrap .mkb{transform:none!important}
-  #mb3-wrap:hover .mkb{transform:none!important}
+  /* Pas de tilt 3D sur mobile en repos (lisible au doigt) — mais on n'utilise pas !important
+     pour ne pas bloquer les keyframes mkbFxOutMobile pendant la transition cinématique */
+  #mb3-wrap .mkb{transform:none}
+  #mb3-wrap:hover .mkb{transform:none}
   #ch3 .ch-gnum{font-size:clamp(56px,18vw,100px);right:12px;bottom:max(8px,calc(env(safe-area-inset-bottom,0px) + 4px))}
   .ch3-sc{max-width:100%}
   /* Méthode : étapes plus grandes, hauteur naturelle (plus de compression flex) */
@@ -1521,13 +1523,39 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
 }
 #cine-reveal.on .cine-sub{opacity:1;transform:translateY(0)}
 
-/* Fallback mobile : le MacBook est déjà masqué → pas de FX, on fait un fondu */
+/* Mobile : version simplifiée du FX cinématique (sans 3D extrême) — l'animation s'exécute */
 @media(max-width:800px){
-  #logo-fx,.mb3-aura{display:none!important}
+  /* Le MacBook peut réellement s'animer pendant fx-active : on lève le transform:none par défaut */
+  #mb3-wrap.fx-active .mkb{transform:none}
+  #mb3-wrap.fx-active .mkb{animation:mkbFxOutMobile 1.25s cubic-bezier(.22,.61,.36,1) forwards!important}
+
+  /* Logo FX réduit, sans rotation 3D agressive (lisible sur petit écran) */
+  .logo-fx-stage{width:min(72vw,360px)}
+  #logo-fx.fx-play .logo-fx-stage{animation:logoFxStageMobile 1.25s cubic-bezier(.22,.61,.36,1) forwards!important}
+  .logo-fx-ghost{display:none}
+  .logo-fx-halo{width:min(85vw,520px)}
+
   .cine-wordmark .cine-word:nth-child(1){font-size:clamp(42px,13vw,80px);letter-spacing:.22em}
   .cine-wordmark .cine-word:nth-child(2){font-size:clamp(14px,3.2vw,22px);letter-spacing:.32em}
   .cine-eyebrow{font-size:9px;letter-spacing:.35em;margin-bottom:28px}
   .cine-sub{font-size:10px;letter-spacing:.28em}
+}
+
+/* Keyframes mobile : retrait du MacBook sans perspective 3D (plus stable sur petit écran) */
+@keyframes mkbFxOutMobile{
+  0%  {transform:scale(1);filter:brightness(1)}
+  20% {transform:scale(1.05);filter:brightness(1.4)}
+  55% {transform:scale(.92) translateY(-12px);filter:brightness(.7);opacity:.55}
+  100%{transform:scale(.32) translateY(-40px);filter:brightness(0) blur(8px);opacity:0}
+}
+
+/* Keyframes mobile : le logo monte et s'agrandit, sans rotation Y multiple */
+@keyframes logoFxStageMobile{
+  0%  {transform:translate(-50%,-50%) scale(.4);opacity:0;filter:blur(6px) brightness(1.3)}
+  18% {transform:translate(-50%,-50%) scale(.85);opacity:1;filter:blur(0) brightness(1.4)}
+  55% {transform:translate(-50%,-54%) scale(1.4);opacity:1;filter:blur(0) brightness(1.1)}
+  85% {transform:translate(-50%,-58%) scale(2);opacity:.85;filter:blur(2px) brightness(1)}
+  100%{transform:translate(-50%,-62%) scale(2.7);opacity:0;filter:blur(12px) brightness(1)}
 }
 
 /* Respect de l'accessibilité motion */
@@ -2132,6 +2160,10 @@ body.cur-hover .cur-ring{width:64px;height:64px;border-color:var(--gold)}
                 <span class="cselect-opt-label">Design UI / UX</span>
                 <span class="cselect-opt-price">Sur devis</span>
               </button>
+              <button type="button" class="cselect-opt" role="option" data-value="Amélioration du SEO">
+                <span class="cselect-opt-label">Amélioration du SEO</span>
+                <span class="cselect-opt-price">Sur devis</span>
+              </button>
               <button type="button" class="cselect-opt" role="option" data-value="Autre">
                 <span class="cselect-opt-label">Autre</span>
                 <span class="cselect-opt-price">À définir</span>
@@ -2464,8 +2496,9 @@ function zoomIntoCh4(){
   logoFx.style.top=cy+'px';
   logoFx.classList.add('fx-active');
 
-  // Burst de particules dorées
-  spawnGoldParticles(particles,36);
+  // Burst de particules dorées (réduit sur mobile pour la fluidité)
+  const particleCount=window.innerWidth<=800?16:36;
+  spawnGoldParticles(particles,particleCount);
 
   // Kick-off des keyframes au frame suivant (assure que le DOM a bien pris le style)
   requestAnimationFrame(()=>{
