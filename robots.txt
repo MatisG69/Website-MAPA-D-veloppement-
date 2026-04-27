@@ -1,0 +1,20 @@
+# robots.txt — MAPA Développement
+# https://mapa-developpement.fr/
+
+User-agent: *
+Allow: /
+
+# Pas de zones privées à exclure ; tout est crawlable.
+
+# Indique aux crawlers où trouver le sitemap
+Sitemap: https://mapa-developpement.fr/sitemap.xml
+
+# Bloquer les crawlers IA (optionnel — décocher si tu veux apparaître dans les LLM)
+# User-agent: GPTBot
+# Disallow: /
+# User-agent: ClaudeBot
+# Disallow: /
+# User-agent: anthropic-ai
+# Disallow: /
+# User-agent: CCBot
+# Disallow: /
