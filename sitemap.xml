@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-
-  <!-- ─── HOMEPAGE ─── -->
   <url>
     <loc>https://mapa-developpement.fr/</loc>
     <lastmod>2026-04-27</lastmod>
@@ -10,79 +8,12 @@
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://mapa-developpement.fr/og-image.jpg</image:loc>
-      <image:title>MAPA Développement — Agence digitale Lille</image:title>
-      <image:caption>Création de sites web, CRM &amp; logiciels sur mesure à Lille et dans la métropole lilloise.</image:caption>
+      <image:title>MAPA Développement - Agence digitale Lille</image:title>
+      <image:caption>Création de sites web, CRM &amp; logiciels sur mesure - basés à Lille, intervention partout en France.</image:caption>
     </image:image>
     <image:image>
       <image:loc>https://mapa-developpement.fr/logo2.png</image:loc>
       <image:title>Logo MAPA Développement</image:title>
     </image:image>
   </url>
-
-  <!-- ─── HUB SERVICES ─── -->
-  <url>
-    <loc>https://mapa-developpement.fr/services/</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- ─── PAGES SERVICES ─── -->
-  <url>
-    <loc>https://mapa-developpement.fr/services/creation-site-web-lille</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/services/crm-sur-mesure</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/services/agence-web-villeneuve-ascq</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/services/refonte-site-web</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/services/automatisation-ia</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- ─── BLOG ─── -->
-  <url>
-    <loc>https://mapa-developpement.fr/blog/</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/blog/combien-coute-site-vitrine-2026</loc>
-    <lastmod>2026-04-27</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/blog/seo-local-lille-google-business</loc>
-    <lastmod>2026-04-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://mapa-developpement.fr/blog/site-wordpress-vs-sur-mesure</loc>
-    <lastmod>2026-04-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
 </urlset>
